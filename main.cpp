@@ -1,10 +1,14 @@
 #include <allegro.h>
-#include <stdlib.h>
-#include <time.h>
-#include "inicia.h"
-#include "disparos.h"
-#include "personajes.h"
-#include "interfaz.h"
 
-#define WIDTH   600
-#define HEIGHT    600
+int main(){
+
+    allegro_init();
+    install_keyboard();
+    set_gfx_mode( GFX_AUTODETECT, 640, 480, 0, 0);
+
+    readkey();
+
+    return 0;
+
+}
+END_OF_MAIN();

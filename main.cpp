@@ -48,7 +48,7 @@ int main(){
    bool done=false; // if it is true, the game ends
    bool draw=true;
    int x=10, y=10; //circle's position
-   int moveSpeed = 5;
+   int moveSpeed = 10;
    int dir = DOWN;
    ALLEGRO_TIMER *timer1 = al_create_timer(1.0/fps); //60 frames per second
    ALLEGRO_EVENT_QUEUE *event_queue1 = al_create_event_queue();

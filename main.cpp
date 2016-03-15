@@ -15,7 +15,7 @@ int main(){
       al_show_native_message_box(NULL, "Error", NULL, "Failed to initialize allegro 5!", NULL, NULL);
       return -1;
    }
-   const float fps = 5.0; //frames per second variable
+   const float fps = 24.0; //frames per second variable
    enum Direction1 { UP, DOWN, LEFT, RIGHT };
 
    al_set_new_display_flags(ALLEGRO_NOFRAME); //screen without frames

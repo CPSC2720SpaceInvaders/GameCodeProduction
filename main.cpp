@@ -15,7 +15,7 @@ int main(){
       al_show_native_message_box(NULL, "Error", NULL, "Failed to initialize allegro 5!", NULL, NULL);
       return -1;
    }
-   const float fps = 2.0; //frames per second variable
+   const float fps = 5.0; //frames per second variable
    enum Direction1 { UP, DOWN, LEFT, RIGHT };
 
    al_set_new_display_flags(ALLEGRO_NOFRAME); //screen without frames
@@ -48,6 +48,7 @@ int main(){
    bool draw=true;
    int x=10, y=10; //circle's position
    int moveSpeed = 5;
+   int dir = DOWN;
    ALLEGRO_TIMER *timer1 = al_create_timer(1.0/fps); //60 frames per second
    ALLEGRO_EVENT_QUEUE *event_queue1 = al_create_event_queue();
    al_register_event_source(event_queue1, al_get_keyboard_event_source());
@@ -59,25 +60,45 @@ int main(){
         if (events.type == ALLEGRO_EVENT_KEY_DOWN){
             switch(events.keyboard.keycode){
                 case ALLEGRO_KEY_DOWN:
-                    y = y + moveSpeed;
+                    dir = DOWN; //y = y + moveSpeed;
                     break;
                 case ALLEGRO_KEY_UP:
-                    y = y - moveSpeed;
+                    dir = UP; //y = y - moveSpeed;
                     break;
                 case ALLEGRO_KEY_RIGHT:
-                    x = x + moveSpeed;
+                    dir = RIGHT; //x = x + moveSpeed;
                     break;
                 case ALLEGRO_KEY_LEFT:
-                    x = x - moveSpeed;
+                    dir = LEFT; //x = x - moveSpeed;
                     break;
                 case ALLEGRO_KEY_ESCAPE:
                     done = true;
                     break;
             }
         }
-        al_draw_filled_circle(x, y, 10, electricBlue); //draws a circle everytime a key is pressed
-        al_flip_display();
-        al_clear_to_color(al_map_rgb(0,0,0)); //cleans screen so it looks like moving
+        if (events.type == ALLEGRO_EVENT_TIMER){
+            switch(dir){
+                case DOWN:
+                    y = y + moveSpeed;
+                    break;
+                case UP:
+                    y = y - moveSpeed;
+                    break;
+                case RIGHT:
+                    x = x + moveSpeed;
+                    break;
+                case LEFT:
+                    x = x - moveSpeed;
+                    break;
+            }
+            draw = true;
+        }
+        if(draw == true){
+            draw = false;
+            al_draw_filled_circle(x, y, 10, electricBlue); //draws a circle everytime a key is pressed
+            al_flip_display();
+            al_clear_to_color(al_map_rgb(0,0,0)); //cleans screen so it looks like moving
+        }
    }
 
    //al_rest(5.0); //number of seconds the program waits before closing itself

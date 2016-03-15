@@ -44,6 +44,7 @@ int main(){
    al_draw_pixel(500, 500, electricBlue);
 
    al_install_keyboard();  //intializes the hability to recieve commands from keyboard
+   ALLEGRO_KEYBOARD_STATE keyboardState1;
    bool done=false; // if it is true, the game ends
    bool draw=true;
    int x=10, y=10; //circle's position
@@ -57,39 +58,18 @@ int main(){
    while(!done){ //the only thing that must be after the timer is the game loop (while)
         ALLEGRO_EVENT events;
         al_wait_for_event(event_queue1, &events); //waits for something to happen
-        if (events.type == ALLEGRO_EVENT_KEY_DOWN){
+
+        if (events.type == ALLEGRO_EVENT_KEY_UP){
             switch(events.keyboard.keycode){
-                case ALLEGRO_KEY_DOWN:
-                    dir = DOWN; //y = y + moveSpeed;
-                    break;
-                case ALLEGRO_KEY_UP:
-                    dir = UP; //y = y - moveSpeed;
-                    break;
-                case ALLEGRO_KEY_RIGHT:
-                    dir = RIGHT; //x = x + moveSpeed;
-                    break;
-                case ALLEGRO_KEY_LEFT:
-                    dir = LEFT; //x = x - moveSpeed;
-                    break;
                 case ALLEGRO_KEY_ESCAPE:
                     done = true;
-                    break;
             }
         }
+
         if (events.type == ALLEGRO_EVENT_TIMER){
-            switch(dir){
-                case DOWN:
-                    y = y + moveSpeed;
-                    break;
-                case UP:
-                    y = y - moveSpeed;
-                    break;
-                case RIGHT:
-                    x = x + moveSpeed;
-                    break;
-                case LEFT:
-                    x = x - moveSpeed;
-                    break;
+            al_get_keyboard_state(&keyboardState1);
+            if(al_key_down(&keyboardState1, ALLEGRO_KEY_UP)){
+                y += moveSpeed;
             }
             draw = true;
         }
@@ -103,6 +83,7 @@ int main(){
 
    //al_rest(5.0); //number of seconds the program waits before closing itself
    al_destroy_display(display);
+   al_destroy_timer(timer1);
    al_destroy_event_queue(event_queue1);
    return 0;
 }

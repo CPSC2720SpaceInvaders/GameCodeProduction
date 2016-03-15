@@ -4,3 +4,4 @@ Autors:
 Victor Adad Sangabriel
 Jiaying Li
 Tyler Bertram
+Alex Okingo

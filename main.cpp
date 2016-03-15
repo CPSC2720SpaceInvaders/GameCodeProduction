@@ -68,8 +68,14 @@ int main(){
 
         if (events.type == ALLEGRO_EVENT_TIMER){
             al_get_keyboard_state(&keyboardState1);
-            if(al_key_down(&keyboardState1, ALLEGRO_KEY_UP)){
-                y += moveSpeed;
+            if(al_key_down(&keyboardState1, ALLEGRO_KEY_DOWN)){
+                y = y + moveSpeed;
+            } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_UP)){
+                y = y - moveSpeed;
+            } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_RIGHT)){
+                x = x + moveSpeed;
+            } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_LEFT)){
+                x = x - moveSpeed;
             }
             draw = true;
         }

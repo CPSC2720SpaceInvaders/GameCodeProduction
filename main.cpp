@@ -7,34 +7,35 @@
 #include <iostream>
 
 #define ScreenWidth 800
-#define ScreenHeight 600
+#define ScreenHeight 800
 
 int main(){
 
    if(!al_init()) {
-      al_show_native_message_box(NULL, NULL, NULL, "Failed to initialize allegro 5!", NULL, NULL);
+      al_show_native_message_box(NULL, "Error", NULL, "Failed to initialize allegro 5!", NULL, NULL);
       return -1;
    }
+   const float fps = 2.0; //frames per second variable
+   enum Direction1 { UP, DOWN, LEFT, RIGHT };
 
-   al_set_new_display_flags(ALLEGRO_NOFRAME);
-   ALLEGRO_DISPLAY *display = al_create_display(ScreenWidth, ScreenHeight);
-   al_set_window_position(display, 200, 100);
-   al_set_window_title(display, "2720");
-
+   al_set_new_display_flags(ALLEGRO_NOFRAME); //screen without frames
+   ALLEGRO_DISPLAY *display = al_create_display(ScreenWidth, ScreenHeight); //creates main display
    if(!display) {
-      al_show_native_message_box(display, "Error Title", "Display Settings", "Display window was unsuccessfull", NULL, NULL);
-      return -1;
+      al_show_native_message_box(display, "Error", "Display Settings", "Display window was unsuccessfull", NULL, NULL);
+      return -1; //error message in case display couldn't be created
    }
+   al_set_window_position(display, 100, 100);
+   al_set_window_title(display, "2720's Project");
 
    al_init_font_addon(); //intializes fonts so we can write on the display
    al_init_ttf_addon();
    ALLEGRO_FONT *font = al_load_font("Custom Font.ttf", 36, NULL);
-   al_draw_text(font, al_map_rgb(44,117,255), ScreenWidth/2, ScreenHeight/2, ALLEGRO_ALIGN_CENTRE, "Hello, 2720 team!");
+   al_draw_text(font, al_map_rgb(44,117,255), ScreenWidth/2, ScreenHeight/2, ALLEGRO_ALIGN_CENTRE, "Little Space Circle Shooting to Triangles!");
 
    al_init_primitives_addon();  //intializes primitives to draw figures
    ALLEGRO_COLOR electricBlue = al_map_rgb(44,117,255);
-//   float points[8] = {0, 0, 400, 100, 50, 200, ScreenWidth, ScreenHeight};
-//   al_draw_spline(points, electricBlue, 1.0);
+   //float points[8] = {0, 0, 400, 100, 50, 200, ScreenWidth, ScreenHeight};
+   //al_draw_spline(points, electricBlue, 1.0);
    al_draw_filled_triangle(10, 10, 40, 10, 25, 40, al_map_rgb(200,0,0)); // draws like: X1,Y1, X2,Y2, X3,Y3
    al_draw_rectangle(100, 100, 150, 130, al_map_rgb(0,200,0), 6.0);
    //al_draw_filled_circle(ScreenWidth/2, ScreenHeight-100, 10, electricBlue);
@@ -43,13 +44,16 @@ int main(){
    al_draw_pixel(500, 500, electricBlue);
 
    al_install_keyboard();  //intializes the hability to recieve commands from keyboard
+   bool done=false; // if it is true, the game ends
+   bool draw=true;
+   int x=10, y=10; //circle's position
+   int moveSpeed = 5;
+   ALLEGRO_TIMER *timer1 = al_create_timer(1.0/fps); //60 frames per second
    ALLEGRO_EVENT_QUEUE *event_queue1 = al_create_event_queue();
    al_register_event_source(event_queue1, al_get_keyboard_event_source());
-   bool done = false;
-   int x=10, y=10;
-   int moveSpeed = 5;
-   //int state = NULL;
-   while(!done){
+   al_register_event_source(event_queue1, al_get_timer_event_source(timer1));
+   al_start_timer(timer1); //don't do anything nor initialize variables, NOTHING, after starting the timer
+   while(!done){ //the only thing that must be after the timer is the game loop (while)
         ALLEGRO_EVENT events;
         al_wait_for_event(event_queue1, &events); //waits for something to happen
         if (events.type == ALLEGRO_EVENT_KEY_DOWN){

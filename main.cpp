@@ -61,8 +61,8 @@ int main(){
    ALLEGRO_KEYBOARD_STATE keyboardState1;
    bool done=false; /**< if it is true, the game ends */
    bool draw=true;
-   int x=100, y=100; /**< circle's position */
-   float playerX = 150.0, playerY = 150.0;
+   float x = ScreenWidth/2; /**< plauyer's initial position */
+   float y = ScreenHeight-100;
    int moveSpeed = 10;
    int dir = DOWN;
 
@@ -97,9 +97,9 @@ int main(){
         } else if(events.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
             done = true; /**<ends the game (closes the window) */
 
-        } else if(events.type == ALLEGRO_EVENT_MOUSE_AXES){
-            x = events.mouse.x;
-            y = events.mouse.y;
+//        } else if(events.type == ALLEGRO_EVENT_MOUSE_AXES){ /**< player detects/follows movement of mouse */
+//            x = events.mouse.x;
+//            y = events.mouse.y;
 
         } else if(events.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN){
             if(events.mouse.button & 1){
@@ -109,7 +109,7 @@ int main(){
             }
         }
 
-        if (events.type == ALLEGRO_EVENT_TIMER){
+        if (events.type == ALLEGRO_EVENT_TIMER){ /**< movement of the spaceship */
             al_get_keyboard_state(&keyboardState1);
             if(al_key_down(&keyboardState1, ALLEGRO_KEY_DOWN)){
                 y = y + moveSpeed;

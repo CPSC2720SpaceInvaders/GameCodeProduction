@@ -33,7 +33,6 @@ int main(){
    al_set_window_position(display, 100, 100);
    al_set_window_title(display, "2720's Project");
 
-   const float fps = 60.0; /**< frames per second variable */
    enum Direction1 { UP, DOWN, LEFT, RIGHT };
 
    al_init_font_addon(); /**< intializes fonts so we can write on the display */
@@ -65,9 +64,9 @@ int main(){
    int moveSpeed = 10;
    int dir = DOWN;
 
+   const float fps = 60.0; /**< frames per second variable */
    ALLEGRO_TIMER *timer1 = al_create_timer(1.0/fps); /**< 60 frames per second */
    ALLEGRO_EVENT_QUEUE *event_queue1 = al_create_event_queue();
-
    al_register_event_source(event_queue1, al_get_timer_event_source(timer1));
    al_register_event_source(event_queue1, al_get_keyboard_event_source());
    al_register_event_source(event_queue1, al_get_display_event_source(display));
@@ -75,6 +74,9 @@ int main(){
    al_install_mouse();
    al_register_event_source(event_queue1, al_get_mouse_event_source());
    al_hide_mouse_cursor(display); /**< hides the cursor */
+
+   al_init_image_addon();
+   ALLEGRO_BITMAP *player = al_load_bitmap("spaceship.bmp"); /**< loads player sprite */
 
    al_start_timer(timer1); /**< don't do anything nor initialize variables, NOTHING, after starting the timer */
    while(!done){ /**< the only thing that must be after the timer is the game loop (while) */
@@ -85,9 +87,7 @@ int main(){
             switch(events.keyboard.keycode){
                 case ALLEGRO_KEY_ESCAPE:
                     done = true; /**< ends the game */
-
             }
-
         } else if(events.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
             done = true; /**<ends the game (closes the window) */
 
@@ -119,13 +119,15 @@ int main(){
 
         if(draw == true){
             draw = false;
-            al_draw_filled_circle(x, y, 10, playerColor); /**< draws a circle everytime a key is pressed */
+            //al_draw_filled_circle(x, y, 10, playerColor); /**< draws a circle everytime a key is pressed */
+            al_draw_bitmap(player, x, y, NULL); /**< draws the spaceship everytime an arrow key is pressed */
             al_flip_display();
             al_clear_to_color(al_map_rgb(0,0,0)); /**< cleans screen so it looks like moving */
         }
    }
 
-   /// al_rest(5.0);  /**< number of seconds the program waits before closing itself */
+   al_rest(5.0);  /**< number of seconds the program waits before closing itself */
+   al_destroy_bitmap(player);
    al_destroy_display(display);
    al_destroy_timer(timer1);
    al_destroy_event_queue(event_queue1);

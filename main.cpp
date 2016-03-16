@@ -9,7 +9,8 @@
 #define ScreenWidth 800
 #define ScreenHeight 800
 
-// SPSC 2720 Project: Allegro Space Invaders - like - game
+// C++ ALLEGRO GAME FRO CPSC 2720 PROJECT
+// Space Invaders -like- game
 
 int main(){
    if(!al_init()) { // do NOT initialice anything before al_init();
@@ -66,20 +67,21 @@ int main(){
 
    al_install_mouse();
    al_register_event_source(event_queue1, al_get_mouse_event_source());
+   al_hide_mouse_cursor(display); //hides the cursor
 
    al_start_timer(timer1); //don't do anything nor initialize variables, NOTHING, after starting the timer
    while(!done){ //the only thing that must be after the timer is the game loop (while)
         ALLEGRO_EVENT events;
         al_wait_for_event(event_queue1, &events); //waits for something to happen
 
-        /*if (events.type == ALLEGRO_EVENT_KEY_UP){
+        if (events.type == ALLEGRO_EVENT_KEY_UP){
             switch(events.keyboard.keycode){
                 case ALLEGRO_KEY_ESCAPE:
                     done = true; //ends the game
 
             }
 
-        } else*/ if(events.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+        } else if(events.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
             done = true; //ends the game (closes the window)
 
         } else if(events.type == ALLEGRO_EVENT_MOUSE_AXES){
@@ -94,8 +96,8 @@ int main(){
             }
         }
 
-        /*if (events.type == ALLEGRO_EVENT_TIMER){
-            al_get_keyboard_state(&keyboardState1);
+        if (events.type == ALLEGRO_EVENT_TIMER){
+            /*al_get_keyboard_state(&keyboardState1);
             if(al_key_down(&keyboardState1, ALLEGRO_KEY_DOWN)){
                 y = y + moveSpeed;
             } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_UP)){
@@ -104,16 +106,16 @@ int main(){
                 x = x + moveSpeed;
             } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_LEFT)){
                 x = x - moveSpeed;
-            }
+            }*/
             draw = true;
         }
 
         if(draw == true){
-            draw = false;*/
+            draw = false;
             al_draw_filled_circle(x, y, 10, playerColor); //draws a circle everytime a key is pressed
             al_flip_display();
             al_clear_to_color(al_map_rgb(0,0,0)); //cleans screen so it looks like moving
-        //}
+        }
    }
 
    al_rest(5.0); //number of seconds the program waits before closing itself

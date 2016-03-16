@@ -4,13 +4,20 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_image.h>
 #include <iostream>
 
 #define ScreenWidth 800
 #define ScreenHeight 800
 
-// C++ ALLEGRO GAME FRO CPSC 2720 PROJECT
-// Space Invaders -like- game
+/**
+* @file main.cpp
+* @brief Initialization of the display and the protagonist.
+* C++ Allegro game for CPSC 2720 project:
+* "Space Invaders -like- game"
+* @author Adad, Bertram, Jiaying & Okingo.
+* @bug No known bugs.
+*/
 
 int main(){
    if(!al_init()) { // do NOT initialice anything before al_init();

@@ -1,5 +1,5 @@
 # SpaceInvaders - like - game
-Space Invaders project for CPSC 2720, using Allegro Library on C++.
+C++ Project for CPSC 2720, using Allegro Library.
 Authors:
 - Victor Adad Sangabriel
 - Jiaying Li

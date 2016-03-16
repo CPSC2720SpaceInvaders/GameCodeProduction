@@ -9,9 +9,10 @@
 #define ScreenWidth 800
 #define ScreenHeight 800
 
-int main(){
+// SPSC 2720 Project: Allegro Space Invaders - like - game
 
-   if(!al_init()) {
+int main(){
+   if(!al_init()) { // do NOT initialice anything before al_init();
       al_show_native_message_box(NULL, "Error", NULL, "Failed to initialize allegro 5!", NULL, NULL);
       return -1;
    }
@@ -33,9 +34,14 @@ int main(){
    al_draw_text(font, al_map_rgb(44,117,255), ScreenWidth/2, ScreenHeight/2, ALLEGRO_ALIGN_CENTRE, "Little Space Circle Shooting to Triangles!");
 
    al_init_primitives_addon();  //intializes primitives to draw figures
-   ALLEGRO_COLOR electricBlue = al_map_rgb(44,117,255);
+   ALLEGRO_COLOR electricBlue = al_map_rgb(118,180,255);
+   ALLEGRO_COLOR electricYellow = al_map_rgb(255,250,44);
+   ALLEGRO_COLOR electricRed = al_map_rgb(254,1,64);
+   ALLEGRO_COLOR playerColor = electricBlue; //original color of the circle;
+
    //float points[8] = {0, 0, 400, 100, 50, 200, ScreenWidth, ScreenHeight};
    //al_draw_spline(points, electricBlue, 1.0);
+
    al_draw_filled_triangle(10, 10, 40, 10, 25, 40, al_map_rgb(200,0,0)); // draws like: X1,Y1, X2,Y2, X3,Y3
    al_draw_rectangle(100, 100, 150, 130, al_map_rgb(0,200,0), 6.0);
    //al_draw_filled_circle(ScreenWidth/2, ScreenHeight-100, 10, electricBlue);
@@ -50,29 +56,45 @@ int main(){
    int x=100, y=100; //circle's position
    int moveSpeed = 10;
    int dir = DOWN;
+
    ALLEGRO_TIMER *timer1 = al_create_timer(1.0/fps); //60 frames per second
    ALLEGRO_EVENT_QUEUE *event_queue1 = al_create_event_queue();
-   al_register_event_source(event_queue1, al_get_keyboard_event_source());
+
    al_register_event_source(event_queue1, al_get_timer_event_source(timer1));
+   al_register_event_source(event_queue1, al_get_keyboard_event_source());
    al_register_event_source(event_queue1, al_get_display_event_source(display));
+
+   al_install_mouse();
+   al_register_event_source(event_queue1, al_get_mouse_event_source());
 
    al_start_timer(timer1); //don't do anything nor initialize variables, NOTHING, after starting the timer
    while(!done){ //the only thing that must be after the timer is the game loop (while)
         ALLEGRO_EVENT events;
         al_wait_for_event(event_queue1, &events); //waits for something to happen
 
-        if (events.type == ALLEGRO_EVENT_KEY_UP){
+        /*if (events.type == ALLEGRO_EVENT_KEY_UP){
             switch(events.keyboard.keycode){
                 case ALLEGRO_KEY_ESCAPE:
                     done = true; //ends the game
 
             }
-        }
-        else if(events.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+
+        } else*/ if(events.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
             done = true; //ends the game (closes the window)
+
+        } else if(events.type == ALLEGRO_EVENT_MOUSE_AXES){
+            x = events.mouse.x;
+            y = events.mouse.y;
+
+        } else if(events.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN){
+            if(events.mouse.button & 1){
+                playerColor = electricYellow;
+            } else if (events.mouse.button & 2){
+                playerColor = electricRed;
+            }
         }
 
-        if (events.type == ALLEGRO_EVENT_TIMER){
+        /*if (events.type == ALLEGRO_EVENT_TIMER){
             al_get_keyboard_state(&keyboardState1);
             if(al_key_down(&keyboardState1, ALLEGRO_KEY_DOWN)){
                 y = y + moveSpeed;
@@ -87,14 +109,14 @@ int main(){
         }
 
         if(draw == true){
-            draw = false;
-            al_draw_filled_circle(x, y, 10, electricBlue); //draws a circle everytime a key is pressed
+            draw = false;*/
+            al_draw_filled_circle(x, y, 10, playerColor); //draws a circle everytime a key is pressed
             al_flip_display();
             al_clear_to_color(al_map_rgb(0,0,0)); //cleans screen so it looks like moving
-        }
+        //}
    }
 
-   //al_rest(5.0); //number of seconds the program waits before closing itself
+   al_rest(5.0); //number of seconds the program waits before closing itself
    al_destroy_display(display);
    al_destroy_timer(timer1);
    al_destroy_event_queue(event_queue1);

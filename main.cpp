@@ -113,12 +113,16 @@ int main(){
             al_get_keyboard_state(&keyboardState1);
             if(al_key_down(&keyboardState1, ALLEGRO_KEY_DOWN)){
                 y = y + moveSpeed;
+                dir = DOWN;
             } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_UP)){
                 y = y - moveSpeed;
+                dir = UP;
             } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_RIGHT)){
                 x = x + moveSpeed;
+                dir = RIGHT;
             } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_LEFT)){
                 x = x - moveSpeed;
+                dir = LEFT;
             }
             draw = true;
         }

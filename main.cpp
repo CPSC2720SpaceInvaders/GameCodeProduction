@@ -47,13 +47,15 @@ int main(){
    ALLEGRO_KEYBOARD_STATE keyboardState1;
    bool done=false; // if it is true, the game ends
    bool draw=true;
-   int x=10, y=10; //circle's position
+   int x=100, y=100; //circle's position
    int moveSpeed = 10;
    int dir = DOWN;
    ALLEGRO_TIMER *timer1 = al_create_timer(1.0/fps); //60 frames per second
    ALLEGRO_EVENT_QUEUE *event_queue1 = al_create_event_queue();
    al_register_event_source(event_queue1, al_get_keyboard_event_source());
    al_register_event_source(event_queue1, al_get_timer_event_source(timer1));
+   al_register_event_source(event_queue1, al_get_display_event_source(display));
+
    al_start_timer(timer1); //don't do anything nor initialize variables, NOTHING, after starting the timer
    while(!done){ //the only thing that must be after the timer is the game loop (while)
         ALLEGRO_EVENT events;
@@ -62,8 +64,12 @@ int main(){
         if (events.type == ALLEGRO_EVENT_KEY_UP){
             switch(events.keyboard.keycode){
                 case ALLEGRO_KEY_ESCAPE:
-                    done = true;
+                    done = true; //ends the game
+
             }
+        }
+        else if(events.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+            done = true; //ends the game (closes the window)
         }
 
         if (events.type == ALLEGRO_EVENT_TIMER){

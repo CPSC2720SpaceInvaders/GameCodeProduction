@@ -18,6 +18,7 @@
 * @brief Initialization of the display and the protagonist.
 * C++ Allegro game for CPSC 2720 project:
 * "Space Invaders -like- game"
+* Credits to Erick Skiff for the music: http://ericskiff.com/music
 * @author Adad, Bertram, Jiaying & Okingo.
 * @bug No known bugs.
 */
@@ -61,6 +62,14 @@ int main(){
 
    al_install_keyboard(); /**< intializes the hability to recieve commands from keyboard */
    ALLEGRO_KEYBOARD_STATE keyboardState1;
+
+   al_install_audio(); /**< intializes the hability play audio */
+   al_init_acodec_addon();
+   ALLEGRO_SAMPLE *spaceship_shoot = al_load_sample("Resources/spaceship_shoot.wav"); /**< loads audio file */
+   ALLEGRO_SAMPLE *main_song = al_load_sample("Resources/Underclocked.wav"); /**< ALLEGRO_SAMPLE doesn't support mp3 or mid files */
+   al_reserve_samples(2); /**< indicate how many samples (songs) we are using */
+   al_play_sample(main_song, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, 0); /**< plays the main theme */
+
    bool done=false; /**< if it is true, the game ends */
    bool draw=true; /**< if it is true, the items will continue being drawed on the display */
    bool active=false; /**< makes sure a key is being pressed */
@@ -130,6 +139,17 @@ int main(){
             } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_LEFT)){
                 x = x - moveSpeed;
                 dir = LEFT;
+            } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_SPACE)){
+                /** @fn al_play_sample(spaceship_shoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                * @brief Starts playing the given audio
+                * @param "spaceship_shoot" is the ALLEGRO_SAMPLE variable wich includes the mp3 file
+                * @param 1.0 is a float number corresponding the volume of the audio
+                * @param 0.0 is a float number that shows from which side-speaker the audio should come out
+                * @param 1.0 is the speed of the audio
+                * @param ALLEGRO_PLAYMODE will decide the way the sound is played (once, loop, etc)
+                */
+                al_play_sample(spaceship_shoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+
             } else{
                 active = false;
             }
@@ -169,6 +189,8 @@ int main(){
 
    //al_rest(5.0);  /**< number of seconds the program waits before closing itself */
    al_destroy_bitmap(player);
+   al_destroy_sample(spaceship_shoot);
+   al_destroy_sample(main_song);
    al_destroy_display(display);
    al_destroy_timer(timer1);
    al_destroy_event_queue(event_queue1);

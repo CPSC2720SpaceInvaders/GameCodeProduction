@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <allegro5/allegro.h>
+#include <allegro5/allegro5.h>
 #include <allegro5/allegro_native_dialog.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_font.h>
@@ -61,6 +62,7 @@ int main(){
    bool done=false; /**< if it is true, the game ends */
    bool draw=true;
    int x=100, y=100; /**< circle's position */
+   float playerX = 150.0, playerY = 150.0;
    int moveSpeed = 10;
    int dir = DOWN;
 
@@ -76,7 +78,11 @@ int main(){
    al_hide_mouse_cursor(display); /**< hides the cursor */
 
    al_init_image_addon();
-   ALLEGRO_BITMAP *player = al_load_bitmap("spaceship.bmp"); /**< loads player sprite */
+   ALLEGRO_BITMAP *player;
+   player = al_load_bitmap("/home/victor/Dropbox/git/GameCodeProduction/Resources/spaceship.png"); /**< loads player sprite */
+   if(!player){
+        al_show_native_message_box(display, "Message Title", "Bitmap Settings", "Could not load Player", NULL, NULL);
+   }
 
    al_start_timer(timer1); /**< don't do anything nor initialize variables, NOTHING, after starting the timer */
    while(!done){ /**< the only thing that must be after the timer is the game loop (while) */
@@ -104,7 +110,7 @@ int main(){
         }
 
         if (events.type == ALLEGRO_EVENT_TIMER){
-            /*al_get_keyboard_state(&keyboardState1);
+            al_get_keyboard_state(&keyboardState1);
             if(al_key_down(&keyboardState1, ALLEGRO_KEY_DOWN)){
                 y = y + moveSpeed;
             } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_UP)){
@@ -113,14 +119,14 @@ int main(){
                 x = x + moveSpeed;
             } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_LEFT)){
                 x = x - moveSpeed;
-            }*/
+            }
             draw = true;
         }
 
         if(draw == true){
             draw = false;
             //al_draw_filled_circle(x, y, 10, playerColor); /**< draws a circle everytime a key is pressed */
-            al_draw_bitmap(player, x, y, NULL); /**< draws the spaceship everytime an arrow key is pressed */
+            al_draw_bitmap(player, x, y, NULL); /**< draws the player */
             al_flip_display();
             al_clear_to_color(al_map_rgb(0,0,0)); /**< cleans screen so it looks like moving */
         }
@@ -133,8 +139,6 @@ int main(){
    al_destroy_event_queue(event_queue1);
    return 0;
 }
-
-//al_show_native_message_box(display, "Message Title", "Display Settings", "Display window is done", NULL, NULL);
 
 /**
 * @fn initialize_allegro_and_display()

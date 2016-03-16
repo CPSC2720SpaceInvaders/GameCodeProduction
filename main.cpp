@@ -6,6 +6,8 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_primitives.h>
 #include <allegro5/allegro_image.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 #include <iostream>
 
 #define ScreenWidth 800
@@ -60,11 +62,13 @@ int main(){
    al_install_keyboard(); /**< intializes the hability to recieve commands from keyboard */
    ALLEGRO_KEYBOARD_STATE keyboardState1;
    bool done=false; /**< if it is true, the game ends */
-   bool draw=true;
-   float x = ScreenWidth/2; /**< plauyer's initial position */
+   bool draw=true; /**< if it is true, the items will continue being drawed on the display */
+   bool active=false; /**< makes sure a key is being pressed */
+   float x = ScreenWidth/2; /**< player's initial position */
    float y = ScreenHeight-100;
-   int moveSpeed = 10;
+   int moveSpeed = 5;
    int dir = DOWN;
+   int sourceX = 0, sourceY = 0; /**< represent the width and height of the spaceship inside the PNG file */
 
    const float fps = 60.0; /**< frames per second variable */
    ALLEGRO_TIMER *timer1 = al_create_timer(1.0/fps); /**< 60 frames per second */
@@ -78,8 +82,8 @@ int main(){
    al_hide_mouse_cursor(display); /**< hides the cursor */
 
    al_init_image_addon();
-   ALLEGRO_BITMAP *player;
-   player = al_load_bitmap("/home/victor/Dropbox/git/GameCodeProduction/Resources/spaceship.png"); /**< loads player sprite */
+   ALLEGRO_BITMAP *player = al_load_bitmap("Resources/spaceship_large.png"); /**< loads player sprite */
+   al_convert_mask_to_alpha(player, al_map_rgb(255,0,255));
    if(!player){
         al_show_native_message_box(display, "Message Title", "Bitmap Settings", "Could not load Player", NULL, NULL);
    }
@@ -110,7 +114,10 @@ int main(){
         }
 
         if (events.type == ALLEGRO_EVENT_TIMER){ /**< movement of the spaceship */
-            al_get_keyboard_state(&keyboardState1);
+
+            al_get_keyboard_state(&keyboardState1); /**< gets the imput from the keyboard */
+            active = true;
+
             if(al_key_down(&keyboardState1, ALLEGRO_KEY_DOWN)){
                 y = y + moveSpeed;
                 dir = DOWN;
@@ -123,20 +130,44 @@ int main(){
             } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_LEFT)){
                 x = x - moveSpeed;
                 dir = LEFT;
+            } else{
+                active = false;
             }
+
             draw = true;
+
+            if (active == true){
+                sourceX += al_get_bitmap_width(player)/3;
+            } else {
+                sourceX = 0; /**< everytime active is "true", increase the origin of the sprite */
+            }
+            if(sourceX >= al_get_bitmap_width(player)){
+                sourceX = 0; /**< if we reach the end of the PNG file, start over */
+            }
+            sourceY = dir; /**< if we have sprites heading left or rigth, etc. this will help to crop them */
         }
 
         if(draw == true){
-            draw = false;
+            //draw = false;
             //al_draw_filled_circle(x, y, 10, playerColor); /**< draws a circle everytime a key is pressed */
-            al_draw_bitmap(player, x, y, NULL); /**< draws the player */
+            /** @fn al_draw_bitmap_region();
+            * @brief Draws the player on the display from a PNG file.
+            * @param player is and ALLEGRO_BITMAP variable that contains a PNG reference.
+            * @param sx is a float that indiques where the sprite starts in the PNG file (usually x=0)
+            * @param sy is a float that indiques where the sprite starts in the PNG file (usually y=0) so (X,Y) = (0,0)
+            * @param sw is a float that indiques the actual width of the sprite
+            * @param sh is a float that indiques the actual height of the sprite
+            * @param x is the position on display where the sprite will be drawed
+            * @param y is the position on display where the sprite will be drawed
+            * @param the last parameter is a flag of the bitmap
+            */
+            al_draw_bitmap_region(player, sourceX, 0, 60, 40, x, y, NULL); //0 should be sourceY * al_get_bitmap_heght(player)/numberofframesvertically
             al_flip_display();
             al_clear_to_color(al_map_rgb(0,0,0)); /**< cleans screen so it looks like moving */
         }
    }
 
-   al_rest(5.0);  /**< number of seconds the program waits before closing itself */
+   //al_rest(5.0);  /**< number of seconds the program waits before closing itself */
    al_destroy_bitmap(player);
    al_destroy_display(display);
    al_destroy_timer(timer1);

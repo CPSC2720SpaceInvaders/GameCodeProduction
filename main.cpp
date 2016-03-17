@@ -10,8 +10,8 @@
 #include <allegro5/allegro_acodec.h>
 #include <iostream>
 
-#define ScreenWidth 800
-#define ScreenHeight 800
+//#define ScreenWidth 800
+//#define ScreenHeight 800
 
 /**
 * @file main.cpp
@@ -24,7 +24,10 @@
 */
 
 int main(){
-   if(!al_init()) { /**< do NOT initialice anything before al_init(); */
+	const int ScreenWidth = 800;
+	const int ScreenHeight = 800;
+	
+	if(!al_init()) { /**< do NOT initialice anything before al_init(); */
       al_show_native_message_box(NULL, "Error", NULL, "Failed to initialize allegro 5!", NULL, NULL);
       return -1;
    }

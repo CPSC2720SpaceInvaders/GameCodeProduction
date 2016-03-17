@@ -19,7 +19,7 @@
 class Projectile {
 Private:
 	//Member variables
-	int		xCoordinate, yCoordinate; /**< Determines location of projectile at a given time. */
+	float	xCoordinate, yCoordinate; /**< Determines location of projectile at a given time. */
 	enum	directions_c { UP, DOWN }; /**< Determines whether a fired projectile should travel towards the top or bottom of the screen. */
 
  Public:
@@ -29,13 +29,13 @@ Private:
 	*		@brief		Exposes and returns xCoordinate.
 	*		@return		integer value.
 	*/
-   int		GetXCoord();
+   float	GetXCoord();
    /**
    *		@fn			GetYCoord()
    *		@brief		Exposes and returns yCoordinate.
    *		@return		Integer value.
    */
-   int		GetYCoord();
+   float	GetYCoord();
 
    //Manipulation methods
    /** 

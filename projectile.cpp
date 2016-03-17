@@ -17,28 +17,28 @@
 //Private methods
 
 //Public methods
-int GetXCoord(){
-   return xCoordinate;
-}int GetYCoord(){
-   return yCoordinate;  
+float	GetXCoord(){
+	return xCoordinate;
+}float	GetYCoord(){
+	return yCoordinate;  
 }
 
 /**
 *	Additional comments about MoveProjectile method.
 */
-void MoveProjectile (int moveRate, Directions_c projDirection){
-   if (projDirection == UP){
-      yCoordinate -= moveRate;
-   }else{
-      yCoordinate += moveRate;
+void	MoveProjectile (int moveRate, Directions_c projDirection){
+   if (projDirection == UP) {
+		yCoordinate -= moveRate;
+   }else {
+		yCoordinate += moveRate;
    }
 }
 
 /**
 *	Additional comments about CheckForCollission method.
 */
-bool CheckForCollision(int moveRate, int targetXCoord, int targetYCoord){
+bool	CheckForCollision(int moveRate, int targetXCoord, int targetYCoord){
    if (xCoordinate == targetXCoord && yCoordinate == targetYCoord){
-      return true;
+		return true;
    }return false;
 }

@@ -23,26 +23,11 @@
 * @bug No known bugs.
 */
 
-struct ENEMY{
-    int enemyX, enemyY;
-    ALLEGRO_BITMAP *enemy;
-    //int enemieWidth, enemieHeight;    //width and height of character
-    //int animation;
-    //int life;
-    void initialize_enemy(int _ememyX, int _enemyY, int _life);
-};
-
-void ENEMY::initialize_enemy(int _ememyX, int _enemyY, int _life){
-        enemyX = _ememyX;
-//        enemyY = _ememyY;
-        //life = _life;
-}
-
 int main(){
 	int ScreenWidth = 800;
 	int ScreenHeight = 800;
 	if(!al_init()) { /**< do NOT initialice anything before al_init(); */
-      al_show_native_message_box(NULL, "Error", NULL, "Failed to initialize allegro 5!", NULL, NULL);
+      al_show_native_message_box(NULL, "Error", "Allegro Settings", "Failed to initialize allegro 5!", NULL, NULL);
       return -1;
    }
    al_set_new_display_flags(ALLEGRO_NOFRAME); /**< Screen without frames */
@@ -93,7 +78,42 @@ int main(){
    float x = ScreenWidth/2, y = ScreenHeight-100; /**< player's initial position */
    int moveSpeed = 10;
    int dir = DOWN;
-   int sourceX = 0, sourceY = 0; /**< represent the width and height of the spaceship inside the PNG file */
+   int playerX = 0, playerY = 0; /**< represent the width and height of the spaceship inside the PNG file */
+   int enemyX = 10;
+   int enemyY = 100;
+   int enemylife = 1;
+   int leftright = 1; //left = 0, right = 1
+
+   /**
+    * @class classEnemy
+    * @brief All stuff related to the alien
+    * @author Victor Adad.
+    */
+//   class classEnemy{
+//        public:
+//        int enemyX = 10;
+//        int enemyY = 100;
+//        int enemylife = 1;
+//        ALLEGRO_BITMAP *enemy;
+//        int enemieWidth, enemieHeight;    //width and height of character
+//        int animation;
+//        void initialize_enemy(int _ememyX, int _enemyY, int _life);
+//
+//        void moveEnemy() {
+//            while (enemylife > 0) {
+//                if(enemyY + 20 <= (700)){
+//                    enemyY += 10;
+//                //Point neworigin = origin + heading*speed*p;
+//                //origin = neworigin;
+//
+//                    if (enemyX < 700){
+//                        enemyX += 10;
+//                    }
+//                }
+//            }
+//       }
+//    };
+   //int enemyX = 10, enemyY = 100;
 
    const float fps = 60.0; /**< frames per second variable */
    ALLEGRO_TIMER *timer1 = al_create_timer(1.0/fps); /**< 60 frames per second */
@@ -109,7 +129,7 @@ int main(){
    al_init_image_addon();
    ALLEGRO_BITMAP *player = al_load_bitmap("Resources/spaceship_large.png"); /**< loads player sprite */
    ALLEGRO_BITMAP *enemy1 = al_load_bitmap("Resources/enemy1.png");
-   //al_convert_mask_to_alpha(player, al_map_rgb(255,0,255));
+   al_convert_mask_to_alpha(player, al_map_rgb(255,0,255));
    if(!player){
         al_show_native_message_box(display, "Message Title", "Bitmap Settings", "Could not load Player", NULL, NULL);
    }
@@ -119,26 +139,16 @@ int main(){
         ALLEGRO_EVENT events;
         al_wait_for_event(event_queue1, &events); /**< waits for something to happen */
 
-//        if (events.type == ALLEGRO_EVENT_KEY_UP){
-//            switch(events.keyboard.keycode){
-//                case ALLEGRO_KEY_ESCAPE: /**< pressing scape key */
-//                    al_draw_text(font, al_map_rgb(254,117,200), ScreenWidth/2, ScreenHeight/3, ALLEGRO_ALIGN_CENTRE, "GAME OVER");
-//                    al_rest(1.0);
-//                    done = true; /**< ends the game */
-//            }
-//        } else if(events.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
-//            done = true; /**<ends the game (closes the window) */
-//
-//        } else if(events.type == ALLEGRO_EVENT_MOUSE_AXES){ /**< player detects/follows movement of mouse */
-//            x = events.mouse.x;
-//            y = events.mouse.y;
-//        } else if(events.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN){
-//            if(events.mouse.button & 1){
-//                playerColor = electricYellow;
-//            } else if (events.mouse.button & 2){
-//                playerColor = electricRed;
-//            }
-//        }
+        /*if(events.type == ALLEGRO_EVENT_MOUSE_AXES){ //**< player detects/follows movement of mouse
+            x = events.mouse.x;
+            y = events.mouse.y;
+        } else if(events.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN){
+            if(events.mouse.button & 1){
+                playerColor = electricYellow;
+            } else if (events.mouse.button & 2){
+                playerColor = electricRed;
+            }
+        }*/
 
         if (events.type == ALLEGRO_EVENT_TIMER){ /**< movement of the spaceship */
 
@@ -177,6 +187,8 @@ int main(){
                 * @param ALLEGRO_PLAYMODE will decide the way the sound is played (once, loop, etc)
                 */
                 al_play_sample(spaceship_shoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                al_draw_text(font, electricYellow, (ScreenWidth/2)-2, 50, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!");
+                al_draw_text(font, al_map_rgb(254,50,200), (ScreenWidth/2)+2, 50, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!");
 
             } else{
                 active = false; /**< the spaceship is not moving */
@@ -185,14 +197,14 @@ int main(){
             draw = true;
 
             if (active == true){
-                sourceX += al_get_bitmap_width(player)/3; /**< simulates animation of spaceship */
+                playerX += al_get_bitmap_width(player)/3; /**< simulates animation of spaceship */
             } else {
-                sourceX = 0; /**< everytime active is "true", increase the origin of the sprite */
+                playerX = 0; /**< everytime active is "true", increase the origin of the sprite */
             }
-            if(sourceX >= al_get_bitmap_width(player)){
-                sourceX = 0; /**< if we reach the end of the PNG file, start over */
+            if(playerX >= al_get_bitmap_width(player)){
+                playerX = 0; /**< if we reach the end of the PNG file, start over */
             }
-            sourceY = dir; /**< if we have sprites heading left or rigth, etc. this will help to crop them */
+            playerY = dir; /**< if we have sprites heading left or rigth, etc. this will help to crop them */
         }
 
         if(draw == true){
@@ -209,13 +221,27 @@ int main(){
             * @param y is the position on display where the sprite will be drawed
             * @param the last parameter is a flag of the bitmap
             */
-            al_draw_bitmap_region(player, sourceX, 0, 60, 40, x, y, NULL); //0 should be sourceY * al_get_bitmap_heght(player)/numberofframesvertically
-            al_draw_text(font, al_map_rgb(44,117,255), ScreenWidth/2, ScreenHeight/5, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!");
+            al_draw_bitmap_region(player, playerX, 0, 60, 40, x, y, NULL); //0 should be playerY * al_get_bitmap_heght(player)/numberofframesvertically
+            al_draw_text(font, al_map_rgb(44,117,255), ScreenWidth/2, 50, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!");
             al_flip_display();
             al_clear_to_color(al_map_rgb(0,0,0)); /**< cleans screen so it looks like moving */
-        }
+            al_draw_bitmap_region(enemy1, 0, 0, 50, 40, enemyX, enemyY, NULL);
 
-        al_draw_bitmap_region(enemy1, sourceX, 0, 60, 40, x, y, NULL);
+            if (enemyX < 700 && leftright==1){ /**< enemy goes right */
+                enemyX += 3;
+
+            } else if (enemyX > 100 && leftright==0){ /**< enemy goes right */
+                enemyX -= 3;
+            }
+            if(enemyX >= 700 && enemyY < 700 && leftright==1){ /**< enemy goes down once, then moves right */
+                    enemyY += 50;
+                    leftright = 0;
+            }
+            if(enemyX <= 100 && enemyY < 700 && leftright==0){ /**< enemy goes down once, then moves left */
+                    enemyY += 50;
+                    leftright = 1;
+            }
+        }
    }
 
    //al_restal_rest(5.0);  /**< number of seconds the program waits before closing itself */

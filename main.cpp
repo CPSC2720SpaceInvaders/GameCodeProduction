@@ -23,6 +23,21 @@
 * @bug No known bugs.
 */
 
+struct ENEMY{
+    int enemyX, enemyY;
+    ALLEGRO_BITMAP *enemy;
+    //int enemieWidth, enemieHeight;    //width and height of character
+    //int animation;
+    //int life;
+    void initialize_enemy(int _ememyX, int _enemyY, int _life);
+};
+
+void ENEMY::initialize_enemy(int _ememyX, int _enemyY, int _life){
+        enemyX = _ememyX;
+//        enemyY = _ememyY;
+        //life = _life;
+}
+
 int main(){
 	int ScreenWidth = 800;
 	int ScreenHeight = 800;
@@ -59,7 +74,8 @@ int main(){
    //al_draw_arc(10, ScreenHeight-100, 10, 0, 4.0, al_map_rgb(255,0,240), 3.0);
    //al_draw_line(100, 500, 300, 500, electricBlue, 6.0);
    //al_draw_pixel(500, 500, electricBlue);
-   al_draw_filled_triangle(10, 10, 40, 10, 25, 40, al_map_rgb(200,0,0)); /**< draws like: X1,Y1, X2,Y2, X3,Y3 */
+   //int trianX1=10, trianY1=10, trianX2=40, trianY2=10, trianX3=25, trianY3=40;
+   //al_draw_filled_triangle(trianX1, trianY1, trianX2, trianY2, trianX3, trianY3, al_map_rgb(200,0,0)); /**< draws like: X1,Y1, X2,Y2, X3,Y3 */
 
    al_install_keyboard(); /**< intializes the hability to recieve commands from keyboard */
    ALLEGRO_KEYBOARD_STATE keyboardState1;
@@ -74,9 +90,8 @@ int main(){
    bool done=false; /**< if it is true, the game ends */
    bool draw=true; /**< if it is true, the items will continue being drawed on the display */
    bool active=false; /**< makes sure a key is being pressed */
-   float x = ScreenWidth/2; /**< player's initial position */
-   float y = ScreenHeight-100;
-   int moveSpeed = 5;
+   float x = ScreenWidth/2, y = ScreenHeight-100; /**< player's initial position */
+   int moveSpeed = 10;
    int dir = DOWN;
    int sourceX = 0, sourceY = 0; /**< represent the width and height of the spaceship inside the PNG file */
 
@@ -93,7 +108,8 @@ int main(){
 
    al_init_image_addon();
    ALLEGRO_BITMAP *player = al_load_bitmap("Resources/spaceship_large.png"); /**< loads player sprite */
-   al_convert_mask_to_alpha(player, al_map_rgb(255,0,255));
+   ALLEGRO_BITMAP *enemy1 = al_load_bitmap("Resources/enemy1.png");
+   //al_convert_mask_to_alpha(player, al_map_rgb(255,0,255));
    if(!player){
         al_show_native_message_box(display, "Message Title", "Bitmap Settings", "Could not load Player", NULL, NULL);
    }
@@ -103,43 +119,54 @@ int main(){
         ALLEGRO_EVENT events;
         al_wait_for_event(event_queue1, &events); /**< waits for something to happen */
 
-        if (events.type == ALLEGRO_EVENT_KEY_UP){
-            switch(events.keyboard.keycode){
-                case ALLEGRO_KEY_ESCAPE:
-                    done = true; /**< ends the game */
-            }
-        } else if(events.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
-            done = true; /**<ends the game (closes the window) */
-
+//        if (events.type == ALLEGRO_EVENT_KEY_UP){
+//            switch(events.keyboard.keycode){
+//                case ALLEGRO_KEY_ESCAPE: /**< pressing scape key */
+//                    al_draw_text(font, al_map_rgb(254,117,200), ScreenWidth/2, ScreenHeight/3, ALLEGRO_ALIGN_CENTRE, "GAME OVER");
+//                    al_rest(1.0);
+//                    done = true; /**< ends the game */
+//            }
+//        } else if(events.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
+//            done = true; /**<ends the game (closes the window) */
+//
 //        } else if(events.type == ALLEGRO_EVENT_MOUSE_AXES){ /**< player detects/follows movement of mouse */
 //            x = events.mouse.x;
 //            y = events.mouse.y;
-
-        } else if(events.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN){
-            if(events.mouse.button & 1){
-                playerColor = electricYellow;
-            } else if (events.mouse.button & 2){
-                playerColor = electricRed;
-            }
-        }
+//        } else if(events.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN){
+//            if(events.mouse.button & 1){
+//                playerColor = electricYellow;
+//            } else if (events.mouse.button & 2){
+//                playerColor = electricRed;
+//            }
+//        }
 
         if (events.type == ALLEGRO_EVENT_TIMER){ /**< movement of the spaceship */
 
             al_get_keyboard_state(&keyboardState1); /**< gets the imput from the keyboard */
             active = true;
 
+            if(al_key_down(&keyboardState1, ALLEGRO_KEY_ESCAPE)){ /**< pressing scape key */
+                al_draw_text(font, al_map_rgb(254,117,200), ScreenWidth/2, ScreenHeight/3, ALLEGRO_ALIGN_CENTRE, "GAME OVER");
+                al_rest(1.0);
+                done = true; /**< ends the game */
+            }
+
             if(al_key_down(&keyboardState1, ALLEGRO_KEY_DOWN)){
                 y = y + moveSpeed;
                 dir = DOWN;
+
             } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_UP)){
                 y = y - moveSpeed;
                 dir = UP;
+
             } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_RIGHT)){
                 x = x + moveSpeed;
                 dir = RIGHT;
+
             } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_LEFT)){
                 x = x - moveSpeed;
                 dir = LEFT;
+
             } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_SPACE)){
                 /** @fn al_play_sample(spaceship_shoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                 * @brief Starts playing the given audio
@@ -152,13 +179,13 @@ int main(){
                 al_play_sample(spaceship_shoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
 
             } else{
-                active = false;
+                active = false; /**< the spaceship is not moving */
             }
 
             draw = true;
 
             if (active == true){
-                sourceX += al_get_bitmap_width(player)/3;
+                sourceX += al_get_bitmap_width(player)/3; /**< simulates animation of spaceship */
             } else {
                 sourceX = 0; /**< everytime active is "true", increase the origin of the sprite */
             }
@@ -183,10 +210,12 @@ int main(){
             * @param the last parameter is a flag of the bitmap
             */
             al_draw_bitmap_region(player, sourceX, 0, 60, 40, x, y, NULL); //0 should be sourceY * al_get_bitmap_heght(player)/numberofframesvertically
-            al_draw_text(font, al_map_rgb(44,117,255), ScreenWidth/2, ScreenHeight/4, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!");
+            al_draw_text(font, al_map_rgb(44,117,255), ScreenWidth/2, ScreenHeight/5, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!");
             al_flip_display();
             al_clear_to_color(al_map_rgb(0,0,0)); /**< cleans screen so it looks like moving */
         }
+
+        al_draw_bitmap_region(enemy1, sourceX, 0, 60, 40, x, y, NULL);
    }
 
    //al_restal_rest(5.0);  /**< number of seconds the program waits before closing itself */
@@ -208,3 +237,53 @@ int main(){
 * @return I'm gessuing it should return the *display, but I haven't figurerd out how to do that yet.
 */
 //public void initialize_allegro_and_display(){}
+
+/*
+
+void place_enemies(struct ENEMIES E[]){
+    int indice = -1;
+    int _tipo = 0;
+
+    for(int i=0; i<5; i++){
+        _tipo++;
+
+        if (_tipo == 4) {
+            _tipo = 1;
+        }
+
+        for(int j=0; j<11; j++){
+            indice++;
+            E[indice].initialice_pictures(int _enemyWidth, int _enemyHeight, int _life);
+        }
+    }
+}
+
+void draw_enemies(struct ENEMIES E[], int mov){
+    int indice = -1;
+
+    for(int i=0; i<5; i++){
+
+        for(int j=0; j<11; j++){
+            indice++;
+
+            if(E[indice].vida > 0){
+                E[indice].pinta(buffer, mov, E[indice].tipo-1);
+                //para escojer enemigo es de 0 a 2 y la pose de 0 a 1
+            }
+        }
+    }
+}
+
+void move_enemies(struct NAVE E[], int& mov, int& dir){
+    for(int i = 0; i < 55; i++) E[i].x += dir;
+
+    if(++mov == 2) mov = 0;
+
+    if(limites(E, dir) == true){
+        for(int j = 0; j < 55; j++){
+            E[j].y += 10;
+        }
+    }
+}
+
+*/

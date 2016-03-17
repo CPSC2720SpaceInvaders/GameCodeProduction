@@ -24,9 +24,8 @@
 */
 
 int main(){
-	const int ScreenWidth = 800;
-	const int ScreenHeight = 800;
-	
+	int ScreenWidth = 800;
+	int ScreenHeight = 800;
 	if(!al_init()) { /**< do NOT initialice anything before al_init(); */
       al_show_native_message_box(NULL, "Error", NULL, "Failed to initialize allegro 5!", NULL, NULL);
       return -1;
@@ -44,8 +43,8 @@ int main(){
 
    al_init_font_addon(); /**< intializes fonts so we can write on the display */
    al_init_ttf_addon();
-   ALLEGRO_FONT *font = al_load_font("Custom Font.ttf", 36, NULL);
-   al_draw_text(font, al_map_rgb(44,117,255), ScreenWidth/2, ScreenHeight/2, ALLEGRO_ALIGN_CENTRE, "Little Space Circle Shooting to Triangles!");
+   ALLEGRO_FONT *font = al_load_font("Resources/Custom Font.ttf", 36, NULL);
+   //al_draw_text(font, al_map_rgb(44,117,255), ScreenWidth/2, ScreenHeight/2, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!");
 
    al_init_primitives_addon();  /**< intializes primitives to draw figures */
    ALLEGRO_COLOR electricBlue = al_map_rgb(118,180,255);
@@ -55,13 +54,12 @@ int main(){
 
    //float points[8] = {0, 0, 400, 100, 50, 200, ScreenWidth, ScreenHeight};
    //al_draw_spline(points, electricBlue, 1.0);
-
-   al_draw_filled_triangle(10, 10, 40, 10, 25, 40, al_map_rgb(200,0,0)); /**< draws like: X1,Y1, X2,Y2, X3,Y3 */
-   al_draw_rectangle(100, 100, 150, 130, al_map_rgb(0,200,0), 6.0);
+   //al_draw_rectangle(100, 100, 150, 130, al_map_rgb(0,200,0), 6.0);
    //al_draw_filled_circle(ScreenWidth/2, ScreenHeight-100, 10, electricBlue);
-   al_draw_arc(10, ScreenHeight-100, 10, 0, 4.0, al_map_rgb(255,0,240), 3.0);
-   al_draw_line(100, 500, 300, 500, electricBlue, 6.0);
-   al_draw_pixel(500, 500, electricBlue);
+   //al_draw_arc(10, ScreenHeight-100, 10, 0, 4.0, al_map_rgb(255,0,240), 3.0);
+   //al_draw_line(100, 500, 300, 500, electricBlue, 6.0);
+   //al_draw_pixel(500, 500, electricBlue);
+   al_draw_filled_triangle(10, 10, 40, 10, 25, 40, al_map_rgb(200,0,0)); /**< draws like: X1,Y1, X2,Y2, X3,Y3 */
 
    al_install_keyboard(); /**< intializes the hability to recieve commands from keyboard */
    ALLEGRO_KEYBOARD_STATE keyboardState1;
@@ -185,12 +183,13 @@ int main(){
             * @param the last parameter is a flag of the bitmap
             */
             al_draw_bitmap_region(player, sourceX, 0, 60, 40, x, y, NULL); //0 should be sourceY * al_get_bitmap_heght(player)/numberofframesvertically
+            al_draw_text(font, al_map_rgb(44,117,255), ScreenWidth/2, ScreenHeight/4, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!");
             al_flip_display();
             al_clear_to_color(al_map_rgb(0,0,0)); /**< cleans screen so it looks like moving */
         }
    }
 
-   //al_rest(5.0);  /**< number of seconds the program waits before closing itself */
+   //al_restal_rest(5.0);  /**< number of seconds the program waits before closing itself */
    al_destroy_bitmap(player);
    al_destroy_sample(spaceship_shoot);
    al_destroy_sample(main_song);

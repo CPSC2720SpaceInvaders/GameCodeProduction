@@ -24,9 +24,9 @@
 */
 
 int main(){
-  int ScreenWidth = 800;
-  int ScreenHeight = 800;
-  if(!al_init()) { /**< do NOT initialice anything before al_init(); */
+	int ScreenWidth = 800;
+	int ScreenHeight = 800;
+	if(!al_init()) { /**< do NOT initialice anything before al_init(); */
       al_show_native_message_box(NULL, "Error", "Allegro Settings", "Failed to initialize allegro 5!", NULL, NULL);
       return -1;
    }

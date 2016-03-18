@@ -18,6 +18,6 @@ class Bullet public Projectile {
    
    //Animation Methods
    void animateBullet(/*relevant inputs*/);
-}
+};
 
 #endif //Bullet.h

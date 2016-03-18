@@ -7,7 +7,7 @@
 #include <allegro5/allegro.h>
 #include "projectile.h"
 
-class Bullet public Projectile {
+class ProjectileBullet public Projectile {
   Private:
    //Member variables
    int bulletDamage;
@@ -15,9 +15,6 @@ class Bullet public Projectile {
   Public:
    //Retrieval methods
    int getBulletDamage();
-   
-   //Animation Methods
-   void animateBullet(/*relevant inputs*/);
 };
 
 #endif //Bullet.h

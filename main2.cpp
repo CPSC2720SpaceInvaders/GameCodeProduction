@@ -100,7 +100,7 @@ int main() {
 	/* STAGE 1 FILE LOADING */
 	/* Use as template for constructing future stages. */
 
-	//*musicBGTheme = al_load_sample("Resoures/file");
+	//*musicBGTheme = al_load_sample("Resources/file");
 	ALLEGRO_BITMAP *spritePlayer = al_load_bitmap("Resources/spaceship_large.png"); /**< loads player sprite */
 	ALLEGRO_BITMAP *spriteEnemy = al_load_bitmap("Resources/enemy1.png");
 	al_convert_mask_to_alpha(player, al_map_rgb(255, 0, 255));

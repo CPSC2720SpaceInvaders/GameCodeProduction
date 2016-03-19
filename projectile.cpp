@@ -35,10 +35,24 @@ void MoveProjectile (int moveRate, Directions_c projDirection){
 }
 
 /**
+* Additional comments about DrawProjectile method.
+*/
+void DrawProjectile(){
+   al_draw_bitmap(bulletSprite, xCoordinate, yCoordinate);
+}
+
+/**
 *	Additional comments about CheckForCollission method.
 */
-bool CheckForCollision(int moveRate, int targetXCoord, int targetYCoord){
-   if (xCoordinate == targetXCoord && yCoordinate == targetYCoord){
-      return true;
-   }return false;
+bool CheckForCollision(int moveRate, int targetXCoord, int targetYCoord, projectileDirection_t projDirection){
+   if (xCoordinate == targetXCoord || xCoordinate == (targetXCoord - 1) || xCoordinate == (targetXCoord + 1)){
+      if ( targetYCoord == yCoordinate){
+	 return true;
+      }else if (projDirection == UP && (yCoordinate < targetYCoord && targetYCoord < (yCoordinate + moveRate))){
+	 return true;
+      }else if (projDirection == DOWN && (yCoordinate > targetYCoord && targetYCoord > (yCoordinate - moveRate))){
+	 return true;
+      }else {
+	 return false;
+      }
 }

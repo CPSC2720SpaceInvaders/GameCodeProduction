@@ -9,6 +9,7 @@
 class Actor {
   Private:
    int xCoord, yCoord, curHealth, maxHealth;
+   ALLEGRO_BITMAP *actorSprite;
    
   Public:
    //Retrieval methods
@@ -18,9 +19,12 @@ class Actor {
    int getMaxHealth();
 
    //Manipulation methods
-   void moveActor(int moveRate);
+   void moveActorHorizon(int moveRate);
+   void moveActorVert(int moveRate);
    void modifyCurrentHealth(int damageTaken);
-   bool checkDead();
+   bool checkDead();			
+   void drawActor();
+   void destroyActor();
 }
 
 #endif //actor.h

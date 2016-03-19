@@ -19,8 +19,9 @@
 class Projectile {
 Private:
 	//Member variables
-	float	xCoordinate, yCoordinate; /**< Determines location of projectile at a given time. */
-	enum	directions_c { UP, DOWN }; /**< Determines whether a fired projectile should travel towards the top or bottom of the screen. */
+	int		xCoordinate, yCoordinate; /**< Determines location of projectile at a given time. */
+	enum	projectileDirection_t { UP, DOWN }; /**< Determines whether a fired projectile should travel towards the top or bottom of the screen. */
+	ALLEGRO_BITMAP *bulletSprite;
 
  Public:
    //Retrieval methods
@@ -45,7 +46,10 @@ Private:
    *		@param		moveRate		Rate of movement for the projectile (in px).
    *		@param		projDirection	Direction of movement for projectile (up/down).
    */
-   void		MoveProjectile( int moveRate, directions_c projDirection );
+   void		MoveProjectile( int moveRate, projectileDirection_t projDirection );
+   //doxygen
+   void DrawProjectile();
+   
    /** 
    *		@fn			CheckForCollission( int moveRate, int targetXCoord, int targetYCoord )
    *		@brief		Checks along a specified movement path for a collision between
@@ -55,7 +59,7 @@ Private:
    *		@param		targetYCoord	Location of actor, vertically.
    *		@return		Boolian value.
    */
-   bool		CheckForCollision( int moveRate, int targetXCoord, int targetYCoord );
+   bool		CheckForCollision( int moveRate, int targetXCoord, int targetYCoord, projectileDirection_t projDirection );
 };
 
 #endif //Projectile.h

@@ -22,17 +22,3 @@
 int GetBulletDamage(){
    return bulletDamage;
 }
-
-/**
-*	Additional comments about AnimateBullet method.
-*/
-void AnimateBullet( ALLEGRO_BITMAP *bulletSprite ){
-	al_draw_bitmap(*bulletSprite, xCoordinate, yCoordinate, NULL);
-}
-
-/**
-*	Additional comments about DestroyBullet method.
-*/
-void DestroyBullet( ALLEGRO_COLOR backgrColor ) {
-	al_clear_to_color( backgrColor );
-}

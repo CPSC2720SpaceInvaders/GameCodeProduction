@@ -23,9 +23,51 @@
 * @bug No known bugs.
 */
 
+const int maxBullets = 5;
+const int ScreenWidth = 800;
+const int ScreenHeight = 800;
+const int moveSpeed = 10;
+
+struct Bullets{
+    float bulletX, bulletY;
+    float destinyX, destinyY;
+
+}BulletsArray[maxBullets];
+
+/*void drawBullet(float destinyX, float destinyY){
+    al_draw_line(bulletX, bulletY, bulletX, bulletY+10, al_map_rgb(255,255,255), 5.0);
+}*/
+
+void drawBullet(float bulletX, float bulletY){
+    al_draw_line(bulletX, bulletY, bulletX, bulletY+10, al_map_rgb(255,255,255), 5.0);
+}
+
+struct ACTOR{
+    float playerX=ScreenWidth/2, playerY=ScreenHeight-100.0; /**< represent the original position of the spaceship */
+    float playerWidth=60.0, playerHeight=40.0;
+    int currBullets = 0;
+
+}player2;
+
+void drawSpaceship(ALLEGRO_BITMAP *player, struct ACTOR player2){
+    al_draw_bitmap_region(player, 0, 0, player2.playerWidth, player2.playerHeight, player2.playerX, player2.playerY, NULL);
+}
+
+
+
+bool Collision(float playerX, float playerY, float enemyX, float enemyY, int playerWidth, int playerHeight, int enemyWidth, int enemyHeight){
+  // enemy is     50 * 40 px
+  // spaceship is 60 * 40 px
+  if (player2.playerX+playerWidth < enemyX || player2.playerX>enemyX+enemyWidth || player2.playerY+playerHeight<enemyY || player2.playerY>enemyY+enemyHeight){
+    return false; /**< There is no collision! */
+  } else {
+    return true; // There is collision
+  }
+}
+
+
+
 int main(){
-	int ScreenWidth = 800;
-	int ScreenHeight = 800;
 	if(!al_init()) { /**< do NOT initialice anything before al_init(); */
       al_show_native_message_box(NULL, "Error", "Allegro Settings", "Failed to initialize allegro 5!", NULL, NULL);
       return -1;
@@ -66,14 +108,16 @@ int main(){
    bool done=false; /**< if it is true, the game ends */
    bool draw=false; /**< if it is true, the items will continue being drawed on the display */
    bool active=false; /**< makes sure a key is being pressed */
-   float x = ScreenWidth/2, y = ScreenHeight-100; /**< player's initial position */
-   int moveSpeed = 10;
-   int dir = DOWN;
-   int playerX = 0, playerY = 0; /**< represent the width and height of the spaceship inside the PNG file */
-   int enemyX = 10;
-   int enemyY = 100;
-   int enemylife = 1;
+   int playerWidth = 60;
+   int playerHeight = 40; /**< represent the width and height of the spaceship inside the PNG file */
+   float enemyX = 10.0;
+   float enemyY = 100.0;
+   int enemyWidth = 60;
+   int enemyHeight = 40; /**< represent the width and height of the spaceship inside the PNG file */
+   int enemyMaxHealth = 1;
    int leftright = 1; //left = 0, right = 1
+   bool CanPlayerShoot = true;
+   int BulletControlCounter = 0;
 
    /**
     * @class classEnemy
@@ -84,7 +128,7 @@ int main(){
         public:
         int enemyX = 10;
         int enemyY = 100;
-        int enemylife = 1;
+        int enemyMaxHealth = 1;
         ALLEGRO_BITMAP *enemy;
         int enemieWidth, enemieHeight;    //width and height of character
         int animation;
@@ -145,31 +189,41 @@ int main(){
             }
 
             if(al_key_down(&keyboardState1, ALLEGRO_KEY_DOWN)){
-                y = y + moveSpeed;
-                dir = DOWN;
+                player2.playerY += moveSpeed;
+                //dir = DOWN;
 
             } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_UP)){
-                y = y - moveSpeed;
-                dir = UP;
+                player2.playerY -= moveSpeed;
+                //dir = UP;
 
             } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_RIGHT)){
-                x = x + moveSpeed;
-                dir = RIGHT;
+                player2.playerX += moveSpeed;
+                //dir = RIGHT;
 
             } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_LEFT)){
-                x = x - moveSpeed;
-                dir = LEFT;
+                player2.playerX -= moveSpeed;
+                //dir = LEFT;
 
-            } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_SPACE)){
-                /** @fn al_play_sample(spaceship_shoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
-                * @brief Starts playing the given audio
-                * @param "spaceship_shoot" is the ALLEGRO_SAMPLE variable wich includes the mp3 file
-                * @param 1.0 is a float number corresponding the volume of the audio
-                * @param 0.0 is a float number that shows from which side-speaker the audio should come out
-                * @param 1.0 is the speed of the audio
-                * @param ALLEGRO_PLAYMODE will decide the way the sound is played (once, loop, etc)
-                */
-                al_play_sample(spaceship_shoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+            } else if (al_key_down(&keyboardState1, ALLEGRO_KEY_SPACE) && CanPlayerShoot==true){
+
+                if(player2.currBullets < maxBullets-1){ //initializes bullet
+                    player2.currBullets++;
+                    /** @fn al_play_sample(spaceship_shoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                    * @brief Starts playing the given audio
+                    * @param "spaceship_shoot" is the ALLEGRO_SAMPLE variable wich includes the mp3 file
+                    * @param 1.0 is a float number corresponding the volume of the audio
+                    * @param 0.0 is a float number that shows from which side-speaker the audio should come out
+                    * @param 1.0 is the speed of the audio
+                    * @param ALLEGRO_PLAYMODE will decide the way the sound is played (once, loop, etc)
+                    */
+                    al_play_sample(spaceship_shoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0); /**< plays sound */
+                    BulletsArray[player2.currBullets].bulletX = player2.playerX+30;
+                    BulletsArray[player2.currBullets].bulletY = player2.playerY;
+                    BulletsArray[player2.currBullets].destinyX = 0.0; /** because the bullet will go straight*/
+                    BulletsArray[player2.currBullets].destinyY = -5.0;
+                    CanPlayerShoot = false;
+                }
+
                 al_draw_text(font, electricYellow, (ScreenWidth/2)-2, 50, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!");
                 al_draw_text(font, al_map_rgb(254,50,200), (ScreenWidth/2)+2, 50, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!");
 
@@ -177,17 +231,38 @@ int main(){
                 active = false; /**< the spaceship is not moving */
             }
 
-            draw = true;
+            if(BulletControlCounter++ > 20){ //time before the player is able to shoot again
+                CanPlayerShoot = true;
+                BulletControlCounter = 0;
+            }
 
-            if (active == true){
-                playerX += al_get_bitmap_width(player)/3; /**< simulates animation of spaceship */
-            } else {
-                playerX = 0; /**< everytime active is "true", increase the origin of the sprite */
+            if(player2.currBullets > 0){ //draws bullet
+                    for (int i=1; i<=player2.currBullets; i++){ //looks for all the current bullents in the array
+                        BulletsArray[i].bulletX += BulletsArray[i].destinyX; // in this case, it's 0=0+0 because the bullet goes straight
+                        BulletsArray[i].bulletY += BulletsArray[i].destinyY; //increases vertical position of the bullet
+
+                        drawBullet(BulletsArray[i].bulletX, BulletsArray[i].bulletY); /**< Draws the bullets*/
+
+                        if(BulletsArray[i].bulletY > ScreenHeight || BulletsArray[i].bulletY < 0 || BulletsArray[i].bulletX > ScreenWidth || BulletsArray[i].bulletX < 0 ){ //is the bullet inside the screen?
+
+                                BulletsArray[i] = BulletsArray[player2.currBullets]; // overwrite the values of BulletsArray[i]
+                                player2.currBullets--; //disappears a bullet
+                                if(player2.currBullets < 0){
+                                    player2.currBullets = 0; //We use this in case the number goes under 0, to avoid errors
+                                }
+                        }
+                    }
+                }
+
+            if(Collision(player2.playerX, player2.playerY, enemyX, enemyY, playerWidth, playerHeight, enemyWidth, enemyHeight)){
+                al_draw_text(font, al_map_rgb(254,117,200), ScreenWidth/2, ScreenHeight/3, ALLEGRO_ALIGN_CENTRE, "GAME OVER");
+                al_rest(1.0);
+                playerWidth += al_get_bitmap_width(player)/3; /**< simulates animation of spaceship */
+                //al_rest(1.0);
+                done = true; /**< ends the game */
             }
-            if(playerX >= al_get_bitmap_width(player)){
-                playerX = 0; /**< if we reach the end of the PNG file, start over */
-            }
-            playerY = dir; /**< if we have sprites heading left or rigth, etc. this will help to crop them */
+
+            draw = true;
         }
 
         if(draw == true){
@@ -204,7 +279,8 @@ int main(){
             * @param y is the position on display where the sprite will be drawed
             * @param the last parameter is a flag of the bitmap
             */
-            al_draw_bitmap_region(player, playerX, 0, 60, 40, x, y, NULL); //0 should be playerY * al_get_bitmap_heght(player)/numberofframesvertically
+            drawSpaceship(player, player2);
+            //al_draw_bitmap_region(player, 0, 0, playerWidth, playerHeight, player2.playerX, player2.playerY, NULL); //0 should be player2.playerY * al_get_bitmap_heght(player)/numberofframesvertically
             al_draw_text(font, al_map_rgb(44,117,255), ScreenWidth/2, 50, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!");
             al_flip_display();
             al_clear_to_color(al_map_rgb(0,0,0)); /**< cleans screen so it looks like moving */
@@ -254,53 +330,4 @@ int main(){
 * Still doesn't have nothing inside, because the *display is required later in the main.
 * @param No parameters required.
 * @return I'm gessuing it should return the *display, but I haven't figurerd out how to do that yet.
-*/
-
-/*
-void place_enemies(struct ENEMIES E[]){
-    int indice = -1;
-    int _tipo = 0;
-
-    for(int i=0; i<5; i++){
-        _tipo++;
-
-        if (_tipo == 4) {
-            _tipo = 1;
-        }
-
-        for(int j=0; j<11; j++){
-            indice++;
-            E[indice].initialice_pictures(int _enemyWidth, int _enemyHeight, int _life);
-        }
-    }
-}
-
-void draw_enemies(struct ENEMIES E[], int mov){
-    int indice = -1;
-
-    for(int i=0; i<5; i++){
-
-        for(int j=0; j<11; j++){
-            indice++;
-
-            if(E[indice].vida > 0){
-                E[indice].pinta(buffer, mov, E[indice].tipo-1);
-                //para escojer enemigo es de 0 a 2 y la pose de 0 a 1
-            }
-        }
-    }
-}
-
-void move_enemies(struct NAVE E[], int& mov, int& dir){
-    for(int i = 0; i < 55; i++) E[i].x += dir;
-
-    if(++mov == 2) mov = 0;
-
-    if(limites(E, dir) == true){
-        for(int j = 0; j < 55; j++){
-            E[j].y += 10;
-        }
-    }
-}
-
 */

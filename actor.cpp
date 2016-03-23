@@ -5,9 +5,9 @@
 #include "actor.h"
 
 //Constructors
-Actor (int xC, int yC, int curH, int maxH, ALLEGRO_BITMAP *actSprite) : xCoord(xC), yCoord(yC), curHealth(curH), maxHealth(maxH), actorSprite(actSprite) { };
-Actor (int xC, int yC, int curH, ALLEGRO_BITMAP *actSprite) : xCoord(xC), yCoord(yC), curHealth(curH), maxHealth(1), actorSprite(actSprite) { };
-Actor (int xC, int yC, ALLEGRO_BITMAP *actSprite) : xCoord(xC), yCoord(yC), curHealth(1), maxHealth(1), actorSprite(actSprite) { };
+Actor (int xC, int yC, int curH, int maxH) : xCoord(xC), yCoord(yC), curHealth(curH), maxHealth(maxH) { };
+Actor (int xC, int yC, int curH) : xCoord(xC), yCoord(yC), curHealth(curH), maxHealth(1) { };
+Actor (int xC, int yC) : xCoord(xC), yCoord(yC), curHealth(1), maxHealth(1);
 
 //Retrieval methods
 int getXCoord (){
@@ -21,10 +21,8 @@ int getXCoord (){
 }
 
 //Manipulation methods
-void moveActorHorizon(int moveRate){
+void moveActor(int moveRate){
    xCoord += moveRate;
-}void moveActorVert(int moveRate){
-   yCoord += moveRate;
 }void modifyCurrentHealth(int damageTaken){
    if (curHealth >= damageTaken){
       curHealth += damageTaken;
@@ -35,6 +33,4 @@ void moveActorHorizon(int moveRate){
    if (curHealth <= 0){
       return true;
    }return false;
-}void drawActor( ) {
-   al_draw_bitmap(actorSprite, xCoord, yCoord);
 }

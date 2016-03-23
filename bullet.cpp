@@ -1,24 +1,17 @@
-/**
-*		@file	bullet.cpp
-*		@brief	Implementation of bullet class.
-*
-*				This contains the implementation for the methods
-*				of the Bullet class, the primary gameplay mechanic,
-*				which allows actors to damage or destroy each other.
-*
-*		@author	Tyler Bertram
-*		@bug	No known bugs (uncompiled, untested).
-*/
-
+//Header comments
+//includes
 #include <allegro5/allegro.h>
 #include "bullet.h"
 
-//Private methods
-
 //Public methods
-/**
-*	Additional comments about GetBulletDamage method.
-*/
-int GetBulletDamage(){
+
+//Private methods
+int getBulletDamage(){
    return bulletDamage;
 }
+
+//void createBullet(int& currBullets, const int maxBullets, struct Bullets BulletsArray[], const float bulletX, const float bulletY, const float destinyY);
+
+//void drawBullet(int& currBullets, const int maxBullets, struct Bullets BulletsArray[]);
+
+//void deleteBullet(int& currBullets, const int maxBullets, struct Bullets BulletsArray[], const int ScreenHeight, const int ScreenWidth);

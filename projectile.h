@@ -17,40 +17,36 @@
 #include <allegro5/allegro.h>
 
 class Projectile {
-Private:
+private:
 	//Member variables
 	int		xCoordinate, yCoordinate; /**< Determines location of projectile at a given time. */
-	enum	projectileDirection_t { UP, DOWN }; /**< Determines whether a fired projectile should travel towards the top or bottom of the screen. */
-	ALLEGRO_BITMAP *bulletSprite;
+	enum	directions_c { UP, DOWN }; /**< Determines whether a fired projectile should travel towards the top or bottom of the screen. */
 
- Public:
+public:
    //Retrieval methods
-	/** 
+	/**
 	*		@fn			GetXCoord()
 	*		@brief		Exposes and returns xCoordinate.
 	*		@return		integer value.
 	*/
-   float	GetXCoord();
+   int		GetXCoord();
    /**
    *		@fn			GetYCoord()
    *		@brief		Exposes and returns yCoordinate.
    *		@return		Integer value.
    */
-   float	GetYCoord();
+   int		GetYCoord();
 
    //Manipulation methods
-   /** 
+   /**
    *		@fn			MoveProjectile( int moveRate, directions_c projDirection )
-   *		@brief		Moves the single-pixel location of a projectile a given 
+   *		@brief		Moves the single-pixel location of a projectile a given
    *					distance down or up. Modifies xCoordinate and yCoordinate.
    *		@param		moveRate		Rate of movement for the projectile (in px).
    *		@param		projDirection	Direction of movement for projectile (up/down).
    */
-   void		MoveProjectile( int moveRate, projectileDirection_t projDirection );
-   //doxygen
-   void DrawProjectile();
-   
-   /** 
+   void		MoveProjectile( int moveRate, directions_c projDirection );
+   /**
    *		@fn			CheckForCollission( int moveRate, int targetXCoord, int targetYCoord )
    *		@brief		Checks along a specified movement path for a collision between
    *					a projectile and an actor.
@@ -59,7 +55,23 @@ Private:
    *		@param		targetYCoord	Location of actor, vertically.
    *		@return		Boolian value.
    */
-   bool		CheckForCollision( int moveRate, int targetXCoord, int targetYCoord, projectileDirection_t projDirection );
+   bool		CheckForCollision( int moveRate, int targetXCoord, int targetYCoord );
 };
 
 #endif //Projectile.h
+
+//######### NEW CODE VICTOR TUESDAY MARCH 22 ###########
+
+bool Collision(float playerX, float playerY, float enemyX, float enemyY, int playerWidth, int playerHeight, int enemyWidth, int enemyHeight)
+{
+    // enemy is     50 * 40 px
+    // spaceship is 60 * 40 px
+    if (playerShip.playerX+playerWidth < enemyX || playerShip.playerX>enemyX+enemyWidth || playerShip.playerY+playerHeight<enemyY || playerShip.playerY>enemyY+enemyHeight)
+    {
+        return false; /**< There is no collision! */
+    }
+    else
+    {
+        return true; // There is collision
+    }
+}

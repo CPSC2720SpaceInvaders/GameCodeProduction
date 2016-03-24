@@ -10,9 +10,40 @@
 #include <allegro5/allegro_acodec.h>
 #include <iostream>
 #include <vector>
+#include <stdlib.h>
+#include <time.h> /**< we add this library so we can generate (better) random numbers */
 #include "projectile.h"
-//#define SCREEN_WIDTH 800
-//#define ScreenHeight 800
+#include "actor.h"
+#include "bullet.h"
+
+void initialize_all_enemies(struct ACTOR enemyIndex[]){
+    int enemyNumber = -1;
+    for(int row=0; row<5; row++){
+        for (int column=0; column<11; column++){
+            enemyNumber++;
+            enemyIndex[enemyNumber].initializeActor("Resources/enemies.png", 50+(column*60), 100+(row*40), 50, 40, 1); /**< we add column*60 and row*40 so the enemies will be separated */
+            // the first two numbers is the position where the actor will appear (x, y)
+            // the last two numbers are the Widht and Height of the actor
+            // last number is 1 so we know is an enemy
+        }
+    }
+}
+
+void draw_all_enemies(struct ACTOR enemyIndex[]){
+    int enemyNumber = -1;
+    int kindOfEnemy = -1; /**< This decides the sprite that each enemy will use */
+    for(int row=0; row<5; row++){
+        kindOfEnemy++;
+        if(kindOfEnemy>2){ /**< kindOfEnemy goes from 0 to 2, because there are 3 total different sprites */
+            kindOfEnemy = 0; /**< this condition resets the kindOfEnemy to 0 */
+        }
+        for (int column=0; column<11; column++){
+            enemyNumber++;
+            enemyIndex[enemyNumber].drawOneEnemy(enemyIndex[enemyNumber].spritePlayer, kindOfEnemy); /**< draws all the enemies */
+            // the very last number is the kindOfEnemy, because it helps to change the sprites of the enemies
+        }
+    }
+}
 
 /**
 * @file main.cpp
@@ -23,45 +54,21 @@
 * @author Adad, Bertram, Jiaying & Okingo.
 * @bug No known bugs.
 */
-
-const int ScreenWidth = 800;
-const int ScreenHeight = 800;
-const int moveSpeed = 10;
-
-#include "actor.h"
-#include "bullet.h"
-
 int main()
 {
-    const float		SCREEN_WIDTH = 800.0, SCREEN_HEIGHT = 800.0;
-	const float		SCREEN_LEFTEDGE = 0.0, SCREEN_RIGHTEDGE = SCREEN_WIDTH;
-	const float		SCREEN_TOPEDGE = 0.0, SCREEN_BOTTOMEDGE = SCREEN_HEIGHT;
-	const float FPS = 60.0; /**< Frames per second variable */
-	bool done = false; /**< If done == true, the game ends. */
-	bool draw = false; /**< If draw == true, the gamestate will be drawn to the display. */
-	bool active = false; /**< Determines if a key is being pressed. */
-	const int MOVERATE_PROJECTILES = 10;
-	const int MOVERATE_ACTORS = 10;
-    const int maxBullets = 5;
-
-	int playerWidth = 60;
-    int playerHeight = 40; /**< represent the width and height of the spaceship inside the PNG file */
-    float enemyX = 10.0;
-    float enemyY = 100.0;
-    int enemyWidth = 60;
-    int enemyHeight = 40; /**< represent the width and height of the spaceship inside the PNG file */
-    int enemyMaxHealth = 1;
-    int leftright = 1; /**< Makes the enemy go left = 0, right = 1 */
-    bool CanPlayerShoot = true;
-    int BulletControlCounter = 0;
-
-
-
-	std::vector<Actor> playerIndex;
-	std::vector<Actor> enemyIndex;
-	std::vector<ProjectileBullet> bulletIndexFriendly;
-	std::vector<ProjectileBullet> bulletIndexHostile;
-	//std::list<powerups> powerupIndex /** Create an index for each powerup type we choose to use.
+    const float     SCREEN_WIDTH = 800.0, SCREEN_HEIGHT = 800.0;
+    const float     SCREEN_LEFTEDGE = 0.0, SCREEN_RIGHTEDGE = SCREEN_WIDTH;
+    const float     SCREEN_TOPEDGE = 0.0, SCREEN_BOTTOMEDGE = SCREEN_HEIGHT;
+    const float FPS = 60.0; /**< Frames per second variable */
+    bool done = false; /**< If done == true, the game ends. */
+    bool draw = false; /**< If draw == true, the gamestate will be drawn to the display. */
+    bool active = false; /**< Determines if a key is being pressed. */
+    const int MOVERATE_PROJECTILES = -5; /**< if positive, the bullet goes down, if negative, it goes up */
+    const int MOVERATE_ENEMY_PROJECTILES = 3; /**< if positive, the bullet goes down, if negative, it goes up */
+    const int MOVERATE_ACTORS = 10;
+    bool leftright = true; /**< Makes the enemy move: right = true, left = false */
+    srand(time(NULL));
+    int randomNumber = rand()%55; /**< generates random numbers between 0 and 55 */
 
     if(!al_init())   /**< do NOT initialice anything before al_init(); */
     {
@@ -81,43 +88,63 @@ int main()
     //######################### HERE FINISHES THE INITIALIZATION OF THE DISPLAY ###########################
 
     //Initialize universal allegro aspects required for the game
-	al_init_font_addon();
-	al_init_ttf_addon();
-	al_init_primitives_addon(); /**< intializes primitives to draw figures */
-	al_install_audio(); /**< intializes the hability play audio */
-	al_init_acodec_addon();
-	al_init_image_addon();
-	al_install_mouse(); /**< initializes the use of the cursor */
-	al_install_keyboard(); /**< intializes the hability to recieve commands from keyboard */
+    al_init_font_addon();
+    al_init_ttf_addon();
+    al_init_primitives_addon(); /**< intializes primitives to draw figures */
+    al_install_audio(); /**< intializes the hability play audio */
+    al_init_acodec_addon();
+    al_init_image_addon();
+    al_install_keyboard(); /**< intializes the hability to recieve commands from keyboard */
 
-	// ALLEGRO_COLOR NEEDS TO BE USED AFTER INITIALZE THE PRIMITIVES_ADDON
+    // ALLEGRO_COLOR NEEDS TO BE USED AFTER INITIALZE THE PRIMITIVES_ADDON
     ALLEGRO_COLOR backgroundColor = al_map_rgb(0, 0, 0);
-	ALLEGRO_COLOR textColor = al_map_rgb(254, 1, 64);
-	ALLEGRO_COLOR titleColor = al_map_rgb(118, 180, 255);
+    ALLEGRO_COLOR textColor = al_map_rgb(254, 1, 64);
+    ALLEGRO_COLOR titleColor = al_map_rgb(118, 180, 255);
     ALLEGRO_COLOR electricBlue = al_map_rgb(118,180,255);
     ALLEGRO_COLOR electricYellow = al_map_rgb(255,250,44);
     ALLEGRO_COLOR electricRed = al_map_rgb(254,1,64);
-    ALLEGRO_COLOR playerColor = electricBlue; /**< original color of the circle */
 
     ALLEGRO_FONT *font = al_load_font("Resources/Custom Font.ttf", 36, NULL);
     ALLEGRO_KEYBOARD_STATE keyboardState1;
     ALLEGRO_SAMPLE *sfxShoot = al_load_sample("Resources/spaceship_shoot.wav"); /**< loads audio file */
-    ALLEGRO_SAMPLE *main_song = al_load_sample("Resources/Underclocked.wav"); /**< ALLEGRO_SAMPLE doesn't support mp3 or mid files */
+    ALLEGRO_SAMPLE *musicBGTheme = al_load_sample("Resources/Underclocked.wav"); /**< ALLEGRO_SAMPLE doesn't support mp3 or mid files */
+    //ALLEGRO_SAMPLE *sfxMenuSelect = al_load_sample("Resources/file");
     al_reserve_samples(2); /**< indicate how many samples (songs) we are using */
-    al_play_sample(main_song, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, 0); /**< plays the main theme */
     ALLEGRO_TIMER *timer1 = al_create_timer(1.0/FPS); /**< 60 frames per second */
     ALLEGRO_EVENT_QUEUE *event_queue1 = al_create_event_queue();
     al_register_event_source(event_queue1, al_get_timer_event_source(timer1));
     al_register_event_source(event_queue1, al_get_keyboard_event_source());
     al_register_event_source(event_queue1, al_get_display_event_source(display));
-    al_register_event_source(event_queue1, al_get_mouse_event_source());
-    ALLEGRO_BITMAP *player = al_load_bitmap("Resources/spaceship_large.png"); /**< loads player sprite */
-    ALLEGRO_BITMAP *enemy1 = al_load_bitmap("Resources/enemy1.png");
-//    if(!player)
-//    {
-//        al_show_native_message_box(display, "Message Title", "Bitmap Settings", "Could not load Player", NULL, NULL);
-//    }
-    Bullets BulletsArray[maxBullets]; //creates Array
+    /** @fn al_play_sample
+    * @brief Starts playing the given audio
+    * @param "musicBGTheme" is the ALLEGRO_SAMPLE variable wich includes the mp3 file
+    * @param 1.0 is a float number corresponding the volume of the audio
+    * @param 0.0 is a float number that shows from which side-speaker the audio should come out
+    * @param 1.0 is the speed of the audio
+    * @param ALLEGRO_PLAYMODE will decide the way the sound is played (once, loop, etc)
+    */
+    al_play_sample(musicBGTheme, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, 0); /**< plays the main theme */
+
+    //std::vector<ProjectileBullet> bulletIndexFriendly;
+    //std::vector<BULLETS> bulletsIndexHostile;
+    //std::list<powerups> powerupIndex /** Create an index for each powerup type we choose to use.
+
+    ACTOR playerShip;
+    playerShip.initializeActor("Resources/spaceship_large.png", SCREEN_WIDTH/2, SCREEN_HEIGHT-100, 60, 40, 0);
+    BULLETS BulletsArray[playerShip.maxBullets]; //creates Array
+
+    ACTOR enemyIndex[60]; /**< Creates enemies VECTOR */
+    initialize_all_enemies(enemyIndex);
+    BULLETS enemyBullets[5]; //creates Array of 5 bullets
+
+    // MENU display goes here, prior to gamestate
+    /* MENU
+    *
+    *
+    *
+    */
+    /* STAGE 1 FILE LOADING */
+    /* Use as template for constructing future stages. */
 
     // GAME MAIN LOOP
     al_start_timer(timer1); /**< don't do anything nor initialize variables, NOTHING, after starting the timer */
@@ -128,149 +155,103 @@ int main()
 
         if(draw == false)  /**< shows HOME SCREEN and detects mouse clic, so the game starts */
         {
-            al_draw_text(font, playerColor, (SCREEN_WIDTH/2)+2, ScreenHeight/2, ALLEGRO_ALIGN_CENTRE, "PRESS START");
+            al_draw_text(font, electricBlue, (SCREEN_WIDTH/2)+2, ScreenHeight/2, ALLEGRO_ALIGN_CENTRE, "PRESS START");
             al_flip_display();
             al_clear_to_color(al_map_rgb(0,0,0)); /**< cleans screen so it looks like moving */
-
             while (draw == false)
             {
                 al_get_keyboard_state(&keyboardState1); /**< gets the imput from the keyboard */
                 if(al_key_down(&keyboardState1, ALLEGRO_KEY_ENTER))  /**< pressing ENTER key */
                 {
-                    playerColor = electricYellow;
-                    al_draw_text(font, playerColor, (SCREEN_WIDTH/2)+2, ScreenHeight/2, ALLEGRO_ALIGN_CENTRE, "PRESS START");
+                    al_draw_text(font, electricYellow, (SCREEN_WIDTH/2)+2, ScreenHeight/2, ALLEGRO_ALIGN_CENTRE, "PRESS START");
                     al_flip_display();
                     al_rest(0.5);
-                    draw = true; /**< ends the game */
+                    draw = true; /**< starts the game */
                 }
             }
         }
 
-        if (events.type == ALLEGRO_EVENT_TIMER)  /**< movement of the spaceship */
+        if (events.type == ALLEGRO_EVENT_TIMER)  /**< movement of the things on screen */
         {
+            al_get_keyboard_state(&keyboardState1); /**< IMPORTANT: gets the imput from the keyboard */
 
-            al_get_keyboard_state(&keyboardState1); /**< gets the imput from the keyboard */
-            active = true;
-
-            if(al_key_down(&keyboardState1, ALLEGRO_KEY_ESCAPE))  /**< pressing scape key */
-            {
-                al_draw_text(font, al_map_rgb(254,117,200), SCREEN_WIDTH/2, ScreenHeight/3, ALLEGRO_ALIGN_CENTRE, "GAME OVER");
-                al_rest(1.0);
-                done = true; /**< ends the game */
+            playerShip.moveSpaceship(keyboardState1, MOVERATE_ACTORS); /**< Moves the spaceship */
+            if(createBullet(playerShip, BulletsArray, MOVERATE_PROJECTILES, keyboardState1, sfxShoot) && playerShip.canPlayerShoot()){ /**< can player shoot is a boolean that controls the time between bullets */
+                playerShip.currBullets++;
             }
 
-            if(al_key_down(&keyboardState1, ALLEGRO_KEY_DOWN))
-            {
-                playerShip.playerY += moveSpeed;
-
-            }
-            else if (al_key_down(&keyboardState1, ALLEGRO_KEY_UP))
-            {
-                playerShip.playerY -= moveSpeed;
-
-            }
-            else if (al_key_down(&keyboardState1, ALLEGRO_KEY_RIGHT))
-            {
-                playerShip.playerX += moveSpeed;
-
-            }
-            else if (al_key_down(&keyboardState1, ALLEGRO_KEY_LEFT))
-            {
-                playerShip.playerX -= moveSpeed;
-
-            }
-            else if (al_key_down(&keyboardState1, ALLEGRO_KEY_SPACE) && CanPlayerShoot==true)
-            {
-                if(createBullet(playerShip, maxBullets, BulletsArray)){
-                    /** @fn al_play_sample(sfxShoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
-                    * @brief Starts playing the given audio
-                    * @param "sfxShoot" is the ALLEGRO_SAMPLE variable wich includes the mp3 file
-                    * @param 1.0 is a float number corresponding the volume of the audio
-                    * @param 0.0 is a float number that shows from which side-speaker the audio should come out
-                    * @param 1.0 is the speed of the audio
-                    * @param ALLEGRO_PLAYMODE will decide the way the sound is played (once, loop, etc)
-                    */
-                    al_play_sample(sfxShoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0); /**< plays sound */
-                    playerShip.currBullets++;
-                    CanPlayerShoot=false;
+            if(enemyIndex[randomNumber].currBullets == 0){ /**< Enemies shoot randomly */
+                randomNumber = rand()%55; /**< generates random numbers between 0 and 55 */
+                if(createEnemyBullet(enemyIndex[randomNumber], enemyBullets, MOVERATE_ENEMY_PROJECTILES, sfxShoot)){ /** Random shoot without using the space key */
+                    enemyIndex[randomNumber].currBullets++;
                 }
-
-                al_draw_text(font, electricYellow, (SCREEN_WIDTH/2)-2, 50, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!");
-                al_draw_text(font, al_map_rgb(254,50,200), (SCREEN_WIDTH/2)+2, 50, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!");
-
             }
 
-            if(BulletControlCounter++ > 20)  //time before the player is able to shoot again
-            {
-                CanPlayerShoot = true;
-                BulletControlCounter = 0;
-            }
+            al_draw_text(font, electricYellow, (SCREEN_WIDTH/2)-2, 50, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!"); /**< blinks in pink and yellow */
+            al_draw_text(font, al_map_rgb(254,50,200), (SCREEN_WIDTH/2)+2, 50, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!");
 
-            drawBullet(playerShip, maxBullets, BulletsArray);
-            if(deleteBullet(playerShip, maxBullets, BulletsArray)){
-                playerShip.currBullets--;
-                CanPlayerShoot=true;
-            }
 
-            if(Collision(playerShip.playerX, playerShip.playerY, enemyX, enemyY, playerWidth, playerHeight, enemyWidth, enemyHeight))
-            {
-                al_draw_text(font, al_map_rgb(254,117,200), SCREEN_WIDTH/2, ScreenHeight/3, ALLEGRO_ALIGN_CENTRE, "GAME OVER");
-                al_rest(1.0);
-                playerWidth += al_get_bitmap_width(player)/3; /**< simulates animation of spaceship */
-                //al_rest(1.0);
-                done = true; /**< ends the game */
-            }
+            /**< TODO: UNCOMMENT AFTER INITIALIZE SUCCESFULLY THE ARRAY OF ENEMIES */
+//            if(CheckForCollision(playerShip.xCoord, playerShip.yCoord, enemyShip[0].xCoord, enemyShip[0].yCoord, playerShip.playerWidth, playerShip.playerHeight, enemyShip[0].playerWidth, enemyShip[0].playerHeight))
+//            {
+//                al_draw_text(font, al_map_rgb(254,117,200), SCREEN_WIDTH/2, ScreenHeight/3, ALLEGRO_ALIGN_CENTRE, "GAME OVER");
+//                al_flip_display();
+//                al_clear_to_color(al_map_rgb(0,0,0)); /**< cleans screen and only shows GAME OVER */
+//                al_rest(1.0);
+//                playerShip.playerWidth += al_get_bitmap_width(playerShip.spritePlayer)/3; /**< simulates animation of spaceship */
+//                //al_rest(1.0);
+//                done = true; /**< ends the game */
+//            }
 
             draw = true;
+
+            if(al_key_down(&keyboardState1, ALLEGRO_KEY_ESCAPE))  /**< pressing scape key pauses the game */
+            {
+                al_draw_text(font, electricBlue, (SCREEN_WIDTH/2)+2, ScreenHeight/2, ALLEGRO_ALIGN_CENTRE, "PRESS START");
+                al_flip_display();
+                al_clear_to_color(al_map_rgb(0,0,0)); /**< cleans screen so it looks like moving */
+                while (draw == false)
+                {
+                    al_get_keyboard_state(&keyboardState1); /**< gets the imput from the keyboard */
+                    if(al_key_down(&keyboardState1, ALLEGRO_KEY_ENTER))  /**< pressing ENTER key */
+                    {
+                        al_draw_text(font, electricYellow, (SCREEN_WIDTH/2)+2, ScreenHeight/2, ALLEGRO_ALIGN_CENTRE, "PRESS START");
+                        al_flip_display();
+                        al_rest(0.5);
+                        draw = true; /**< starts the game */
+                    }
+                }
+                draw = false; /**< returns to main menu */
+            }
         }
 
-        if(draw == true)
+        if(draw == true) /**< Draws and refreshes all elements on screen */
         {
-            //draw = false;
-            /** @fn al_draw_bitmap_region();
-            * @brief Draws the player on the display from a PNG file.
-            * @param player is and ALLEGRO_BITMAP variable that contains a PNG reference.
-            * @param sx is a float that indiques where the sprite starts in the PNG file (usually x=0)
-            * @param sy is a float that indiques where the sprite starts in the PNG file (usually y=0) so (X,Y) = (0,0)
-            * @param sw is a float that indiques the actual width of the sprite
-            * @param sh is a float that indiques the actual height of the sprite
-            * @param x is the position on display where the sprite will be drawed
-            * @param y is the position on display where the sprite will be drawed
-            * @param the last parameter is a flag of the bitmap
-            */
-            drawSpaceship(player, playerShip);
-            //al_draw_bitmap_region(player, 0, 0, playerWidth, playerHeight, playerShip.playerX, playerShip.playerY, NULL); //0 should be playerShip.playerY * al_get_bitmap_heght(player)/numberofframesvertically
-            al_draw_text(font, al_map_rgb(44,117,255), SCREEN_WIDTH/2, 50, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!");
+            // PLAYER'S BEHAVIOR
+            playerShip.drawActor(playerShip.spritePlayer); /**< draws the Spaceship */
+            if(drawBullet(playerShip, BulletsArray)){ /**< animates PLAYER's bullets */
+                playerShip.currBullets--;  /**< destroys PLAYER's bullets */
+                playerShip.BulletControlCounter = 0;
+            }
+            //ENEMY'S BEHAVIOR
+//            bool temporal = enemyShip[0].moveEnemy(leftright);
+//            leftright = temporal;
+            draw_all_enemies(enemyIndex); /**< draws the enemy */
+            if(drawBullet(enemyIndex[randomNumber], enemyBullets)){ /**< animates a random ENEMY's bullets */
+                enemyIndex[randomNumber].currBullets--; /**< destroys that bullets */
+                enemyIndex[randomNumber].BulletControlCounter = 0;
+            }
+
+            al_draw_text(font, al_map_rgb(44,117,255), SCREEN_WIDTH/2, 50, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!"); /**< draws the title */
+
             al_flip_display();
             al_clear_to_color(al_map_rgb(0,0,0)); /**< cleans screen so it looks like moving */
-            al_draw_bitmap_region(enemy1, 0, 0, 50, 40, enemyX, enemyY, NULL);
-
-            if (enemyX < 700 && leftright==1)  /**< enemy goes right */
-            {
-                enemyX += 3;
-
-            }
-            else if (enemyX > 100 && leftright==0)    /**< enemy goes right */
-            {
-                enemyX -= 3;
-            }
-
-            if(enemyX >= 700 && enemyY < 700 && leftright==1)  /**< enemy goes down once, then moves right */
-            {
-                enemyY += 50;
-                leftright = 0;
-            }
-
-            if(enemyX <= 100 && enemyY < 700 && leftright==0)  /**< enemy goes down once, then moves left */
-            {
-                enemyY += 50;
-                leftright = 1;
-            }
         }
     }
-    al_destroy_bitmap(player);
+
+    al_destroy_bitmap(playerShip.spritePlayer);
     al_destroy_sample(sfxShoot);
-    al_destroy_sample(main_song);
+    al_destroy_sample(musicBGTheme);
     al_destroy_display(display);
     al_destroy_timer(timer1);
     al_destroy_event_queue(event_queue1);

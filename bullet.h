@@ -5,13 +5,6 @@
 #ifndef BULLET_H__
 #define BULLET_H__
 
-struct BULLETS
-{
-    float bulletX, bulletY;
-    float destinyX, destinyY;
-
-};
-
 class ProjectileBullet  //public Projectile
 {
 private:
@@ -23,6 +16,19 @@ public:
     int getBulletDamage();
 };
 
+//############# NEW CODE, VICTOR ############
+
+struct BULLETS
+{
+    float bulletX, bulletY;
+    float destinyX, destinyY;
+    int bulletDamage = 1;
+
+    int getBulletDamage();
+    bool collision(float xCoord, float yCoord, float playerWidth, float playerHeight);
+    bool enemyBulletCollision(struct ACTOR enemyIndex[], struct ACTOR spaceShip);
+};
+
 /** @fn createBullet
 * @brief initializes the position of a bullet, without drawing it
 * @param player2 is the ACTOR structure that is shooting
@@ -30,11 +36,11 @@ public:
 * @param UpOrDown is an int: if positive, the bullet goes down, if negative, it goes up
 */
 
-bool createBullet(struct ACTOR player, struct BULLETS BulletsArray[], const int MOVERATE_PROJECTILES, ALLEGRO_KEYBOARD_STATE keyboardState1, ALLEGRO_SAMPLE *sfxShoot)
+bool createBullet(struct ACTOR player, struct BULLETS BulletsArray[], const int MOVERATE_PROJECTILES, ALLEGRO_KEYBOARD_STATE keyboardState1, ALLEGRO_SAMPLE *sfxShoot, bool canPlayerShoot)
 {
-    if (al_key_down(&keyboardState1, ALLEGRO_KEY_SPACE))
+    if (al_key_down(&keyboardState1, ALLEGRO_KEY_SPACE) && canPlayerShoot==true)
     { //shoots
-        if(player.currBullets < player.maxBullets-1)  //initializes bullet
+        if((player.currBullets < player.maxBullets-1))  //initializes bullet
         {
             al_play_sample(sfxShoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0); /**< plays sound */
             player.currBullets++;
@@ -42,15 +48,12 @@ bool createBullet(struct ACTOR player, struct BULLETS BulletsArray[], const int 
             BulletsArray[player.currBullets].bulletY = player.yCoord;
             BulletsArray[player.currBullets].destinyX = 0.0; /**< because the bullet will go straight*/
             BulletsArray[player.currBullets].destinyY = MOVERATE_PROJECTILES; /**< the number is negative, so the bullet will go up */
-            //al_draw_line(BulletsArray[player2.currBullets].bulletX, BulletsArray[player2.currBullets].bulletY, BulletsArray[player2.currBullets].bulletX, BulletsArray[player2.currBullets].bulletY+10, al_map_rgb(255,255,255), 5.0); /**< Draws the bullets*/
             return true;
         }
         return false;
     }
     return false;
 }
-
-
 
 bool createEnemyBullet(struct ACTOR player2, struct BULLETS BulletsArray[], const int MOVERATE_PROJECTILES, ALLEGRO_SAMPLE *sfxShoot)
 {
@@ -62,20 +65,10 @@ bool createEnemyBullet(struct ACTOR player2, struct BULLETS BulletsArray[], cons
         BulletsArray[player2.currBullets].bulletY = player2.yCoord;
         BulletsArray[player2.currBullets].destinyX = 0.0; /**< because the bullet will go straight*/
         BulletsArray[player2.currBullets].destinyY = MOVERATE_PROJECTILES; /**< the number is positive, so the bullet will go down */
-        //al_draw_line(BulletsArray[player2.currBullets].bulletX, BulletsArray[player2.currBullets].bulletY, BulletsArray[player2.currBullets].bulletX, BulletsArray[player2.currBullets].bulletY+10, al_map_rgb(255,255,255), 5.0); /**< Draws the bullets*/
         return true;
     }
     return false;
 }
-
-
-
-
-
-
-
-
-
 
 /** @fn drawBullet
 * @brief draws the bullets on the position where they were intialized
@@ -87,7 +80,6 @@ bool createEnemyBullet(struct ACTOR player2, struct BULLETS BulletsArray[], cons
 * @param destinyX is the horizontal direction of the bullet, by default we use 0 because the bullet goes straight up
 * @param destinyY is the vertical direction of the bullet
 */
-
 bool drawBullet(struct ACTOR player2, struct BULLETS BulletsArray[]) //it also deletes
 {
     if(player2.currBullets > 0)  //draws bullet
@@ -100,7 +92,7 @@ bool drawBullet(struct ACTOR player2, struct BULLETS BulletsArray[]) //it also d
             al_draw_line(BulletsArray[i].bulletX, BulletsArray[i].bulletY, BulletsArray[i].bulletX, BulletsArray[i].bulletY+10, al_map_rgb(255,255,255), 5.0); /**< Draws the bullets*/
 
             if(BulletsArray[i].bulletY > ScreenHeight || BulletsArray[i].bulletY < 0 || BulletsArray[i].bulletX > ScreenWidth || BulletsArray[i].bulletX < 0 )  //is the bullet inside the screen?
-            {
+            { //TODO: Change values of screenWidth to 1200 and find where is screenHeight initialized
 
                 BulletsArray[i] = BulletsArray[player2.currBullets]; // overwrite the values of BulletsArray[i]
                 player2.currBullets--; //disappears a bullet
@@ -110,6 +102,46 @@ bool drawBullet(struct ACTOR player2, struct BULLETS BulletsArray[]) //it also d
     }
     return false;
 }
+
+bool BULLETS::collision(float xCoord, float yCoord, float playerWidth, float playerHeight){
+
+    if( (xCoord < bulletX) && (bulletX < xCoord+playerWidth) &&
+        (yCoord < bulletY) && (bulletY < yCoord+playerHeight)){ //bullet inside the sprite
+
+            return true;
+
+        } else {
+
+            return false;
+        }
+
+}
+
+bool BULLETS::enemyBulletCollision(struct ACTOR enemyIndex[], struct ACTOR playerShip){
+
+    if(playerShip.currBullets > 0 && playerShip.currBullets < playerShip.maxBullets)  //draws bullet
+    {
+        int enemyNumber = -1;
+        for(int row=0; row<5; row++){
+            for (int column=0; column<11; column++){
+                enemyNumber++;
+                if(collision(enemyIndex[enemyNumber].xCoord,
+                            enemyIndex[enemyNumber].yCoord,
+                            enemyIndex[enemyNumber].playerWidth,
+                            enemyIndex[enemyNumber].playerHeight) &&
+                            enemyIndex[enemyNumber].maxHealth > 0){
+
+                            playerShip.currBullets--;
+                            enemyIndex[enemyNumber].maxHealth -= 1; /**< delete the enemy */
+                            return true;
+                }
+            }
+        }
+    }
+    return false; //this function is bool because if it's true, then spaceShip.currBullets--
+}
+
+#endif //Bullet.h
 
 //bool deleteBullet(struct ACTOR player2, struct Bullets BulletsArray[])
 //{
@@ -131,5 +163,3 @@ bool drawBullet(struct ACTOR player2, struct BULLETS BulletsArray[]) //it also d
 //    }
 //    return false;
 //}
-
-#endif //Bullet.h

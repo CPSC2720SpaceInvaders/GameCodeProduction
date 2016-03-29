@@ -16,35 +16,6 @@
 #include "actor.h"
 #include "bullet.h"
 
-void initialize_all_enemies(struct ACTOR enemyIndex[]){
-    int enemyNumber = -1;
-    for(int row=0; row<5; row++){
-        for (int column=0; column<11; column++){
-            enemyNumber++;
-            enemyIndex[enemyNumber].initializeActor("Resources/enemies.png", 50+(column*60), 100+(row*40), 50, 40, 1); /**< we add column*60 and row*40 so the enemies will be separated */
-            // the first two numbers is the position where the actor will appear (x, y)
-            // the last two numbers are the Widht and Height of the actor
-            // last number is 1 so we know is an enemy
-        }
-    }
-}
-
-void draw_all_enemies(struct ACTOR enemyIndex[]){
-    int enemyNumber = -1;
-    int kindOfEnemy = -1; /**< This decides the sprite that each enemy will use */
-    for(int row=0; row<5; row++){
-        kindOfEnemy++;
-        if(kindOfEnemy>2){ /**< kindOfEnemy goes from 0 to 2, because there are 3 total different sprites */
-            kindOfEnemy = 0; /**< this condition resets the kindOfEnemy to 0 */
-        }
-        for (int column=0; column<11; column++){
-            enemyNumber++;
-            enemyIndex[enemyNumber].drawOneEnemy(enemyIndex[enemyNumber].spritePlayer, kindOfEnemy); /**< draws all the enemies */
-            // the very last number is the kindOfEnemy, because it helps to change the sprites of the enemies
-        }
-    }
-}
-
 /**
 * @file main.cpp
 * @brief Initialization of the display and the protagonist.
@@ -56,7 +27,7 @@ void draw_all_enemies(struct ACTOR enemyIndex[]){
 */
 int main()
 {
-    const float     SCREEN_WIDTH = 800.0, SCREEN_HEIGHT = 800.0;
+    const float     SCREEN_WIDTH = 1200.0, SCREEN_HEIGHT = 800.0;
     const float     SCREEN_LEFTEDGE = 0.0, SCREEN_RIGHTEDGE = SCREEN_WIDTH;
     const float     SCREEN_TOPEDGE = 0.0, SCREEN_BOTTOMEDGE = SCREEN_HEIGHT;
     const float FPS = 60.0; /**< Frames per second variable */
@@ -69,6 +40,12 @@ int main()
     bool leftright = true; /**< Makes the enemy move: right = true, left = false */
     srand(time(NULL));
     int randomNumber = rand()%55; /**< generates random numbers between 0 and 55 */
+    int animateEnemy = 0;
+    int blinking = 0; /**< makes the main menu and the "loading" screen to blink */
+    int menuY = 0;
+    int enemyNumber = -1;
+    bool loadingGame = false; /**< if false, then displays main menu, if true, the "loading" screen will be shown */
+    int loadingTimer = 0; /**< sums amount of ftime that the "loading screen will be displayed */
 
     if(!al_init())   /**< do NOT initialice anything before al_init(); */
     {
@@ -107,11 +84,13 @@ int main()
     ALLEGRO_FONT *font = al_load_font("Resources/Custom Font.ttf", 36, NULL);
     ALLEGRO_KEYBOARD_STATE keyboardState1;
     ALLEGRO_SAMPLE *sfxShoot = al_load_sample("Resources/spaceship_shoot.wav"); /**< loads audio file */
+    ALLEGRO_SAMPLE *sfxEnemyShoot = al_load_sample("Resources/enemy_shoot.wav"); /**< loads bullet firing sound file */
     ALLEGRO_SAMPLE *musicBGTheme = al_load_sample("Resources/Underclocked.wav"); /**< ALLEGRO_SAMPLE doesn't support mp3 or mid files */
     //ALLEGRO_SAMPLE *sfxMenuSelect = al_load_sample("Resources/file");
-    al_reserve_samples(2); /**< indicate how many samples (songs) we are using */
+    al_reserve_samples(3); /**< indicate how many samples (songs) we are using */
     ALLEGRO_TIMER *timer1 = al_create_timer(1.0/FPS); /**< 60 frames per second */
     ALLEGRO_EVENT_QUEUE *event_queue1 = al_create_event_queue();
+    ALLEGRO_BITMAP *menu = al_load_bitmap("Resources/STARTMENU.png");
     al_register_event_source(event_queue1, al_get_timer_event_source(timer1));
     al_register_event_source(event_queue1, al_get_keyboard_event_source());
     al_register_event_source(event_queue1, al_get_display_event_source(display));
@@ -125,12 +104,8 @@ int main()
     */
     al_play_sample(musicBGTheme, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, 0); /**< plays the main theme */
 
-    //std::vector<ProjectileBullet> bulletIndexFriendly;
-    //std::vector<BULLETS> bulletsIndexHostile;
-    //std::list<powerups> powerupIndex /** Create an index for each powerup type we choose to use.
-
     ACTOR playerShip;
-    playerShip.initializeActor("Resources/spaceship_large.png", SCREEN_WIDTH/2, SCREEN_HEIGHT-100, 60, 40, 0);
+    playerShip.initializeActor("Resources/spaceship.png", SCREEN_WIDTH/2, SCREEN_HEIGHT-100, 60, 40, 0);
     BULLETS BulletsArray[playerShip.maxBullets]; //creates Array
 
     ACTOR enemyIndex[60]; /**< Creates enemies VECTOR */
@@ -153,104 +128,133 @@ int main()
         ALLEGRO_EVENT events;
         al_wait_for_event(event_queue1, &events); /**< waits for something to happen */
 
-        if(draw == false)  /**< shows HOME SCREEN and detects mouse clic, so the game starts */
-        {
-            al_draw_text(font, electricBlue, (SCREEN_WIDTH/2)+2, ScreenHeight/2, ALLEGRO_ALIGN_CENTRE, "PRESS START");
-            al_flip_display();
-            al_clear_to_color(al_map_rgb(0,0,0)); /**< cleans screen so it looks like moving */
-            while (draw == false)
-            {
-                al_get_keyboard_state(&keyboardState1); /**< gets the imput from the keyboard */
-                if(al_key_down(&keyboardState1, ALLEGRO_KEY_ENTER))  /**< pressing ENTER key */
-                {
-                    al_draw_text(font, electricYellow, (SCREEN_WIDTH/2)+2, ScreenHeight/2, ALLEGRO_ALIGN_CENTRE, "PRESS START");
-                    al_flip_display();
-                    al_rest(0.5);
-                    draw = true; /**< starts the game */
-                }
-            }
-        }
+        al_get_keyboard_state(&keyboardState1); /**< IMPORTANT: gets the imput from the keyboard */
+
+
 
         if (events.type == ALLEGRO_EVENT_TIMER)  /**< movement of the things on screen */
         {
-            al_get_keyboard_state(&keyboardState1); /**< IMPORTANT: gets the imput from the keyboard */
+            if(al_key_down(&keyboardState1, ALLEGRO_KEY_ESCAPE))  /**< pressing scape key ends the game */
+            {
+                draw = false;
+                done = true;
+            }
 
             playerShip.moveSpaceship(keyboardState1, MOVERATE_ACTORS); /**< Moves the spaceship */
-            if(createBullet(playerShip, BulletsArray, MOVERATE_PROJECTILES, keyboardState1, sfxShoot) && playerShip.canPlayerShoot()){ /**< can player shoot is a boolean that controls the time between bullets */
+            if(createBullet(playerShip, BulletsArray, MOVERATE_PROJECTILES, keyboardState1, sfxShoot, playerShip.canPlayerShoot(5))){ /**< can player shoot is a boolean that controls the time between bullets */
                 playerShip.currBullets++;
             }
 
+            //############## HERE STARTS THE RANDOM ENEMY'S SHOOTING ############################
             if(enemyIndex[randomNumber].currBullets == 0){ /**< Enemies shoot randomly */
                 randomNumber = rand()%55; /**< generates random numbers between 0 and 55 */
-                if(createEnemyBullet(enemyIndex[randomNumber], enemyBullets, MOVERATE_ENEMY_PROJECTILES, sfxShoot)){ /** Random shoot without using the space key */
+                if(createEnemyBullet(enemyIndex[randomNumber], enemyBullets, MOVERATE_ENEMY_PROJECTILES, sfxEnemyShoot)){ /** Random shoot without using the space key */
                     enemyIndex[randomNumber].currBullets++;
                 }
             }
 
+            //############## HERE STARTS THE BULLET - ENEMY COLLISION ############################
+            for (int i=1; i <= playerShip.currBullets; i++){
+                if (BulletsArray[i].enemyBulletCollision(enemyIndex, playerShip)){ /**< Enemy colisions with bullet */
+                    BulletsArray[i] = BulletsArray[playerShip .currBullets]; /**< this is necessary because bullets dissapear all at once if not implemented */
+                    playerShip.currBullets--; /**< deletes bullet */
+                }
+            }
+
+            //############## HERE STARTS THE BLINKING TITLE ############################
             al_draw_text(font, electricYellow, (SCREEN_WIDTH/2)-2, 50, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!"); /**< blinks in pink and yellow */
             al_draw_text(font, al_map_rgb(254,50,200), (SCREEN_WIDTH/2)+2, 50, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!");
 
-
-            /**< TODO: UNCOMMENT AFTER INITIALIZE SUCCESFULLY THE ARRAY OF ENEMIES */
-//            if(CheckForCollision(playerShip.xCoord, playerShip.yCoord, enemyShip[0].xCoord, enemyShip[0].yCoord, playerShip.playerWidth, playerShip.playerHeight, enemyShip[0].playerWidth, enemyShip[0].playerHeight))
+            /** TODO: UNCOMMENT AFTER INITIALIZE SUCCESFULLY THE ARRAY OF ENEMIES */
+//            if(CheckForCollision(playerShip.xCoord, playerShip.yCoord, enemyIndex[0].xCoord, enemyIndex[0].yCoord, playerShip.playerWidth, playerShip.playerHeight, enemyIndex[0].playerWidth, enemyIndex[0].playerHeight))
 //            {
 //                al_draw_text(font, al_map_rgb(254,117,200), SCREEN_WIDTH/2, ScreenHeight/3, ALLEGRO_ALIGN_CENTRE, "GAME OVER");
 //                al_flip_display();
-//                al_clear_to_color(al_map_rgb(0,0,0)); /**< cleans screen and only shows GAME OVER */
+//                al_clear_to_color(backgroundColor); /**< cleans screen and only shows GAME OVER */
 //                al_rest(1.0);
 //                playerShip.playerWidth += al_get_bitmap_width(playerShip.spritePlayer)/3; /**< simulates animation of spaceship */
 //                //al_rest(1.0);
 //                done = true; /**< ends the game */
 //            }
-
-            draw = true;
-
-            if(al_key_down(&keyboardState1, ALLEGRO_KEY_ESCAPE))  /**< pressing scape key pauses the game */
-            {
-                al_draw_text(font, electricBlue, (SCREEN_WIDTH/2)+2, ScreenHeight/2, ALLEGRO_ALIGN_CENTRE, "PRESS START");
-                al_flip_display();
-                al_clear_to_color(al_map_rgb(0,0,0)); /**< cleans screen so it looks like moving */
-                while (draw == false)
-                {
-                    al_get_keyboard_state(&keyboardState1); /**< gets the imput from the keyboard */
-                    if(al_key_down(&keyboardState1, ALLEGRO_KEY_ENTER))  /**< pressing ENTER key */
-                    {
-                        al_draw_text(font, electricYellow, (SCREEN_WIDTH/2)+2, ScreenHeight/2, ALLEGRO_ALIGN_CENTRE, "PRESS START");
-                        al_flip_display();
-                        al_rest(0.5);
-                        draw = true; /**< starts the game */
-                    }
-                }
-                draw = false; /**< returns to main menu */
-            }
         }
 
-        if(draw == true) /**< Draws and refreshes all elements on screen */
+
+        if(draw == false) // main menu
         {
-            // PLAYER'S BEHAVIOR
+            if(blinking++ < 20){
+                /** @fn al_draw_bitmap_region
+                * @brief Draws the MENU on the display from a PNG file.
+                * @param player is and ALLEGRO_BITMAP variable that contains a PNG reference.
+                * @param sx is a float that indiques where the sprite starts in the PNG file (usually x=0)
+                * @param sy is a float that indiques where the sprite starts in the PNG file (usually y=0) so (X,Y) = (0,0)
+                * @param sw is a float that indiques the actual width of the sprite
+                * @param sh is a float that indiques the actual height of the sprite
+                * @param x is the position on display where the sprite will be drawed
+                * @param y is the position on display where the sprite will be drawed
+                * @param the last parameter is a flag of the bitmap
+                */
+                al_draw_bitmap_region(menu, 0, menuY, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, NULL);
+                al_flip_display();
+                al_clear_to_color(backgroundColor); /**< cleans screen so it looks like moving */
+
+            }else{
+                al_draw_bitmap_region(menu, 1200, menuY, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, NULL);
+                al_flip_display();
+                al_clear_to_color(backgroundColor); /**< cleans screen so it looks like moving */
+            }
+
+            if(blinking > 40){
+                blinking = 0;
+            }
+
+            if(al_key_down(&keyboardState1, ALLEGRO_KEY_ENTER))  /**< pressing ENTER key */
+            {
+                menuY = 800;
+                loadingGame = true;
+            }
+
+            if(loadingGame == true){ /**< stops displaying "main menu" and starts displaying "loading" */
+                loadingTimer++;
+            }
+
+            if (loadingTimer > 80){ /**< miliseconds the LOADING screen will be displayed */
+                draw = true;
+            }
+        }
+        else if(draw == true) /**< Draws and refreshes all elements on screen */
+        {
+            //############## PLAYER'S BEHAVIOR ####################
             playerShip.drawActor(playerShip.spritePlayer); /**< draws the Spaceship */
             if(drawBullet(playerShip, BulletsArray)){ /**< animates PLAYER's bullets */
                 playerShip.currBullets--;  /**< destroys PLAYER's bullets */
                 playerShip.BulletControlCounter = 0;
             }
-            //ENEMY'S BEHAVIOR
-//            bool temporal = enemyShip[0].moveEnemy(leftright);
-//            leftright = temporal;
-            draw_all_enemies(enemyIndex); /**< draws the enemy */
+
+            if(enemyIndex[0].canPlayerShoot(20)){ /**< Enemies' individual sprite animation */
+                if (++animateEnemy == 2){
+                    animateEnemy = 0;
+                }
+            }
+
+            /**< ENEMY'S BEHAVIOR */
+//          bool temporal = enemyShip[0].moveEnemy(leftright);
+//          leftright = temporal;
+            draw_all_enemies(enemyIndex, animateEnemy); /**< draws the enemies */
+
             if(drawBullet(enemyIndex[randomNumber], enemyBullets)){ /**< animates a random ENEMY's bullets */
                 enemyIndex[randomNumber].currBullets--; /**< destroys that bullets */
                 enemyIndex[randomNumber].BulletControlCounter = 0;
             }
 
             al_draw_text(font, al_map_rgb(44,117,255), SCREEN_WIDTH/2, 50, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!"); /**< draws the title */
-
             al_flip_display();
-            al_clear_to_color(al_map_rgb(0,0,0)); /**< cleans screen so it looks like moving */
+            al_clear_to_color(backgroundColor); /**< cleans screen so it looks like moving */
         }
     }
 
     al_destroy_bitmap(playerShip.spritePlayer);
     al_destroy_sample(sfxShoot);
+    al_destroy_sample(sfxEnemyShoot);
     al_destroy_sample(musicBGTheme);
     al_destroy_display(display);
     al_destroy_timer(timer1);

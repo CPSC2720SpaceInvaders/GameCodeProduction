@@ -133,6 +133,9 @@ bool BULLETS::enemyBulletCollision(struct ACTOR enemyIndex[], struct ACTOR playe
 
                             playerShip.currBullets--;
                             enemyIndex[enemyNumber].maxHealth -= 1; /**< delete the enemy */
+                            if (enemyIndex[enemyNumber].maxHealth == 0){
+                                enemyIndex[enemyNumber].enemyExplotes();
+                            }
                             return true;
                 }
             }

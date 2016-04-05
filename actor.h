@@ -41,6 +41,7 @@ struct ACTOR
     int maxHealth;
 
     ALLEGRO_BITMAP *spritePlayer;
+    ALLEGRO_BITMAP *explosion;
 
     void initializeActor(char* sprite_source, int x, int y, int _playerWidth, int _playerHeight, int _kindOfActor);
     void drawActor(ALLEGRO_BITMAP *spritePlayer);
@@ -48,6 +49,8 @@ struct ACTOR
     bool canPlayerShoot(int timerForAnimation); /**< timerForAnimation modifies the speed of the sprite animation */
     bool moveEnemy(bool leftright);
     void drawOneEnemy(ALLEGRO_BITMAP *spriteSheet, int kindOfEnemy, int animateEnemy);
+    void enemyExplotes();
+    void spaceshipExplotes();
 };
 
 void ACTOR::moveSpaceship(ALLEGRO_KEYBOARD_STATE keyboardState1, const int MOVERATE_ACTORS){
@@ -90,6 +93,7 @@ void ACTOR::initializeActor(char* sprite_source, int x, int y, int _playerWidth,
     }
 
     spritePlayer = al_load_bitmap(sprite_source); /**< loads sprite */
+    explosion = al_load_bitmap("Resources/enemyexplosion.png");
     if(!spritePlayer){ /**< Display an alert message box in case the sprite couldn't be found */
        al_show_native_message_box(NULL, "Message Title", "Bitmap Settings", "Could not load Player image.", NULL, NULL);
     }
@@ -202,6 +206,29 @@ void draw_all_enemies(struct ACTOR enemyIndex[], int animateEnemy){
             }
         }
     }
+}
+
+void ACTOR::enemyExplotes(){
+    ALLEGRO_BITMAP *blackPatch = al_load_bitmap("Resources/blackpatch.png");
+    al_draw_bitmap_region(blackPatch, 0, 0, playerWidth, playerHeight, xCoord, yCoord, NULL);
+    al_draw_bitmap_region(explosion, 0, 0, playerWidth, playerHeight, xCoord-5, yCoord-5, NULL);
+    al_destroy_bitmap(blackPatch);
+}
+
+void ACTOR::spaceshipExplotes(){
+    ALLEGRO_BITMAP *blackPatch = al_load_bitmap("Resources/blackpatch.png");
+    al_draw_bitmap_region(blackPatch, 0, 0, playerWidth, playerHeight, xCoord, yCoord, NULL);
+    al_draw_bitmap_region(spritePlayer, 1*playerWidth, 0, playerWidth, playerHeight, xCoord, yCoord, NULL);
+    al_flip_display();
+    al_draw_bitmap_region(blackPatch, 0, 0, playerWidth, playerHeight, xCoord, yCoord, NULL);
+    al_rest(0.1);
+    al_draw_bitmap_region(spritePlayer, 2*playerWidth, 0, playerWidth, playerHeight, xCoord, yCoord, NULL);
+    al_flip_display();
+    al_draw_bitmap_region(blackPatch, 0, 0, playerWidth, playerHeight, xCoord, yCoord, NULL);
+    al_rest(0.1);
+    maxHealth--;
+
+    al_destroy_bitmap(blackPatch);
 }
 
 #endif //actor.h

@@ -123,7 +123,7 @@ int main()
 
     // GAME MAIN LOOP
     al_start_timer(timer1); /**< don't do anything nor initialize variables, NOTHING, after starting the timer */
-    while(!done)  /**< the only thing that must be after the timer is the game loop (while) */
+    while(!done || playerShip.maxHealth<1)  /**< the only thing that must be after the timer is the game loop (while) */
     {
         ALLEGRO_EVENT events;
         al_wait_for_event(event_queue1, &events); /**< waits for something to happen */
@@ -158,6 +158,15 @@ int main()
                 if (BulletsArray[i].enemyBulletCollision(enemyIndex, playerShip)){ /**< Enemy colisions with bullet */
                     BulletsArray[i] = BulletsArray[playerShip .currBullets]; /**< this is necessary because bullets dissapear all at once if not implemented */
                     playerShip.currBullets--; /**< deletes bullet */
+                }
+            }
+
+            //############# HERE STARTS THE SPACESHIP - BULLET COLLISION ############
+            for (int i=0; i <= enemyIndex[randomNumber].currBullets; i++){
+                if(enemyBullets[i].collision(playerShip.xCoord, playerShip.yCoord, playerShip.playerWidth, playerShip.playerHeight)){
+                    enemyBullets[i] = enemyBullets[enemyIndex[randomNumber].currBullets]; /**< this is necessary because bullets dissapear all at once if not implemented */
+                    enemyIndex[randomNumber].currBullets--;
+                    playerShip.spaceshipExplotes();
                 }
             }
 

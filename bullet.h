@@ -1,6 +1,8 @@
 //includes
 #include "projectile.h"
 #include <allegro5/allegro.h>
+#define SCREENWIDTH 1200
+#define SCREENHEIGHT 800
 //Header comments
 #ifndef BULLET_H__
 #define BULLET_H__
@@ -91,7 +93,7 @@ bool drawBullet(struct ACTOR player2, struct BULLETS BulletsArray[]) //it also d
 
             al_draw_line(BulletsArray[i].bulletX, BulletsArray[i].bulletY, BulletsArray[i].bulletX, BulletsArray[i].bulletY+10, al_map_rgb(255,255,255), 5.0); /**< Draws the bullets*/
 
-            if(BulletsArray[i].bulletY > ScreenHeight || BulletsArray[i].bulletY < 0 || BulletsArray[i].bulletX > ScreenWidth || BulletsArray[i].bulletX < 0 )  //is the bullet inside the screen?
+            if(BulletsArray[i].bulletY > SCREENHEIGHT || BulletsArray[i].bulletY < 0 || BulletsArray[i].bulletX > SCREENWIDTH || BulletsArray[i].bulletX < 0 )  //is the bullet inside the screen?
             { //TODO: Change values of screenWidth to 1200 and find where is screenHeight initialized
 
                 BulletsArray[i] = BulletsArray[player2.currBullets]; // overwrite the values of BulletsArray[i]
@@ -155,7 +157,7 @@ bool BULLETS::enemyBulletCollision(struct ACTOR enemyIndex[], struct ACTOR playe
 //            BulletsArray[i].bulletX += BulletsArray[i].destinyX; // in this case, it's 0=0+0 because the bullet goes straight
 //            BulletsArray[i].bulletY += BulletsArray[i].destinyY; //increases vertical position of the bullet
 //
-//            if(BulletsArray[i].bulletY > ScreenHeight || BulletsArray[i].bulletY < 0 || BulletsArray[i].bulletX > ScreenWidth || BulletsArray[i].bulletX < 0 )  //is the bullet inside the screen?
+//            if(BulletsArray[i].bulletY > SCREENHEIGHT || BulletsArray[i].bulletY < 0 || BulletsArray[i].bulletX > SCREENWIDTH || BulletsArray[i].bulletX < 0 )  //is the bullet inside the screen?
 //            {
 //
 //                BulletsArray[i] = BulletsArray[player2.currBullets]; // overwrite the values of BulletsArray[i]

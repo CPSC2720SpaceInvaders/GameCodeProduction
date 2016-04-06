@@ -37,7 +37,6 @@ int main()
     const int MOVERATE_PROJECTILES = -5; /**< if positive, the bullet goes down, if negative, it goes up */
     const int MOVERATE_ENEMY_PROJECTILES = 3; /**< if positive, the bullet goes down, if negative, it goes up */
     const int MOVERATE_ACTORS = 10;
-    bool leftright = true; /**< Makes the enemy move: right = true, left = false */
     srand(time(NULL));
     int randomNumber = rand()%55; /**< generates random numbers between 0 and 55 */
     int animateEnemy = 0;
@@ -46,6 +45,9 @@ int main()
     int enemyNumber = -1;
     bool loadingGame = false; /**< if false, then displays main menu, if true, the "loading" screen will be shown */
     int loadingTimer = 0; /**< sums amount of ftime that the "loading screen will be displayed */
+    int leftOrRight = 3; /**< positive number means right, negative means left */
+    int enemyMovement = 0;
+    int gameSpeed = 10;
 
     if(!al_init())   /**< do NOT initialice anything before al_init(); */
     {
@@ -154,7 +156,8 @@ int main()
             }
 
             //############## HERE STARTS THE BULLET - ENEMY COLLISION ############################
-            for (int i=1; i <= playerShip.currBullets; i++){
+            for (int i=1; i <= playerShip.currBullets; i++)
+            {
                 if (BulletsArray[i].enemyBulletCollision(enemyIndex, playerShip)){ /**< Enemy colisions with bullet */
                     BulletsArray[i] = BulletsArray[playerShip .currBullets]; /**< this is necessary because bullets dissapear all at once if not implemented */
                     playerShip.currBullets--; /**< deletes bullet */
@@ -162,7 +165,8 @@ int main()
             }
 
             //############# HERE STARTS THE SPACESHIP - BULLET COLLISION ############
-            for (int i=0; i <= enemyIndex[randomNumber].currBullets; i++){
+            for (int i=0; i <= enemyIndex[randomNumber].currBullets; i++)
+            {
                 if(enemyBullets[i].collision(playerShip.xCoord, playerShip.yCoord, playerShip.playerWidth, playerShip.playerHeight)){
                     enemyBullets[i] = enemyBullets[enemyIndex[randomNumber].currBullets]; /**< this is necessary because bullets dissapear all at once if not implemented */
                     enemyIndex[randomNumber].currBullets--;
@@ -170,21 +174,26 @@ int main()
                 }
             }
 
+            //############# HERE STARTS THE SPACESHIP - ENEMY COLLISION ############
+            for (int i=0; i <= 60; i++)
+            {
+                if(CheckForCollision(playerShip.xCoord, playerShip.yCoord, enemyIndex[i].xCoord, enemyIndex[i].yCoord, playerShip.playerWidth, playerShip.playerHeight, enemyIndex[i].playerWidth, enemyIndex[i].playerHeight))
+                {
+                    playerShip.spaceshipExplotes();
+                    al_rest(0.5);
+                    al_draw_text(font, al_map_rgb(254,117,200), SCREEN_WIDTH/2, SCREEN_HEIGHT/3, ALLEGRO_ALIGN_CENTRE, "GAME OVER");
+                    al_flip_display();
+                    al_clear_to_color(backgroundColor); /**< cleans screen and only shows GAME OVER */
+                    al_rest(1.0);
+
+                    draw = false;
+                    done = true; /**< ends the game */
+                }
+            }
+
             //############## HERE STARTS THE BLINKING TITLE ############################
             al_draw_text(font, electricYellow, (SCREEN_WIDTH/2)-2, 50, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!"); /**< blinks in pink and yellow */
             al_draw_text(font, al_map_rgb(254,50,200), (SCREEN_WIDTH/2)+2, 50, ALLEGRO_ALIGN_CENTRE, "2720 Invaders!");
-
-            /** TODO: UNCOMMENT AFTER INITIALIZE SUCCESFULLY THE ARRAY OF ENEMIES */
-//            if(CheckForCollision(playerShip.xCoord, playerShip.yCoord, enemyIndex[0].xCoord, enemyIndex[0].yCoord, playerShip.playerWidth, playerShip.playerHeight, enemyIndex[0].playerWidth, enemyIndex[0].playerHeight))
-//            {
-//                al_draw_text(font, al_map_rgb(254,117,200), SCREEN_WIDTH/2, ScreenHeight/3, ALLEGRO_ALIGN_CENTRE, "GAME OVER");
-//                al_flip_display();
-//                al_clear_to_color(backgroundColor); /**< cleans screen and only shows GAME OVER */
-//                al_rest(1.0);
-//                playerShip.playerWidth += al_get_bitmap_width(playerShip.spritePlayer)/3; /**< simulates animation of spaceship */
-//                //al_rest(1.0);
-//                done = true; /**< ends the game */
-//            }
         }
 
 
@@ -232,6 +241,25 @@ int main()
         }
         else if(draw == true) /**< Draws and refreshes all elements on screen */
         {
+            //############## ENEMY'S BEHAVIOR #####################
+            if(enemyIndex[0].canPlayerShoot(10)){ /**< Enemies' individual sprite animation */
+                moveAllEnemies(leftOrRight, enemyIndex, enemyMovement); /**< enemy's grupal movement left/right */
+                if (++animateEnemy == 2){
+                    animateEnemy = 0;
+                }
+            }
+            if(enemyIndex[1].canPlayerShoot(500)){ /**< this will move the enemies faster and faster every time */
+                if(gameSpeed >=  2){
+                    gameSpeed -=1;
+                    if (enemyMovement < 0){
+                        leftOrRight += -1;
+                    }else{
+                        leftOrRight += 1;
+                    }
+                }
+            }
+            draw_all_enemies(enemyIndex, animateEnemy); /**< draws the enemies */
+
             //############## PLAYER'S BEHAVIOR ####################
             playerShip.drawActor(playerShip.spritePlayer); /**< draws the Spaceship */
             if(drawBullet(playerShip, BulletsArray)){ /**< animates PLAYER's bullets */
@@ -239,17 +267,7 @@ int main()
                 playerShip.BulletControlCounter = 0;
             }
 
-            if(enemyIndex[0].canPlayerShoot(20)){ /**< Enemies' individual sprite animation */
-                if (++animateEnemy == 2){
-                    animateEnemy = 0;
-                }
-            }
-
-            /**< ENEMY'S BEHAVIOR */
-//          bool temporal = enemyShip[0].moveEnemy(leftright);
-//          leftright = temporal;
-            draw_all_enemies(enemyIndex, animateEnemy); /**< draws the enemies */
-
+            //############# BULLET BEHAVIOR #################
             if(drawBullet(enemyIndex[randomNumber], enemyBullets)){ /**< animates a random ENEMY's bullets */
                 enemyIndex[randomNumber].currBullets--; /**< destroys that bullets */
                 enemyIndex[randomNumber].BulletControlCounter = 0;

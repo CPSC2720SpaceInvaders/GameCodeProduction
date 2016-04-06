@@ -6,9 +6,6 @@
 #ifndef ACTOR_H__
 #define ACTOR_H__
 
-const int ScreenWidth = 800;
-const int ScreenHeight = 800;
-
 class Actor {
 private:
    int xCoord, yCoord, curHealth, maxHealth;
@@ -134,7 +131,7 @@ void ACTOR::drawOneEnemy(ALLEGRO_BITMAP *spriteSheet, int _kindOfActor, int anim
 * @brief The player will be able to shoot only whenever the function returns is true.
 * @author Victor Adad.
 */
-bool ACTOR::canPlayerShoot(int timeForAnimation){
+bool ACTOR::canPlayerShoot(int timeForAnimation){ /**< it's just a regular timer */
     BulletControlCounter++;
     if (BulletControlCounter == timeForAnimation){ /** loop for a certain amount of miliseconds */
         BulletControlCounter = 0;
@@ -168,6 +165,37 @@ bool ACTOR::moveEnemy(bool leftright)
         return true;
     }
     return true;
+}
+
+bool detectScreenLimits(int& leftOrRight, struct ACTOR enemyIndex[])
+{
+    for (int i=0; i<55; i++){
+        if(enemyIndex[i].xCoord > 1000 || enemyIndex[i].xCoord < 50)
+        {
+            leftOrRight = -1*leftOrRight;
+            return true;
+        }
+        return false;
+    }
+}
+
+void moveAllEnemies(int& leftOrRight, struct ACTOR enemyIndex[], int enemyMovement)
+{
+    for (int i=0; i<55; i++){
+        enemyIndex[i].xCoord += leftOrRight;
+    }
+
+    if(++enemyMovement == 2){
+        enemyMovement = 0;
+    }
+
+    if(detectScreenLimits(leftOrRight, enemyIndex)==true){
+        for (int j=0; j<55; j++){
+            enemyIndex[j].yCoord += 20;
+        }
+    }
+
+
 }
 
 void initialize_all_enemies(struct ACTOR enemyIndex[]){

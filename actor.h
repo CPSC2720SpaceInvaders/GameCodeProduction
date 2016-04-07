@@ -8,7 +8,15 @@
 
 class Actor {
 private:
-   int xCoord, yCoord, curHealth, maxHealth;
+    float xCoord;
+    float yCoord; /**< represent the original position of the spaceship */
+    float playerWidth;
+    float playerHeight; /**< represent the width and height of the spaceship inside the PNG file */
+    int currBullets;
+    int maxBullets;
+    int BulletControlCounter; /**< controls the time between shoots */
+    int kindOfActor; /**< 0=Player, 1=Blue Enemy, 2=Red Enemy, 3=Green Enemy */
+    int maxHealth;
 
 public:
    //Retrieval methods
@@ -254,7 +262,7 @@ void ACTOR::spaceshipExplotes(){
     al_flip_display();
     al_draw_bitmap_region(blackPatch, 0, 0, playerWidth, playerHeight, xCoord, yCoord, NULL);
     al_rest(0.1);
-    maxHealth--;
+    //maxHealth--;
 
     al_destroy_bitmap(blackPatch);
 }

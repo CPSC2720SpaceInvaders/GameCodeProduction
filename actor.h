@@ -1,34 +1,31 @@
+//Header Comments
+#ifndef ACTOR_H
+#define ACTOR_H
+
 //includes
 #include <allegro5/allegro.h>
-#define SCREENWIDTH 1200
-#define SCREENHEIGHT 800
-//Header comments
-#ifndef ACTOR_H__
-#define ACTOR_H__
+#include "Hitbox.h"
 
 class Actor {
 private:
-    float xCoord;
-    float yCoord; /**< represent the original position of the spaceship */
-    float playerWidth;
-    float playerHeight; /**< represent the width and height of the spaceship inside the PNG file */
-    int currBullets;
-    int maxBullets;
-    int BulletControlCounter; /**< controls the time between shoots */
-    int kindOfActor; /**< 0=Player, 1=Blue Enemy, 2=Red Enemy, 3=Green Enemy */
-    int maxHealth;
+   float xCoord, yCoord, spriteWidth, spriteHeight;
+   // int kindOfActor; /**< 0=Player, 1=Blue Enemy, 2=Red Enemy, 3=Green Enemy */
+   int health;
+
+   ALLEGRO_BITMAP *actorSprite;
+   HITBOX actorHitbox;
 
 public:
    //Retrieval methods
-   int getXCoord();
-   int getYCoord();
-   int getCurrentHealth();
-   int getMaxHealth();
+   float GetXCoord();
+   float GetYCoord();
+   int GetHealth();
 
    //Manipulation methods
-   void moveActor(int moveRate);
-   void modifyCurrentHealth(int damageTaken);
-   bool checkDead();
+   void MoveActor() =0;
+   void ModifyCurrentHealth(int damageTaken);
+   void DrawActor();
+   bool CheckDead();
 };
 
 //######## NEW CODE, MARCH 22, VICTOR ###########

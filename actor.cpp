@@ -10,27 +10,21 @@ Actor (int xC, int yC, int curH) : xCoord(xC), yCoord(yC), curHealth(curH), maxH
 Actor (int xC, int yC) : xCoord(xC), yCoord(yC), curHealth(1), maxHealth(1);
 
 //Retrieval methods
-int getXCoord (){
+float GetXCoord (){
    return xCoord;
-}int getYCoord(){
+}float GetYCoord(){
    return YCoord;
-}int getCurrentHealth(){
-   return curHealth;
-}int getMaxHealth(){
-   return maxHealth;
+}int GetHealth(){
+   return health;
 }
 
 //Manipulation methods
-void moveActor(int moveRate){
-   xCoord += moveRate;
-}void modifyCurrentHealth(int damageTaken){
-   if (curHealth >= damageTaken){
-      curHealth += damageTaken;
-   }else {
-      curHealth = 0;
-   }
-}bool checkDead(){
+void ModifyCurrentHealth(int damageTaken){
+   health -= damageTaken;
+}bool CheckDead(){
    if (curHealth <= 0){
       return true;
    }return false;
+}void DrawActor(){
+   al_draw_bitmap_region(actorSprite, 0, 0, spriteWidth, spriteHeight, xCoord, yCoord, NULL);
 }

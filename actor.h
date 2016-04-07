@@ -185,6 +185,7 @@ bool detectScreenLimits(int& leftOrRight, struct ACTOR enemyIndex[])
         }
         return false;
     }
+    return false;
 }
 
 void moveAllEnemies(int& leftOrRight, struct ACTOR enemyIndex[], int enemyMovement)

@@ -146,25 +146,14 @@ bool BULLETS::enemyBulletCollision(struct ACTOR enemyIndex[], struct ACTOR playe
     return false; //this function is bool because if it's true, then spaceShip.currBullets--
 }
 
-#endif //Bullet.h
+    void gameOverScreen(bool& draw, bool& done, ALLEGRO_FONT *font){
+    al_rest(0.5);
+    al_draw_text(font, al_map_rgb(254,117,200), SCREENWIDTH/2, SCREENHEIGHT/3, ALLEGRO_ALIGN_CENTRE, "GAME OVER");
+    al_flip_display();
+    //al_clear_to_color(backgroundColor); /**< cleans screen and only shows GAME OVER */
+    al_rest(1.0);
+    draw = false;
+    done = true; /**< ends the game */
+}
 
-//bool deleteBullet(struct ACTOR player2, struct Bullets BulletsArray[])
-//{
-//    if(player2.currBullets > 0)  //draws bullet
-//    {
-//        for (int i=1; i <= player2.currBullets; i++)  //looks for all the current bullents in the array
-//        {
-//            BulletsArray[i].bulletX += BulletsArray[i].destinyX; // in this case, it's 0=0+0 because the bullet goes straight
-//            BulletsArray[i].bulletY += BulletsArray[i].destinyY; //increases vertical position of the bullet
-//
-//            if(BulletsArray[i].bulletY > SCREENHEIGHT || BulletsArray[i].bulletY < 0 || BulletsArray[i].bulletX > SCREENWIDTH || BulletsArray[i].bulletX < 0 )  //is the bullet inside the screen?
-//            {
-//
-//                BulletsArray[i] = BulletsArray[player2.currBullets]; // overwrite the values of BulletsArray[i]
-//                player2.currBullets--; //disappears a bullet
-//                return true;
-//            }
-//        }
-//    }
-//    return false;
-//}
+#endif //Bullet.h

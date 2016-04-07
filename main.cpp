@@ -25,19 +25,10 @@
 * @author Adad, Bertram, Jiaying & Okingo.
 * @bug No known bugs.
 */
+
 int main()
 {
     #include "initialize_components.h"
-
-    /** @fn al_play_sample
-    * @brief Starts playing the given audio
-    * @param "musicBGTheme" is the ALLEGRO_SAMPLE variable wich includes the mp3 file
-    * @param 1.0 is a float number corresponding the volume of the audio
-    * @param 0.0 is a float number that shows from which side-speaker the audio should come out
-    * @param 1.0 is the speed of the audio
-    * @param ALLEGRO_PLAYMODE will decide the way the sound is played (once, loop, etc)
-    */
-    al_play_sample(musicBGTheme, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_LOOP, 0); /**< plays the main theme */
 
     ACTOR playerShip;
     playerShip.initializeActor("Resources/spaceship.png", SCREEN_WIDTH/2, SCREEN_HEIGHT-100, 60, 40, 0);
@@ -47,7 +38,6 @@ int main()
     initialize_all_enemies(enemyIndex);
     BULLETS enemyBullets[5]; //creates Array of 5 bullets
 
-    // MENU display goes here, prior to gamestate
     /* MENU
     *
     *
@@ -58,7 +48,7 @@ int main()
 
     // GAME MAIN LOOP
     al_start_timer(timer1); /**< don't do anything nor initialize variables, NOTHING, after starting the timer */
-    while(!done || playerShip.maxHealth<1)  /**< the only thing that must be after the timer is the game loop (while) */
+    while(!done)  /**< the only thing that must be after the timer is the game loop (while) */
     {
         ALLEGRO_EVENT events;
         al_wait_for_event(event_queue1, &events); /**< waits for something to happen */
@@ -88,14 +78,7 @@ int main()
                 if(CheckForCollision(playerShip.xCoord, playerShip.yCoord, enemyIndex[i].xCoord, enemyIndex[i].yCoord, playerShip.playerWidth, playerShip.playerHeight, enemyIndex[i].playerWidth, enemyIndex[i].playerHeight))
                 {
                     playerShip.spaceshipExplotes();
-                    al_rest(0.5);
-                    al_draw_text(font, al_map_rgb(254,117,200), SCREEN_WIDTH/2, SCREEN_HEIGHT/3, ALLEGRO_ALIGN_CENTRE, "GAME OVER");
-                    al_flip_display();
-                    al_clear_to_color(backgroundColor); /**< cleans screen and only shows GAME OVER */
-                    al_rest(1.0);
-
-                    draw = false;
-                    done = true; /**< ends the game */
+                    gameOverScreen(draw, done, font);
                 }
             }
 
@@ -106,6 +89,9 @@ int main()
                     enemyIndex[randomNumber].currBullets--;
                     playerShip.maxHealth--;
                     playerShip.spaceshipExplotes();
+                    if (playerShip.maxHealth<1){
+                        gameOverScreen(draw, done, font);
+                    }
                 }
             }
 
@@ -142,6 +128,7 @@ int main()
                 if(gameSpeed >=  2){
                     gameSpeed -=1;
                     if (enemyMovement < 0){
+
                         leftOrRight += -1;
                     }else{
                         leftOrRight += 1;

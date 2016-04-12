@@ -19,10 +19,10 @@ float GetXCoord (){
 }
 
 //Manipulation methods
-void ModifyCurrentHealth(int damageTaken){
+void ModifyHealth(int damageTaken){
    health -= damageTaken;
 }void ChangeActorSprite(ALLEGRO_BITMAP *newSprite, float newSpriteWidth, float newSpriteHeight) {
-	*actorSprite = *newSprite; 
+	*actorSprite = *newSprite;
 	spriteWidth = newSpriteWidth;
 	spriteHeight = newSpriteHeight;
 }void DrawActor(){

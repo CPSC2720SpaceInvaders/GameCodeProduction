@@ -42,7 +42,7 @@ int main()
 	vector<ActorEnemyBasic> basicEnemyIndex;
 	//vector<ActorEnemySprinter> sprinterEnemyIndex;
 	//vector<ActorEnemyBoss> bossEnemyIndex;
-	
+
 
     /* MENU
     *
@@ -74,7 +74,7 @@ int main()
 			//############################################### PREVIOUS UPDATE CLEANUP ##################
 			for (int i = 0; i < basicEnemyIndex.size(); i++) {
 				if (basicEnemyIndex.at(i).isDead) {
-					basicEnemyIndex.erase(i);
+					basicEnemyIndex.erase(basicEnemyIndex.begin() + i);
 				}
 			}
 
@@ -89,7 +89,7 @@ int main()
 
 			//Check if the player is dead, and also if the player has exhausted all their allotted lives.
 			if (playerShip.CheckDead()) {
-				playerShip.KillPlayer(*playerSprite, 40.0, 50.0, 600.0, 700.0);
+				playerShip.KillPlayer(playerSprite, 40.0f, 50.0f, 600.0f, 700.0f);
 			}
 
 			if (playerShip.GetLives() < 0) {
@@ -124,16 +124,17 @@ int main()
 
 			//Control firing of friendly bullets.
 			if (al_key_down(&keyboardState1, ALLEGRO_KEY_SPACE)) {
-				if (!(friendlyBulletIndex.size() == playerShip.maxBullets) && bulletControlCounter == 5) {
-					friendlyBulletIndex.emplace_back(playerShip.GetXCoord(), playerShip.GetYCoord(), UP);
-					bulletControlCounter = 0;
+				if (!(friendlyBulletIndex.size() == playerShip.GetMaxBullets()) && playerShip.bulletControlCounter == 5) {
+					//friendlyBulletIndex.emplace_back(playerShip.GetXCoord(), playerShip.GetYCoord(), UP);
+					/* TODO: Rewrite all the things reelated wiith the line above. */
+					playerShip.bulletControlCounter = 0;
 				}
 				else {
-					bulletControlCounter++;
+					playerShip.bulletControlCounter++;
 				}
 			}
 			else {
-				bulletControlCounter++;
+				playerShip.bulletControlCounter++;
 			}
 
 
@@ -188,7 +189,8 @@ int main()
 			randomNumber = rand() % basicEnemyIndex.size();
 			randomNumber2 = rand() % 100;
 			if (randomNumber2 >= 80) {
-				hostileBulletIndex.emplace_back(basicEnemyIndex.at(randomNumber).GetXCoord, basicEnemyIndex.at(randomNumber).GetYCoord, DOWN);
+				//hostileBulletIndex.emplace_back(basicEnemyIndex.at(randomNumber).GetXCoord, basicEnemyIndex.at(randomNumber).GetYCoord, DOWN);
+				/* TODO: Completely rewrite the stuff related with "emplace_back" */
 			}
 
 
@@ -236,35 +238,35 @@ int main()
 
 			//Move all bullets.
 			for (int i = 0; i < friendlyBulletIndex.size(); i++) {
-				friendlyBulletIndex.at(i).MoveProjectile(MOVERATE_PROJECTILES, UP);
+				friendlyBulletIndex.at(i).MoveProjectile(MOVERATE_PROJECTILES, static_cast<int>(0)); //TODO: Take an integer value and convert it inside the method
 			}
 			for (int i = 0; i < hostileBulletIndex.size(); i++) {
-				hostileBulletIndex.at(i).MoveProjectile(MOVERATE_PROJECTILES, DOWN);
+				hostileBulletIndex.at(i).MoveProjectile(MOVERATE_PROJECTILES, 1); //TODO: Take an integer value and convert it inside the method
 			}
 
 			//Check for collisions with valid objects.
 			for (int i = 0; i < friendlyBulletIndex.size(); i++) {
 				for (int j = 0; j < basicEnemyIndex.size(); j++) {
 					if (friendlyBulletIndex.at(i).projectileHitbox.CheckForCollision(basicEnemyIndex.at(j).actorHitbox) && !(basicEnemyIndex.at(j).isDead)) {
-						basicEnemyIndex.at(j).ModifyHealth(friendlyBulletIndex.at(i).GetDamage());
+						basicEnemyIndex.at(j).ModifyHealth(friendlyBulletIndex.at(i).GetBulletDamage());
 						if (basicEnemyIndex.at(j).CheckDead()) {
 							basicEnemyIndex.at(j).isDead = true;
 							basicEnemyIndex.at(i).ChangeActorSprite(enemyDeathSprite, 82, 68);
 						}
 
-						friendlyBulletIndex.erase(i);
+						friendlyBulletIndex.erase(friendlyBulletIndex.begin() + i);
 					}
 				}
 			}
 
 			for (int i = 0; i < hostileBulletIndex.size(); i++) {
 				if (hostileBulletIndex.at(i).projectileHitbox.CheckForCollision(playerShip.actorHitbox)) {
-					playerShip.ModifyHealth(hostileBulletIndex.at(i).GetDamage());
+					playerShip.ModifyHealth(hostileBulletIndex.at(i).GetBulletDamage());
 					if (playerShip.CheckDead()) {
 						playerShip.ChangeActorSprite(playerDeathSprite, 82, 68);
 					}
 
-					hostileBulletIndex.erase(i);
+					hostileBulletIndex.erase(hostileBulletIndex.begin() + i);
 				}
 			}
 
@@ -277,7 +279,7 @@ int main()
 			for (int i = 0; i < friendlyBulletIndex.size(); i++) {
 				friendlyBulletIndex.at(i).DrawProjectile();
 			}
-			for (int i = 0; i < hostileBulletIndex; i++) {
+			for (int i = 0; i < hostileBulletIndex.size(); i++) {
 				hostileBulletIndex.at(i).DrawProjectile();
 			}
 			al_flip_display();
@@ -293,7 +295,7 @@ int main()
         }
     }
 
-    al_destroy_bitmap(playerShip.spritePlayer);
+    al_destroy_bitmap(playerShip.actorSprite); /*TODO: create function to delete actorSprite */
     al_destroy_sample(sfxShoot);
     al_destroy_sample(sfxEnemyShoot);
     al_destroy_sample(musicBGTheme);

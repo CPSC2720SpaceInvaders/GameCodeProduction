@@ -6,16 +6,20 @@
 //includes
 #include <allegro5/allegro.h>
 #include "actor.h"
-#include "hitbox.h"
+#include "Hitbox.h"
 
-class ActorPlayer public Actor {
+class ActorPlayer : public Actor {
   private:
-   int playerScore, lives, maxBullets, bulletControlCounter;
-   
+   int playerScore, lives, maxBullets;
+
   public:
-   void MoveActor(ALLEGRO_KEYBOARD_STATE keyboardState1, const int MOVERATE_ACTORS);
+    int bulletControlCounter;
+   void MoveActor(bool moveUp, bool moveDown, bool moveLeft, bool moveRight, const int MOVERATE_ACTORS);
    int GetScore();
+   int GetMaxBullets();
    int GetLives();
    void UpdateScore(int scoreGained);
    void KillPlayer(ALLEGRO_BITMAP *oldSprite, float oldSpriteWidth, float oldSpriteHeight, float defaultXPosi, float defaultYPosi);
-}
+};
+
+#endif

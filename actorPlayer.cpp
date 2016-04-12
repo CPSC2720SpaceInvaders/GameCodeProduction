@@ -18,6 +18,8 @@ void MoveActor(bool moveUp, bool moveDown, bool moveLeft, bool moveRight, const 
    return playerScore;
 }int GetLives(){
 	return lives;
+}int GetMaxBullets(){
+    return maxBullets;
 }void UpdateScore(int scoreGained){
    playerScore += scoreGained;
 }void KillPlayer(ALLEGRO_BITMAP *oldSprite, float oldSpriteWidth, float oldSpriteHeight, float defaultXPosi, float defaultYPosi) {

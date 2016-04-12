@@ -24,9 +24,11 @@ private:
 	enum  directions_c { UP, DOWN }; /**< Determines whether a fired projectile should travel towards the top or bottom of the screen. */
 
 	ALLEGRO_BITMAP *projectileSprite;
-	Hitbox projectileHitbox;
+
 
 public:
+    Hitbox projectileHitbox;
+
 	//Retrieval methods
    /**
    *   @fn     GetXCoord()
@@ -60,6 +62,6 @@ public:
 	*    @return   Boolian value.
 	*/
 	void	DrawProjectile();
-}
+};
 
 #endif //Projectile.h

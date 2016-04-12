@@ -1,13 +1,13 @@
 //includes
 #include "projectile.h"
 #include <allegro5/allegro.h>
-#define SCREENWIDTH 1200
 #define SCREENHEIGHT 800
+#define SCREENWIDTH 1200
 //Header comments
 #ifndef BULLET_H__
 #define BULLET_H__
 
-class ProjectileBullet public Projectile
+class ProjectileBullet : public Projectile
 {
 private:
     //Member variables
@@ -57,14 +57,14 @@ bool createBullet(struct ACTOR player, struct BULLETS BulletsArray[], const int 
     return false;
 }
 
-bool createBullet(ACTOR player, vector<BULLETS> *friendlyBulletIndex, const int MOVERATE_PROJECTILES, ALLEGRO_KEYBOARD_STATE keyboardState1, ALLEGRO_SAMPLE *sfxShoot, bool canPlayerShoot) {
-	if (al_key_down(&keyboardState1, ALLEGRO_KEY_SPACE) && canPlayerShoot == true) {
-		al_play_sample(sfxShoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
-		player.currBullets++;
-		friendlyBulletIndex.emplace_back;
-		friendlyBulletIndex.
-	}
-}
+//bool createBullet(ACTOR player, vector<BULLETS> *friendlyBulletIndex, const int MOVERATE_PROJECTILES, ALLEGRO_KEYBOARD_STATE keyboardState1, ALLEGRO_SAMPLE *sfxShoot, bool canPlayerShoot) {
+//	if (al_key_down(&keyboardState1, ALLEGRO_KEY_SPACE) && canPlayerShoot == true) {
+//		al_play_sample(sfxShoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+//		player.currBullets++;
+//		friendlyBulletIndex.emplace_back;
+//		friendlyBulletIndex.
+//	}
+//}
 
 bool createEnemyBullet(struct ACTOR player2, struct BULLETS BulletsArray[], const int MOVERATE_PROJECTILES, ALLEGRO_SAMPLE *sfxShoot)
 {

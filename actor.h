@@ -12,17 +12,18 @@ private:
    int health, hitboxSize, hitboxWidth;
 
    ALLEGRO_BITMAP *actorSprite;
-   HITBOX actorHitbox;
 
 public:
+   Hitbox actorHitbox;
+
    //Retrieval methods
    float GetXCoord();
    float GetYCoord();
    int GetHealth();
 
    //Manipulation methods
-   void MoveActor() =0;
-   void ModifyCurrentHealth(int damageTaken);
+   void MoveActor();
+   void ModifyHealth(int damageTaken);
    void ChangeActorSprite(ALLEGRO_BITMAP *newSprite, float newSpriteWidth, float newSpriteHeight);
    void DrawActor();
    bool CheckDead();
@@ -221,23 +222,23 @@ void moveAllEnemies(int& leftOrRight, struct ACTOR enemyIndex[], int enemyMoveme
 //	}
 //}
 
-void initialize_all_enemies(vector<ACTOR> *enemyIndex) {
-	int enemyNumber = -1;
-	int _kindOfActor = 0;
-	for (int row = 0; row < 5; row++) {
-		_kindOfActor++;
-		if (_kindOfActor > 3) {
-			_kindOfActor = 1;
-		}
-		for (int column = 0; column < 11; column++) {
-			enemyNumber++;
-			enemyIndex.at(enemyNumber).initializeAcctor("Resources/enemies.png", 50 + (column * 60), 100 + (row * 40), 50, 40, _kindOfActor); /**< we add column*60 and row*40 so the enemies will be separated */
-			// the first two numbers is the position where the actor will appear (x, y)
-			// the last two numbers are the Widht and Height of the actor
-			// last number is 1 so we know is an enemy
-		}
-	}
-}
+//void initialize_all_enemies(vector<ACTOR> *enemyIndex) {
+//	int enemyNumber = -1;
+//	int _kindOfActor = 0;
+//	for (int row = 0; row < 5; row++) {
+//		_kindOfActor++;
+//		if (_kindOfActor > 3) {
+//			_kindOfActor = 1;
+//		}
+//		for (int column = 0; column < 11; column++) {
+//			enemyNumber++;
+//			enemyIndex.at(enemyNumber).initializeAcctor("Resources/enemies.png", 50 + (column * 60), 100 + (row * 40), 50, 40, _kindOfActor); /**< we add column*60 and row*40 so the enemies will be separated */
+//			// the first two numbers is the position where the actor will appear (x, y)
+//			// the last two numbers are the Widht and Height of the actor
+//			// last number is 1 so we know is an enemy
+//		}
+//	}
+//}
 
 //void draw_all_enemies(struct ACTOR enemyIndex[], int animateEnemy) {
 //	int enemyNumber = -1;
@@ -259,23 +260,23 @@ void initialize_all_enemies(vector<ACTOR> *enemyIndex) {
 //	}
 //}
 
-void draw_all_enemies(vector<ACTOR> *enemyIndex, int animateEnemy) {
-	int enemyNumber = -1;
-	int kindOfEnemy = -1; /**< this decides the sprite that each enemy will use. */
-
-	for (int row = 0; row < 5; row++) {
-		kindOfEnemy++;
-		if (kindOfEnemy > 2) { /**< kindOfEnemy goes from 0 to 2, because there are 3 total different sprites. */
-			kindOfEnemy = 0;
-		}
-		for (int column = 0; column < 11; column++) {
-			enemyNumber++;
-			if (enemyIndex.at(enemyNumber).maxHealth > 0) {
-				enemyIndex.at(enemyNumber).drawOneEnemy(enemyIndex.at(enemyNumber).spritePlayer, kindOfEnemy, animateEnemy);
-			}
-		}
-	}
-}
+//void draw_all_enemies(vector<ACTOR> *enemyIndex, int animateEnemy) {
+//	int enemyNumber = -1;
+//	int kindOfEnemy = -1; /**< this decides the sprite that each enemy will use. */
+//
+//	for (int row = 0; row < 5; row++) {
+//		kindOfEnemy++;
+//		if (kindOfEnemy > 2) { /**< kindOfEnemy goes from 0 to 2, because there are 3 total different sprites. */
+//			kindOfEnemy = 0;
+//		}
+//		for (int column = 0; column < 11; column++) {
+//			enemyNumber++;
+//			if (enemyIndex.at(enemyNumber).maxHealth > 0) {
+//				enemyIndex.at(enemyNumber).drawOneEnemy(enemyIndex.at(enemyNumber).spritePlayer, kindOfEnemy, animateEnemy);
+//			}
+//		}
+//	}
+//}
 
 void ACTOR::enemyExplotes(){
     ALLEGRO_BITMAP *blackPatch = al_load_bitmap("Resources/blackpatch.png");

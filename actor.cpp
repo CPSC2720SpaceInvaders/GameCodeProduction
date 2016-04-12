@@ -21,10 +21,14 @@ float GetXCoord (){
 //Manipulation methods
 void ModifyCurrentHealth(int damageTaken){
    health -= damageTaken;
-}bool CheckDead(){
-   if (curHealth <= 0){
-      return true;
-   }return false;
+}void ChangeActorSprite(ALLEGRO_BITMAP *newSprite, float newSpriteWidth, float newSpriteHeight) {
+	*actorSprite = *newSprite; 
+	spriteWidth = newSpriteWidth;
+	spriteHeight = newSpriteHeight;
 }void DrawActor(){
    al_draw_bitmap_region(actorSprite, 0, 0, spriteWidth, spriteHeight, xCoord, yCoord, NULL);
+}bool CheckDead() {
+	if (curHealth <= 0) {
+		return true;
+	}return false;
 }

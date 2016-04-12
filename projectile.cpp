@@ -26,19 +26,15 @@ int GetXCoord(){
 /**
 *	Additional comments about MoveProjectile method.
 */
-void MoveProjectile (int moveRate, Directions_c projDirection){
+void MoveProjectile (const int MOVERATE_PROJECTILES, Directions_c projDirection){
    if (projDirection == UP){
-      yCoordinate -= moveRate;
+      yCoordinate -= MOVERATE_PROJECTILES;
    }else{
-      yCoordinate += moveRate;
+      yCoordinate += MOVERATE_PROJECTILES;
    }
+   projectileHitbox.MoveHitbox(xCoordinate, yCoordinate);
 }
 
-/**
-*	Additional comments about CheckForCollission method.
-*/
-bool CheckForCollision(int moveRate, int targetXCoord, int targetYCoord){
-   if (xCoordinate == targetXCoord && yCoordinate == targetYCoord){
-      return true;
-   }return false;
+void DrawProjectile() {
+	al_draw_bitmap(projectileSprite, 0, 0, xCoord, yCoord, NULL);
 }

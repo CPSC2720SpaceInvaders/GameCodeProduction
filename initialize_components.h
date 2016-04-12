@@ -8,11 +8,13 @@
     bool done = false; /**< If done == true, the game ends. */
     bool draw = false; /**< If draw == true, the gamestate will be drawn to the display. */
     bool active = false; /**< Determines if a key is being pressed. */
+	bool moveUp = false; bool moveDown = false; bool moveRight = false; bool moveLeft = false; /**< Passed to the player object to control movement.*/
     const int MOVERATE_PROJECTILES = -5; /**< if positive, the bullet goes down, if negative, it goes up */
     const int MOVERATE_ENEMY_PROJECTILES = 3; /**< if positive, the bullet goes down, if negative, it goes up */
     const int MOVERATE_ACTORS = 10;
     srand(time(NULL));
     int randomNumber = rand()%55; /**< generates random numbers between 0 and 55 */
+	int randomNumber2;
     int animateEnemy = 0;
     int blinking = 0; /**< makes the main menu and the "loading" screen to blink */
     int menuY = 0;
@@ -22,6 +24,7 @@
     int leftOrRight = 3; /**< positive number means right, negative means left */
     int enemyMovement = 0;
     int gameSpeed = 10;
+	int currStage = 1;
 
     if(!al_init())   /**< do NOT initialice anything before al_init(); */
     {
@@ -65,7 +68,11 @@
     ALLEGRO_TIMER *timer1 = al_create_timer(1.0/FPS); /**< 60 frames per second */
     ALLEGRO_EVENT_QUEUE *event_queue1 = al_create_event_queue();
     ALLEGRO_BITMAP *menu = al_load_bitmap("Resources/STARTMENU.png");
-    al_register_event_source(event_queue1, al_get_timer_event_source(timer1));
+	ALLEGRO_BITMAP *playerSprite = al_load_bitmap("Resources/spaceship.png");
+	ALLEGRO_BITMAP *enemySprites = al_load_bitmap("Resources/enemies.png");
+	ALLEGRO_BITMAP *playerDeathSprite = al_load_bitmap("Resources/blackpatch.png");
+	ALLEGRO_BITMAP *enemyDeathSprite = al_load_bitmap("Resources/enemyexplosion.png");
+	al_register_event_source(event_queue1, al_get_timer_event_source(timer1));
     al_register_event_source(event_queue1, al_get_keyboard_event_source());
 
     /** @fn al_play_sample

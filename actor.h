@@ -9,8 +9,7 @@
 class Actor {
 private:
    float xCoord, yCoord, spriteWidth, spriteHeight;
-   // int kindOfActor; /**< 0=Player, 1=Blue Enemy, 2=Red Enemy, 3=Green Enemy */
-   int health;
+   int health, hitboxSize, hitboxWidth;
 
    ALLEGRO_BITMAP *actorSprite;
    HITBOX actorHitbox;
@@ -24,6 +23,7 @@ public:
    //Manipulation methods
    void MoveActor() =0;
    void ModifyCurrentHealth(int damageTaken);
+   void ChangeActorSprite(ALLEGRO_BITMAP *newSprite, float newSpriteWidth, float newSpriteHeight);
    void DrawActor();
    bool CheckDead();
 };
@@ -36,10 +36,9 @@ struct ACTOR
     float yCoord; /**< represent the original position of the spaceship */
     float playerWidth;
     float playerHeight; /**< represent the width and height of the spaceship inside the PNG file */
-    int currBullets;
-    int maxBullets;
-    int BulletControlCounter; /**< controls the time between shoots */
-    int kindOfActor; /**< 0=Player, 1=Blue Enemy, 2=Red Enemy, 3=Green Enemy */
+	int currBullets;
+	int maxBullets;
+	int BulletControlCounter; /**< controls the time between shoots */
     int maxHealth;
 
     ALLEGRO_BITMAP *spritePlayer;
@@ -166,80 +165,116 @@ bool ACTOR::moveEnemy(bool leftright)
     if(xCoord <= 100 && yCoord < 700 && leftright==false)  /**< enemy goes down once, then moves left */
     {
         yCoord += 50;
-        leftright = true;
-        return true;
-    }
-    return true;
+leftright = true;
+return true;
+	}
+	return true;
 }
 
 bool detectScreenLimits(int& leftOrRight, struct ACTOR enemyIndex[])
 {
-    for (int i=0; i<55; i++){
-        if(enemyIndex[i].xCoord > 1000 || enemyIndex[i].xCoord < 50)
-        {
-            leftOrRight = -1*leftOrRight;
-            return true;
-        }
-        return false;
-    }
-    return false;
+	for (int i = 0; i < 55; i++) {
+		if (enemyIndex[i].xCoord > 1000 || enemyIndex[i].xCoord < 50)
+		{
+			leftOrRight = -1 * leftOrRight;
+			return true;
+		}
+		return false;
+	}
+	return false;
 }
 
 void moveAllEnemies(int& leftOrRight, struct ACTOR enemyIndex[], int enemyMovement)
 {
-    for (int i=0; i<55; i++){
-        enemyIndex[i].xCoord += leftOrRight;
-    }
+	for (int i = 0; i < 55; i++) {
+		enemyIndex[i].xCoord += leftOrRight;
+	}
 
-    if(++enemyMovement == 2){
-        enemyMovement = 0;
-    }
+	if (++enemyMovement == 2) {
+		enemyMovement = 0;
+	}
 
-    if(detectScreenLimits(leftOrRight, enemyIndex)==true){
-        for (int j=0; j<55; j++){
-            enemyIndex[j].yCoord += 20;
-        }
-    }
+	if (detectScreenLimits(leftOrRight, enemyIndex) == true) {
+		for (int j = 0; j < 55; j++) {
+			enemyIndex[j].yCoord += 20;
+		}
+	}
 
 
 }
 
-void initialize_all_enemies(struct ACTOR enemyIndex[]){
-    int enemyNumber = -1;
-    int _kindOfActor = 0;
-    for(int row=0; row<5; row++){
-        _kindOfActor++;
-        if(_kindOfActor>3){
-            _kindOfActor=1;
-        }
-        for (int column=0; column<11; column++){
-            enemyNumber++;
-            enemyIndex[enemyNumber].initializeActor("Resources/enemies.png", 50+(column*60), 100+(row*40), 50, 40, _kindOfActor); /**< we add column*60 and row*40 so the enemies will be separated */
-            // the first two numbers is the position where the actor will appear (x, y)
-            // the last two numbers are the Widht and Height of the actor
-            // last number is 1 so we know is an enemy
-        }
-    }
+//void initialize_all_enemies(struct ACTOR enemyIndex[]){
+//	int enemyNumber = -1;
+//	int _kindOfActor = 0;
+//	for(int row=0; row<5; row++){
+//		_kindOfActor++;
+//		if(_kindOfActor>3){
+//			_kindOfActor=1;
+//		}
+//		for (int column=0; column<11; column++){
+//			enemyNumber++;
+//			enemyIndex[enemyNumber].initializeActor("Resources/enemies.png", 50+(column*60), 100+(row*40), 50, 40, _kindOfActor); /**< we add column*60 and row*40 so the enemies will be separated */
+//			// the first two numbers is the position where the actor will appear (x, y)
+//			// the last two numbers are the Widht and Height of the actor
+//			// last number is 1 so we know is an enemy
+//		}
+//	}
+//}
+
+void initialize_all_enemies(vector<ACTOR> *enemyIndex) {
+	int enemyNumber = -1;
+	int _kindOfActor = 0;
+	for (int row = 0; row < 5; row++) {
+		_kindOfActor++;
+		if (_kindOfActor > 3) {
+			_kindOfActor = 1;
+		}
+		for (int column = 0; column < 11; column++) {
+			enemyNumber++;
+			enemyIndex.at(enemyNumber).initializeAcctor("Resources/enemies.png", 50 + (column * 60), 100 + (row * 40), 50, 40, _kindOfActor); /**< we add column*60 and row*40 so the enemies will be separated */
+			// the first two numbers is the position where the actor will appear (x, y)
+			// the last two numbers are the Widht and Height of the actor
+			// last number is 1 so we know is an enemy
+		}
+	}
 }
 
-void draw_all_enemies(struct ACTOR enemyIndex[], int animateEnemy){
-    int enemyNumber = -1;
-    int kindOfEnemy = -1; /**< This decides the sprite that each enemy will use */
+//void draw_all_enemies(struct ACTOR enemyIndex[], int animateEnemy) {
+//	int enemyNumber = -1;
+//	int kindOfEnemy = -1; /**< This decides the sprite that each enemy will use */
+//
+//	for (int row = 0; row < 5; row++) {
+//		kindOfEnemy++;
+//		if (kindOfEnemy > 2) { /**< kindOfEnemy goes from 0 to 2, because there are 3 total different sprites */
+//			kindOfEnemy = 0; /**< this condition resets the kindOfEnemy to 0 */
+//		}
+//		for (int column = 0; column < 11; column++) {
+//			enemyNumber++;
+//			if (enemyIndex[enemyNumber].maxHealth > 0) { /**< if the enemy still has health left, draws it */
+//				enemyIndex[enemyNumber].drawOneEnemy(enemyIndex[enemyNumber].spritePlayer, kindOfEnemy, animateEnemy); /**< draws all the enemies */
+//				// the very last number is the kindOfEnemy, because it helps to change the sprites of the enemies
+//				// animateEnemy will go from 0-1 many times so it looks like they have animation
+//			}
+//		}
+//	}
+//}
 
-    for(int row=0; row<5; row++){
-        kindOfEnemy++;
-        if(kindOfEnemy>2){ /**< kindOfEnemy goes from 0 to 2, because there are 3 total different sprites */
-            kindOfEnemy = 0; /**< this condition resets the kindOfEnemy to 0 */
-        }
-        for (int column=0; column<11; column++){
-            enemyNumber++;
-            if(enemyIndex[enemyNumber].maxHealth > 0){ /**< if the enemy still has health left, draws it */
-                enemyIndex[enemyNumber].drawOneEnemy(enemyIndex[enemyNumber].spritePlayer, kindOfEnemy, animateEnemy); /**< draws all the enemies */
-                // the very last number is the kindOfEnemy, because it helps to change the sprites of the enemies
-                // animateEnemy will go from 0-1 many times so it looks like they have animation
-            }
-        }
-    }
+void draw_all_enemies(vector<ACTOR> *enemyIndex, int animateEnemy) {
+	int enemyNumber = -1;
+	int kindOfEnemy = -1; /**< this decides the sprite that each enemy will use. */
+
+	for (int row = 0; row < 5; row++) {
+		kindOfEnemy++;
+		if (kindOfEnemy > 2) { /**< kindOfEnemy goes from 0 to 2, because there are 3 total different sprites. */
+			kindOfEnemy = 0;
+		}
+		for (int column = 0; column < 11; column++) {
+			enemyNumber++;
+			if (enemyIndex.at(enemyNumber).maxHealth > 0) {
+				enemyIndex.at(enemyNumber).drawOneEnemy(enemyIndex.at(enemyNumber).spritePlayer, kindOfEnemy, animateEnemy);
+			}
+		}
+	}
 }
 
 void ACTOR::enemyExplotes(){

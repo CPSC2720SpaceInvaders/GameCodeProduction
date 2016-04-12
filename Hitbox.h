@@ -17,7 +17,7 @@ public:
 	float		GetHitboxWidth();
 	float		GetHitboxHeight();
 	void		MoveHitbox(float newXLocation, float newYLocation);
-	bool		CheckForCollision(Hitbox target, bool moveHorizontal, float moveRate);
+	bool		CheckForCollision(Hitbox target);
 };
 
 #endif //HITBOX_H

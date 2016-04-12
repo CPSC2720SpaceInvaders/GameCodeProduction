@@ -38,7 +38,7 @@
     }
 
     if (loadingTimer > 80){ /**< miliseconds the LOADING screen will be displayed */
-        draw = true;
+        currStage = 1;
     }
 
 #endif

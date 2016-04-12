@@ -8,10 +8,13 @@
 #include "hitbox.h"
 
 class ActorEnemyBasic public Actor {
-  private:
-   int enemyScore;
-   bool moveRight;
+private:
+	int enemyScore;
+	bool moveRight;
 
-  public:
-   void MoveActor(int moveRate, const int );
-   void InitializeBasicEnemy(ALLEGRO_BITMAP *enemySprite, float x, float y, int enemySpriteWidth, int enemySpriteHeight, int enemyHealth, int enemyScore);
+public:
+	bool isDead = false; /**< Used to exclude an object from collision while animating its death. */
+	void MoveActor(const int MOVERATE_ACTORS, const int SCREEN_WIDTH);
+}
+
+#endif //ACTORENEMYBASIC_H

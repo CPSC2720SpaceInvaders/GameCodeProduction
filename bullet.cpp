@@ -6,7 +6,7 @@
 //Public methods
 
 //Private methods
-int getBulletDamage(){
+int GetBulletDamage(){
    return bulletDamage;
 }
 

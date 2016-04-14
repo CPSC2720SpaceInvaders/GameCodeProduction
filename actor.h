@@ -180,6 +180,10 @@ bool detectScreenLimits(int& leftOrRight, struct ACTOR enemyIndex[])
             leftOrRight = -1*leftOrRight;
             return true;
         }
+        if (enemyIndex[10].xCoord > 1100){
+            leftOrRight = -1*leftOrRight;
+            return true;
+        }
         return false;
     }
     return false;

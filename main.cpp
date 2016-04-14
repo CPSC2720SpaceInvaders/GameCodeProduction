@@ -29,6 +29,7 @@
 int main()
 {
     #include "initialize_components.h"
+    int totalDeads = 0;
 
     ACTOR playerShip; /**< Initialize a new ACTOR called playerShip to be our main character */
     playerShip.initializeActor("Resources/spaceship.png", SCREEN_WIDTH/2, SCREEN_HEIGHT-100, 60, 40, 0); /**< given values to the new actor */
@@ -68,7 +69,7 @@ int main()
 
             //############################################### SPACESHIP ############################
 
-            playerShip.moveSpaceship(keyboardState1, MOVERATE_ACTORS); /**< Moves the spaceship */
+            playerShip.moveSpaceship(keyboardState1, MOVERATE_ACTORS, SCREENWIDTH); /**< Moves the spaceship */
             if(createBullet(playerShip, BulletsArray, MOVERATE_PROJECTILES, keyboardState1, sfxShoot, playerShip.canPlayerShoot(5))){ /**< can player shoot is a boolean that controls the time between bullets */
                 playerShip.currBullets++;
             }
@@ -77,8 +78,10 @@ int main()
             {
                 if(CheckForCollision(playerShip.xCoord, playerShip.yCoord, enemyIndex[i].xCoord, enemyIndex[i].yCoord, playerShip.playerWidth, playerShip.playerHeight, enemyIndex[i].playerWidth, enemyIndex[i].playerHeight))
                 {
-                    playerShip.spaceshipExplotes();
-                    gameOverScreen(draw, done, font);
+                    if(enemyIndex[i].maxHealth > 0){
+                        playerShip.spaceshipExplotes();
+                        gameOverScreen(draw, done, font);
+                    }
                 }
             }
 
@@ -103,19 +106,29 @@ int main()
 
             //############################################### ENEMIES ############################
 
-            if(enemyIndex[randomNumber].currBullets == 0){ /**< Enemies shoot randomly */
+            if(enemyIndex[randomNumber].currBullets < 1){ /**< Enemies shoot randomly */
                 randomNumber = rand()%55; /**< generates random numbers between 0 and 55 */
-                if(createEnemyBullet(enemyIndex[randomNumber], enemyBullets, MOVERATE_ENEMY_PROJECTILES, sfxEnemyShoot)){ /** Random shoot without using the space key */
-                    enemyIndex[randomNumber].currBullets++;
+                if(enemyIndex[randomNumber].maxHealth > 0){
+                    if(createEnemyBullet(enemyIndex[randomNumber], enemyBullets, MOVERATE_ENEMY_PROJECTILES, sfxEnemyShoot)){ /** Random shoot without using the space key */
+
+                        //if(enemyIndex[randomNumber].currBullets < 1){
+                            enemyIndex[randomNumber].currBullets++;
+                        //}
+
+                    }
                 }
             }
 
             for (int i=1; i <= playerShip.currBullets; i++) /**< Enemies & bullet colision */
             {
-                if (BulletsArray[i].enemyBulletCollision(enemyIndex, playerShip)){ /**< Enemy colisions with bullet */
+                if (BulletsArray[i].enemyBulletCollision(enemyIndex, playerShip, totalDeads)){ /**< Enemy colisions with bullet */
                     BulletsArray[i] = BulletsArray[playerShip .currBullets]; /**< this is necessary because bullets dissapear all at once if not implemented */
                     playerShip.currBullets--; /**< deletes bullet */
                 }
+            }
+            if (totalDeads > 54){
+                winnerScreen(draw, done, font); /**< calls the game over function */
+                al_rest(4.0);
             }
 
             if(enemyIndex[0].canPlayerShoot(10)){ /**< Enemies' individual sprite animation */

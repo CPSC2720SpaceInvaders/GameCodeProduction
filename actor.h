@@ -47,7 +47,7 @@ struct ACTOR
 
     void initializeActor(char* sprite_source, int x, int y, int _playerWidth, int _playerHeight, int _kindOfActor);
     void drawActor(ALLEGRO_BITMAP *spritePlayer);
-    void moveSpaceship(ALLEGRO_KEYBOARD_STATE keyboardState1, const int MOVERATE_ACTORS);
+    void moveSpaceship(ALLEGRO_KEYBOARD_STATE keyboardState1, const int MOVERATE_ACTORS, int SCREENWIDTH);
     bool canPlayerShoot(int timerForAnimation); /**< timerForAnimation modifies the speed of the sprite animation */
     bool moveEnemy(bool leftright);
     void drawOneEnemy(ALLEGRO_BITMAP *spriteSheet, int kindOfEnemy, int animateEnemy);
@@ -55,15 +55,26 @@ struct ACTOR
     void spaceshipExplotes();
 };
 
-void ACTOR::moveSpaceship(ALLEGRO_KEYBOARD_STATE keyboardState1, const int MOVERATE_ACTORS){
-    if(al_key_down(&keyboardState1, ALLEGRO_KEY_DOWN))
-        yCoord += MOVERATE_ACTORS;
-    else if (al_key_down(&keyboardState1, ALLEGRO_KEY_UP))
-        yCoord -= MOVERATE_ACTORS;
-    else if (al_key_down(&keyboardState1, ALLEGRO_KEY_RIGHT))
-        xCoord += MOVERATE_ACTORS;
+void ACTOR::moveSpaceship(ALLEGRO_KEYBOARD_STATE keyboardState1, const int MOVERATE_ACTORS, int SCREENWIDTH){
+//    if(al_key_down(&keyboardState1, ALLEGRO_KEY_DOWN))
+//        yCoord += MOVERATE_ACTORS;
+//    else if (al_key_down(&keyboardState1, ALLEGRO_KEY_UP))
+//        yCoord -= MOVERATE_ACTORS;
+    if (al_key_down(&keyboardState1, ALLEGRO_KEY_RIGHT)){
+        if(xCoord+MOVERATE_ACTORS > SCREENWIDTH-100){
+
+        } else{
+            xCoord += MOVERATE_ACTORS;
+        }
+
+    }
+
     else if (al_key_down(&keyboardState1, ALLEGRO_KEY_LEFT))
-        xCoord -= MOVERATE_ACTORS;
+        if(xCoord-MOVERATE_ACTORS < 50){
+
+        } else{
+            xCoord -= MOVERATE_ACTORS;
+        }
 }
 
 /** @fn initializeSpaceship

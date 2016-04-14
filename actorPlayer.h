@@ -8,10 +8,10 @@
 #include "actor.h"
 #include "hitbox.h"
 
-class ActorPlayer public Actor {
+class ActorPlayer : public Actor {
   private:
    int playerScore, lives;
-   
+
   public:
    void MoveActor(ALLEGRO_KEYBOARD_STATE keyboardState1, const int MOVERATE_ACTORS);
    int GetScore();

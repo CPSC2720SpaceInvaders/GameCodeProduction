@@ -28,7 +28,7 @@ struct BULLETS
 
     int getBulletDamage();
     bool collision(float xCoord, float yCoord, float playerWidth, float playerHeight);
-    bool enemyBulletCollision(struct ACTOR enemyIndex[], struct ACTOR spaceShip);
+    bool enemyBulletCollision(struct ACTOR enemyIndex[], struct ACTOR spaceShip, int& totalDeads);
 };
 
 /** @fn createBullet
@@ -119,7 +119,7 @@ bool BULLETS::collision(float xCoord, float yCoord, float playerWidth, float pla
 
 }
 
-bool BULLETS::enemyBulletCollision(struct ACTOR enemyIndex[], struct ACTOR playerShip){
+bool BULLETS::enemyBulletCollision(struct ACTOR enemyIndex[], struct ACTOR playerShip, int& totalDeads){
 
     if(playerShip.currBullets > 0 && playerShip.currBullets < playerShip.maxBullets)  //draws bullet
     {
@@ -137,6 +137,7 @@ bool BULLETS::enemyBulletCollision(struct ACTOR enemyIndex[], struct ACTOR playe
                             enemyIndex[enemyNumber].maxHealth -= 1; /**< delete the enemy */
                             if (enemyIndex[enemyNumber].maxHealth == 0){
                                 enemyIndex[enemyNumber].enemyExplotes();
+                                totalDeads++;
                             }
                             return true;
                 }
@@ -149,6 +150,16 @@ bool BULLETS::enemyBulletCollision(struct ACTOR enemyIndex[], struct ACTOR playe
     void gameOverScreen(bool& draw, bool& done, ALLEGRO_FONT *font){
     al_rest(0.5);
     al_draw_text(font, al_map_rgb(254,117,200), SCREENWIDTH/2, SCREENHEIGHT/3, ALLEGRO_ALIGN_CENTRE, "GAME OVER");
+    al_flip_display();
+    //al_clear_to_color(backgroundColor); /**< cleans screen and only shows GAME OVER */
+    al_rest(1.0);
+    draw = false;
+    done = true; /**< ends the game */
+}
+
+void winnerScreen(bool& draw, bool& done, ALLEGRO_FONT *font){
+    al_rest(0.5);
+    al_draw_text(font, al_map_rgb(254,117,200), SCREENWIDTH/2, SCREENHEIGHT/3, ALLEGRO_ALIGN_CENTRE, "YOU WIN!");
     al_flip_display();
     //al_clear_to_color(backgroundColor); /**< cleans screen and only shows GAME OVER */
     al_rest(1.0);

@@ -28,7 +28,7 @@
         al_show_native_message_box(NULL, "Error", "Allegro Settings", "Failed to initialize allegro 5!", NULL, NULL);
         //return -1;
     }
-    al_set_new_display_flags(ALLEGRO_NOFRAME); /**< Screen without frames */
+    //al_set_new_display_flags(); /**< Screen without frames */
     ALLEGRO_DISPLAY *display = al_create_display(SCREEN_WIDTH, SCREEN_HEIGHT); /**< Creates main display */
     if(!display)
     {

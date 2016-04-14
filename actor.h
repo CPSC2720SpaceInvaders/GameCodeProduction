@@ -13,7 +13,7 @@ private:
    int health;
 
    ALLEGRO_BITMAP *actorSprite;
-   HITBOX actorHitbox;
+//   HITBOX actorHitbox;
 
 public:
    //Retrieval methods
@@ -22,7 +22,7 @@ public:
    int GetHealth();
 
    //Manipulation methods
-   void MoveActor() =0;
+   virtual void MoveActor() =0;
    void ModifyCurrentHealth(int damageTaken);
    void DrawActor();
    bool CheckDead();

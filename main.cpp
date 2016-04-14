@@ -30,12 +30,12 @@ int main()
 {
     #include "initialize_components.h"
 
-    ACTOR playerShip;
-    playerShip.initializeActor("Resources/spaceship.png", SCREEN_WIDTH/2, SCREEN_HEIGHT-100, 60, 40, 0);
+    ACTOR playerShip; /**< Initialize a new ACTOR called playerShip to be our main character */
+    playerShip.initializeActor("Resources/spaceship.png", SCREEN_WIDTH/2, SCREEN_HEIGHT-100, 60, 40, 0); /**< given values to the new actor */
     BULLETS BulletsArray[playerShip.maxBullets]; //creates Array
 
-    ACTOR enemyIndex[60]; /**< Creates enemies VECTOR */
-    initialize_all_enemies(enemyIndex);
+    ACTOR enemyIndex[60]; /**< Creates enemies array */
+    initialize_all_enemies(enemyIndex); /** fills the array */
     BULLETS enemyBullets[5]; //creates Array of 5 bullets
 
     /* MENU
@@ -86,11 +86,11 @@ int main()
             {
                 if(enemyBullets[i].collision(playerShip.xCoord, playerShip.yCoord, playerShip.playerWidth, playerShip.playerHeight)){
                     enemyBullets[i] = enemyBullets[enemyIndex[randomNumber].currBullets]; /**< this is necessary because bullets dissapear all at once if not implemented */
-                    enemyIndex[randomNumber].currBullets--;
-                    playerShip.maxHealth--;
-                    playerShip.spaceshipExplotes();
+                    enemyIndex[randomNumber].currBullets--; /**< bullet gets deleted */
+                    playerShip.maxHealth--; /**< the player's health is reduced */
+                    playerShip.spaceshipExplotes(); /**< animation of the spaceship exploting */
                     if (playerShip.maxHealth<1){
-                        gameOverScreen(draw, done, font);
+                        gameOverScreen(draw, done, font); /**< calls the game over function */
                     }
                 }
             }
@@ -161,13 +161,3 @@ int main()
     al_destroy_event_queue(event_queue1);
     return 0;
 }
-
-
-/**
-* @fn initialize_allegro_and_display()
-* @brief Is the first and most important function.
-* Creates and makes sure Allegro, the display, and the window containing the display, work.
-* Still doesn't have nothing inside, because the *display is required later in the main.
-* @param No parameters required.
-* @return I'm gessuing it should return the *display, but I haven't figurerd out how to do that yet.
-*/

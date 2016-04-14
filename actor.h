@@ -55,6 +55,12 @@ struct ACTOR
     void spaceshipExplotes();
 };
 
+/** @fn moveSpaceship
+* @brief modifies the actor's position (X,Y) by adding or substracting
+* @param KeyboardState1 is the data related with the pressed key
+* @param MOVERATE_ACTORS is the speed each actor is suposed to move
+*/
+
 void ACTOR::moveSpaceship(ALLEGRO_KEYBOARD_STATE keyboardState1, const int MOVERATE_ACTORS){
     if(al_key_down(&keyboardState1, ALLEGRO_KEY_DOWN))
         yCoord += MOVERATE_ACTORS;

@@ -13,20 +13,21 @@
 
 //includes
 #include "projectile.h"
+using namespace std;
 
 //Private methods
 
 //Public methods
-int GetXCoord(){
+int Projectile::GetXCoord(){
    return xCoordinate;
-}int GetYCoord(){
+}int Projectile::GetYCoord(){
    return yCoordinate;  
 }
 
 /**
 *	Additional comments about MoveProjectile method.
 */
-void MoveProjectile (const int MOVERATE_PROJECTILES, Directions_c projDirection){
+void Projectile::MoveProjectile (const int MOVERATE_PROJECTILES, directions_c projDirection){
    if (projDirection == UP){
       yCoordinate -= MOVERATE_PROJECTILES;
    }else{
@@ -35,6 +36,6 @@ void MoveProjectile (const int MOVERATE_PROJECTILES, Directions_c projDirection)
    projectileHitbox.MoveHitbox(xCoordinate, yCoordinate);
 }
 
-void DrawProjectile() {
-	al_draw_bitmap(projectileSprite, 0, 0, xCoord, yCoord, NULL);
+void Projectile::DrawProjectile() {
+	al_draw_bitmap(projectileSprite, xCoordinate, yCoordinate, NULL);
 }

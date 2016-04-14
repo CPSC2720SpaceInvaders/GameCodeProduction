@@ -4,10 +4,9 @@
 #include <allegro5/allegro.h>
 #include "actor.h"
 
+using namespace std;
+
 //Constructors
-Actor (int xC, int yC, int curH, int maxH) : xCoord(xC), yCoord(yC), curHealth(curH), maxHealth(maxH) { };
-Actor (int xC, int yC, int curH) : xCoord(xC), yCoord(yC), curHealth(curH), maxHealth(1) { };
-Actor (int xC, int yC) : xCoord(xC), yCoord(yC), curHealth(1), maxHealth(1);
 
 //Retrieval methods
 float GetXCoord (){
@@ -31,4 +30,6 @@ void ModifyHealth(int damageTaken){
 	if (curHealth <= 0) {
 		return true;
 	}return false;
+}void DeleteActorSprite() {
+	al_destroy_bitmap(*actorSprite);
 }

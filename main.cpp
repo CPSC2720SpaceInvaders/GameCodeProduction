@@ -19,6 +19,7 @@
 #include "actorEnemyBasic.h"
 //#include "actorEnemySprinter.h"
 //#include "actorEnemyBosses.h"
+#include "objectSpawners.h"
 
 using namespace std;
 
@@ -74,18 +75,26 @@ int main()
 			//############################################### PREVIOUS UPDATE CLEANUP ##################
 			for (int i = 0; i < basicEnemyIndex.size(); i++) {
 				if (basicEnemyIndex.at(i).isDead) {
-					basicEnemyIndex.erase(basicEnemyIndex.begin() + i);
+					basicEnemyIndex.erase((basicEnemyIndex.begin() + i));
+				}
+				if (basicEnemyIndex.at(i).GetXCoord() > SCREEN_HEIGHT) {
+					basicEnemyIndex.erase((basicEnemyIndex.begin() + i));
 				}
 			}
 
+			for (int i = 0; i < friendlyBulletIndex.size(); i++) {
+				if (friendlyBulletIndex.GetYCoord < SCREEN_TOPEDGE) {
+					friendlyBulletIndex.erase((friendlyBulletIndex.begin() + i));
+				}
+			}
+
+			for (int i = 0; i < hostileBulletIndex.size(); i++) {
+				if (hostileBulletIndex.GetYCoord > SCREEN_HEIGHT) {
+					hostileBulletIndex.erase((hostileBulletIndex.begin() + 1));
+				}
+			}
 
 			//############################################### UPDATE PLAYER ############################
-
-			//playerShip.moveSpaceship(keyboardState1, MOVERATE_ACTORS); /**< Moves the spaceship */
-			//if (createBullet(playerShip, BulletsArray, MOVERATE_PROJECTILES, keyboardState1, sfxShoot, playerShip.canPlayerShoot(5))) { /**< can player shoot is a boolean that controls the time between bullets */
-			//	playerShip.currBullets++;
-			//}
-
 
 			//Check if the player is dead, and also if the player has exhausted all their allotted lives.
 			if (playerShip.CheckDead()) {
@@ -127,6 +136,7 @@ int main()
 				if (!(friendlyBulletIndex.size() == playerShip.GetMaxBullets()) && playerShip.bulletControlCounter == 5) {
 					//friendlyBulletIndex.emplace_back(playerShip.GetXCoord(), playerShip.GetYCoord(), UP);
 					/* TODO: Rewrite all the things reelated wiith the line above. */
+					SpawnBullet(friendlyBulletIndex, )
 					playerShip.bulletControlCounter = 0;
 				}
 				else {
@@ -136,35 +146,6 @@ int main()
 			else {
 				playerShip.bulletControlCounter++;
 			}
-
-
-            //for (int i=0; i <= 60; i++) /**< Spaceship & enemy collision */
-            //{
-            //   if(CheckForCollision(playerShip.xCoord, playerShip.yCoord, enemyIndex[i].xCoord, enemyIndex[i].yCoord, playerShip.playerWidth, playerShip.playerHeight, enemyIndex[i].playerWidth, enemyIndex[i].playerHeight))
-            //    {
-            //        playerShip.spaceshipExplotes();
-            //        gameOverScreen(draw, done, font);
-            //    }
-            //}
-
-            //for (int i=0; i <= enemyIndex[randomNumber].currBullets; i++) /**< Spaceship & bullet colision */
-            //{
-            //    if(enemyBullets[i].collision(playerShip.xCoord, playerShip.yCoord, playerShip.playerWidth, playerShip.playerHeight)){
-            //        enemyBullets[i] = enemyBullets[enemyIndex[randomNumber].currBullets]; /**< this is necessary because bullets dissapear all at once if not implemented */
-            //        enemyIndex[randomNumber].currBullets--;
-            //        playerShip.maxHealth--;
-            //        playerShip.spaceshipExplotes();
-            //        if (playerShip.maxHealth<1){
-            //            gameOverScreen(draw, done, font);
-            //        }
-            //    }
-            //}
-
-            //playerShip.drawActor(playerShip.spritePlayer); /**< draws the Spaceship */
-            //if(drawBullet(playerShip, BulletsArray)){ /**< animates PLAYER's bullets */
-            //    playerShip.currBullets--;  /**< destroys PLAYER's bullets */
-            //    playerShip.BulletControlCounter = 0;
-            //}
 
             //############################################### UPDATE ENEMIES ############################
 
@@ -192,47 +173,6 @@ int main()
 				//hostileBulletIndex.emplace_back(basicEnemyIndex.at(randomNumber).GetXCoord, basicEnemyIndex.at(randomNumber).GetYCoord, DOWN);
 				/* TODO: Completely rewrite the stuff related with "emplace_back" */
 			}
-
-
-            //if(enemyIndex[randomNumber].currBullets == 0){ /**< Enemies shoot randomly */
-            //    randomNumber = rand()%55; /**< generates random numbers between 0 and 55 */
-            //    if(createEnemyBullet(enemyIndex[randomNumber], enemyBullets, MOVERATE_ENEMY_PROJECTILES, sfxEnemyShoot)){ /** Random shoot without using the space key */
-            //        enemyIndex[randomNumber].currBullets++;
-            //    }
-            //}
-
-            //for (int i=1; i <= playerShip.currBullets; i++) /**< Enemies & bullet colision */
-            //{
-            //    if (BulletsArray[i].enemyBulletCollision(enemyIndex, playerShip)){ /**< Enemy colisions with bullet */
-            //        BulletsArray[i] = BulletsArray[playerShip .currBullets]; /**< this is necessary because bullets dissapear all at once if not implemented */
-            //        playerShip.currBullets--; /**< deletes bullet */
-            //    }
-            //}
-
-            //if(enemyIndex[0].canPlayerShoot(10)){ /**< Enemies' individual sprite animation */
-            //    moveAllEnemies(leftOrRight, enemyIndex, enemyMovement); /**< enemy's grupal movement left/right */
-            //    if (++animateEnemy == 2){
-            //        animateEnemy = 0;
-            //    }
-            //}
-            //if(enemyIndex[1].canPlayerShoot(500)){ /**< this will move the enemies faster and faster every time */
-            //    if(gameSpeed >=  2){
-            //        gameSpeed -=1;
-            //        if (enemyMovement < 0){
-			//
-            //            leftOrRight += -1;
-            //        }else{
-            //            leftOrRight += 1;
-            //        }
-            //    }
-            //}
-
-            //if(drawBullet(enemyIndex[randomNumber], enemyBullets)){ /**< animates a random ENEMY's bullets */
-            //    enemyIndex[randomNumber].currBullets--; /**< destroys that bullets */
-            //    enemyIndex[randomNumber].BulletControlCounter = 0;
-            //}
-
-            //draw_all_enemies(enemyIndex, animateEnemy); /**< draws the enemies */
 
 			//####################### UPDATE PROJECTILES ###############################
 
@@ -295,7 +235,7 @@ int main()
         }
     }
 
-    al_destroy_bitmap(playerShip.actorSprite); /*TODO: create function to delete actorSprite */
+    playerShip.DeleteActorSprite();
     al_destroy_sample(sfxShoot);
     al_destroy_sample(sfxEnemyShoot);
     al_destroy_sample(musicBGTheme);

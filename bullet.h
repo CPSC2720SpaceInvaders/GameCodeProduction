@@ -12,6 +12,9 @@ private:
     int bulletDamage;
 
 public:
+	//Constructors and destructors
+	ProjectileBullet(float xPosi, float yPosi, int dir, const char *spritePath, int dam);
+
     //Retrieval methods
     int GetBulletDamage();
 };

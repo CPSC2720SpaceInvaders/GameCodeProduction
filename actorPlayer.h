@@ -9,17 +9,18 @@
 #include "Hitbox.h"
 
 class ActorPlayer : public Actor {
-  private:
+private:
    int playerScore, lives, maxBullets;
 
-  public:
-    int bulletControlCounter;
-   void MoveActor(bool moveUp, bool moveDown, bool moveLeft, bool moveRight, const int MOVERATE_ACTORS);
-   int GetScore();
-   int GetMaxBullets();
-   int GetLives();
-   void UpdateScore(int scoreGained);
-   void KillPlayer(ALLEGRO_BITMAP *oldSprite, float oldSpriteWidth, float oldSpriteHeight, float defaultXPosi, float defaultYPosi);
+public:
+	ActorPlayer(float xPosi, float yPosi, int hp, int _hitboxSize, const char *spriteLoc);
+	int bulletControlCounter;
+	void MoveActor(bool moveUp, bool moveDown, bool moveLeft, bool moveRight, const int MOVERATE_ACTORS);
+	int GetScore();
+	int GetMaxBullets();
+	int GetLives();
+	void UpdateScore(int scoreGained);
+	void KillPlayer(const char *newSpriteLoc, float oldSpriteWidth, float oldSpriteHeight, float defaultXPosi, float defaultYPosi);
 };
 
 #endif

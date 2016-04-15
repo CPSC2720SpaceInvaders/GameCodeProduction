@@ -4,17 +4,25 @@
 
 //includes
 #include <allegro5/allegro.h>
+#include <string>
 #include "Hitbox.h"
 
 class Actor {
-private:
-   float xCoord, yCoord, spriteWidth, spriteHeight;
+protected:
+   float xCoord, yCoord;
    int health, hitboxSize, hitboxWidth;
+   const char* spritePath;
 
    ALLEGRO_BITMAP *actorSprite;
 
 public:
    Hitbox actorHitbox;
+
+   //Constructors and Destructors
+   Actor(float xPosi, float yPosi, int hp, int _hitboxSize, const char *spritePath);
+   Actor(const Actor&);
+   Actor& operator=(const Actor&);
+   virtual ~Actor();
 
    //Retrieval methods
    float GetXCoord();
@@ -24,10 +32,9 @@ public:
    //Manipulation methods
    void MoveActor();
    void ModifyHealth(int damageTaken);
-   void ChangeActorSprite(ALLEGRO_BITMAP *newSprite, float newSpriteWidth, float newSpriteHeight);
+   void ChangeActorSprite(const char *newSpriteLoc);
    void DrawActor();
    bool CheckDead();
-   void DeleteActorSprite();
 };
 
 #endif //actor.h

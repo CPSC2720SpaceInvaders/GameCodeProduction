@@ -3,10 +3,12 @@
 #include <allegro5/allegro.h>
 #include "bullet.h"
 
-//Public methods
-
 //Private methods
-int GetBulletDamage(){
+
+//Public methods
+ProjectileBullet::ProjectileBullet(float xPosi, float yPosi, int dir, const char *spritePath, int dam) : Projectile(xPosi, yPosi, dir, spritePath, 5), bulletDamage(dam) {}
+
+int ProjectileBullet::GetBulletDamage(){
    return bulletDamage;
 }
 

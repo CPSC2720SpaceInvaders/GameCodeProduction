@@ -4,27 +4,50 @@
 #include <allegro5/allegro.h>
 #include "actor.h"
 
-using namespace std;
-
-//Constructors
+//Constructors and Destructors
+Actor::Actor(float xPosi, float yPosi, int hp, int _hitboxSize, const char *spriteLoc) : xCoord(xPosi), yCoord(yPosi), health(hp), hitboxSize(_hitboxSize), actorHitbox(xPosi, yPosi, hitboxSize, hitboxSize), spritePath(spriteLoc) {
+	actorSprite = al_load_bitmap(spritePath);
+}
+Actor::Actor(const Actor& copyTarget) {
+	xCoord = copyTarget.xCoord;
+	yCoord = copyTarget.yCoord;
+	health = copyTarget.health;
+	hitboxSize = copyTarget.hitboxSize;
+	actorHitbox = copyTarget.actorHitbox;
+	spritePath = copyTarget.spritePath;
+	actorSprite = al_load_bitmap(spritePath);
+}
+Actor& Actor::operator=(const Actor& copyTarget) {
+	xCoord = copyTarget.xCoord;
+	yCoord = copyTarget.yCoord;
+	health = copyTarget.health;
+	hitboxSize = copyTarget.hitboxSize;
+	actorHitbox = copyTarget.actorHitbox;
+	spritePath = copyTarget.spritePath;
+	actorSprite = al_load_bitmap(spritePath);
+	return *this;
+}
+Actor::~Actor() {
+	al_destroy_bitmap(actorSprite);
+}
 
 //Retrieval methods
 /** @fn GetXCoord
 * @brief returns the horizontal Actor's position
 */
-float GetXCoord (){
+float Actor::GetXCoord (){
    return xCoord;
 }
 /** @fn GetYCoord
 * @brief returns the vertical Actor's position
 */
-float GetYCoord(){
-   return YCoord;
+float Actor::GetYCoord(){
+   return yCoord;
 }
 /** @fn GetHealth
 * @brief returns the Actor's health
 */
-int GetHealth(){
+int Actor::GetHealth(){
    return health;
 }
 
@@ -33,7 +56,7 @@ int GetHealth(){
 * @brief after taking damage, the actor needs to lose health
 * @param integer with the damage that the bullet caused
 */
-void ModifyHealth(int damageTaken){
+void Actor::ModifyHealth(int damageTaken){
    health -= damageTaken;
 }
 /** @fn ChangeActorSprite
@@ -42,24 +65,21 @@ void ModifyHealth(int damageTaken){
 * @param newSpriteWidth is the width of the new bitmap to be drawn
 * @param newSpriteHeight is the height of the new bitmap to be drawn
 */
-void ChangeActorSprite(ALLEGRO_BITMAP *newSprite, float newSpriteWidth, float newSpriteHeight) {
-	*actorSprite = *newSprite;
-	spriteWidth = newSpriteWidth;
-	spriteHeight = newSpriteHeight;
+void Actor::ChangeActorSprite(const char *newSpriteLoc) {
+	spritePath = newSpriteLoc;
+	actorSprite = al_load_bitmap(spritePath);
 }
 /** @fn DrawActor
 * @brief draws the actor on its given positions
 */
-void DrawActor(){
-   al_draw_bitmap_region(actorSprite, 0, 0, spriteWidth, spriteHeight, xCoord, yCoord, NULL);
+void Actor::DrawActor(){
+   al_draw_bitmap(actorSprite, xCoord, yCoord, NULL);
 }
 /** @fn CheckDead
 * @brief checks actor's health, if it is lower than 0, it wil active its dead
 */
-bool CheckDead() {
-	if (curHealth <= 0) {
+bool Actor::CheckDead() {
+	if (health <= 0) {
 		return true;
 	}return false;
-}void DeleteActorSprite() {
-	al_destroy_bitmap(*actorSprite);
 }

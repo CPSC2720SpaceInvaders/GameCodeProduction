@@ -12,6 +12,8 @@ private:
 	float		hitboxCentreX, hitboxCentreY, hitboxWidth, hitboxHeight;
 
 public:
+	Hitbox(float x, float y, int width, int length);
+	Hitbox();
 	float		GetHitboxX();
 	float		GetHitboxY();
 	float		GetHitboxWidth();

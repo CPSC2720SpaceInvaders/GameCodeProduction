@@ -1,31 +1,46 @@
 #include "actorPlayer.h"
 
-void MoveActor(bool moveUp, bool moveDown, bool moveLeft, bool moveRight, const int MOVERATE_ACTORS) {
+ActorPlayer::ActorPlayer(float xPosi, float yPosi, int hp, int _hitboxSize, const char *spriteLoc) : Actor(xPosi, yPosi, hp, _hitboxSize, spriteLoc), playerScore(0), lives(3), maxBullets(5), bulletControlCounter(5) {}
+
+void ActorPlayer::MoveActor(bool moveUp, bool moveDown, bool moveLeft, bool moveRight, const int MOVERATE_ACTORS) {
 	if (moveUp) {
-		yCoord += MOVERATE_ACTORS;
+		if (yCoord <= 10) {}
+		else {
+			yCoord -= MOVERATE_ACTORS;
+		}
 	}
 	else if (moveDown) {
-		yCoord -= MOVERATE_ACTORS;
+		if (yCoord >= 750) {}
+		else {
+			yCoord += MOVERATE_ACTORS;
+		}
 	}
 	if (moveRight) {
-		xCoord += MOVERATE_ACTORS;
+		if (xCoord <= 10) {}
+		else {
+			xCoord -= MOVERATE_ACTORS;
+		}
 	}
 	else if (moveLeft) {
-		xCoord -= MOVERATE_ACTORS;
+		if (xCoord >= 1140) {}
+		else {
+			xCoord += MOVERATE_ACTORS;
+		}
 	}
 	actorHitbox.MoveHitbox(xCoord, yCoord);
-}int GetScore(){
+}int ActorPlayer::GetScore(){
    return playerScore;
-}int GetLives(){
+}int ActorPlayer::GetLives(){
 	return lives;
-}int GetMaxBullets(){
+}int ActorPlayer::GetMaxBullets(){
     return maxBullets;
-}void UpdateScore(int scoreGained){
+}void ActorPlayer::UpdateScore(int scoreGained){
    playerScore += scoreGained;
-}void KillPlayer(ALLEGRO_BITMAP *oldSprite, float oldSpriteWidth, float oldSpriteHeight, float defaultXPosi, float defaultYPosi) {
+}void ActorPlayer::KillPlayer(const char *newSpriteLoc, float oldSpriteWidth, float oldSpriteHeight, float defaultXPosi, float defaultYPosi) {
       lives--;
 	  health = 1;
-	  actorSprite = oldSprite;
+	  spritePath = newSpriteLoc;
+	  ChangeActorSprite(spritePath);
       xCoord = defaultXPosi;
       yCoord = defaultYPosi;
 }

@@ -10,9 +10,11 @@
 class ActorEnemyBasic : public Actor {
 private:
 	int enemyScore;
-	bool moveRight;
+	bool moveRight, movedDown;
 
 public:
+	//Constructors and Destructors
+	ActorEnemyBasic(float xPosi, float yPosi, int hp, int _hitboxSize, const char *spritePath, int pts, bool right);
 	bool isDead = false; /**< Used to exclude an object from collision while animating its death. */
 	void MoveActor(const int MOVERATE_ACTORS, const int SCREEN_WIDTH);
 };

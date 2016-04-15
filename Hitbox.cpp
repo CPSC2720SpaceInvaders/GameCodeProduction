@@ -1,30 +1,33 @@
 #include "Hitbox.h"
 
-float GetHitboxX() {
+Hitbox::Hitbox(float x, float y, int width, int height): hitboxCentreX(x), hitboxCentreY(y), hitboxWidth(width), hitboxHeight(height) {}
+Hitbox::Hitbox() {};
+
+float Hitbox::GetHitboxX() {
 	return hitboxCentreX;
 }
 
-float GetHitboxY() {
+float Hitbox::GetHitboxY() {
 	return hitboxCentreY;
 }
 
-float GetHitboxWidth() {
+float Hitbox::GetHitboxWidth() {
 	return hitboxWidth;
 }
 
-float GetHitboxHeight() {
+float Hitbox::GetHitboxHeight() {
 	return hitboxHeight;
 }
 
-void MoveHitbox(float newXLocation, float newYLocation) {
+void Hitbox::MoveHitbox(float newXLocation, float newYLocation) {
 	hitboxCentreX = newXLocation;
-	hitboxCenterY = newYLocation;
+	hitboxCentreY = newYLocation;
 }
-bool CheckForCollision(Hitbox target) {
-	if ((hitboxCentreY + hitboxHeight) < (target.GetHitboxY() - target.GetHitboxHeight()) && (hitboxCentreY - hitboxHeight) > (target.GetHitboxY() + target.GetHitboxHeight())) {
+bool Hitbox::CheckForCollision(Hitbox target) {
+	if ((hitboxCentreY + hitboxHeight) < (target.GetHitboxY() - target.GetHitboxHeight()) || (hitboxCentreY - hitboxHeight) > (target.GetHitboxY() + target.GetHitboxHeight())) {
 		return false;
 	}
-	else if ((hitboxCentreX + hitboxWidth) < (target.GetHitboxX() - target.GetHitboxWidth()) && (hitboxCentreX - hitboxWidth) > (target.GetHitboxX() + target.GetHitboxWidth())) {
+	else if ((hitboxCentreX + hitboxWidth) < (target.GetHitboxX() - target.GetHitboxWidth()) || (hitboxCentreX - hitboxWidth) > (target.GetHitboxX() + target.GetHitboxWidth())) {
 		return false;
 	}
 	else {

@@ -15,6 +15,7 @@
 #define PROJECTILE_H__
 
 #include <allegro5/allegro.h>
+#include <allegro5/allegro_primitives.h>
 #include <string>
 #include "Hitbox.h"
 
@@ -25,9 +26,6 @@ protected:
 	enum  directions_c { UP, DOWN }; /**< Determines whether a fired projectile should travel towards the top or bottom of the screen. */
 	directions_c bulletDirection;
 	const char* spritePath;
-
-	ALLEGRO_BITMAP *projectileSprite;
-
 
 public:
     Hitbox projectileHitbox;

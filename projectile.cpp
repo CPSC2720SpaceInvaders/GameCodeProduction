@@ -18,7 +18,6 @@
 
 //Public methods
 Projectile::Projectile(float xPosi, float yPosi, int dir, const char *spriteLoc, int _hitboxSize) : xCoordinate(xPosi), yCoordinate(yPosi), projectileHitbox(xPosi, yPosi, _hitboxSize, _hitboxSize) {
-	projectileSprite = al_load_bitmap(spriteLoc);
 	bulletDirection = static_cast<directions_c>(dir);
 }
 Projectile::Projectile(const Projectile& copyTarget) {
@@ -27,8 +26,6 @@ Projectile::Projectile(const Projectile& copyTarget) {
 	bulletDirection = copyTarget.bulletDirection;
 	spritePath = copyTarget.spritePath;
 	projectileHitbox = copyTarget.projectileHitbox;
-
-	projectileSprite = al_load_bitmap(spritePath);
 }
 Projectile& Projectile::operator=(const Projectile& copyTarget) {
 	xCoordinate = copyTarget.xCoordinate;
@@ -36,13 +33,9 @@ Projectile& Projectile::operator=(const Projectile& copyTarget) {
 	bulletDirection = copyTarget.bulletDirection;
 	spritePath = copyTarget.spritePath;
 	projectileHitbox = copyTarget.projectileHitbox;
-
-	projectileSprite = al_load_bitmap(spritePath);
 	return *this;
 }
-Projectile::~Projectile() {
-	al_destroy_bitmap(projectileSprite);
-}
+Projectile::~Projectile() {}
 float Projectile::GetXCoord(){
    return xCoordinate;
 }float Projectile::GetYCoord(){
@@ -62,5 +55,5 @@ void Projectile::MoveProjectile (const int MOVERATE_PROJECTILES){
 }
 
 void Projectile::DrawProjectile() {
-	al_draw_bitmap(projectileSprite, xCoordinate, yCoordinate, NULL);
+	al_draw_line (xCoordinate, yCoordinate-5, xCoordinate, yCoordinate +5, al_map_rgb(255, 255, 255), 5.0);
 }

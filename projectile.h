@@ -32,9 +32,6 @@ public:
 
 	//Constructor and destructor
 	Projectile(float xPosi, float yPosi, int dir, const char *spritePath, int _hitboxSize);
-	Projectile(const Projectile&);
-	Projectile& operator=(const Projectile&);
-	virtual ~Projectile();
 
 	//Retrieval methods
    /**

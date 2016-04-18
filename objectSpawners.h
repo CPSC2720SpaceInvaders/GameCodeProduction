@@ -12,7 +12,7 @@ using namespace std;
 
 void SpawnBullet(vector<ProjectileBullet>& targetIndex, float startingXPosi, float startingYPosi, int damage, int direction, const char *spriteLoc);
 
-void SpawnBasicRow(vector<ActorEnemyBasic>& enemyIndex, float startingXPosi, float startingYPosi, int newEnemyHealth, int newEnemyScore, const char *spriteLoc, bool right, int hitboxSize, int enemiesToSpawn);
+void SpawnBasicRow(vector<ActorEnemyBasic>& enemyIndex, float startingXPosi, float startingYPosi, int newEnemyHealth, int newEnemyScore, int spriteLoc, bool right, int hitboxSize, int enemiesToSpawn);
 
 //void SpawnSprinterColumn(vector<ActorEnemySprinter> enemyIndex, float startingXPosi, float startingYPosi, int enemiesToSpawn);
 

@@ -13,14 +13,14 @@ private:
    int playerScore, lives, maxBullets;
 
 public:
-	ActorPlayer(float xPosi, float yPosi, int hp, int _hitboxSize, const char *spriteLoc);
+	ActorPlayer(float xPosi, float yPosi, int hp, int _hitboxSize, int spriteLoc);
 	int bulletControlCounter;
 	void MoveActor(bool moveUp, bool moveDown, bool moveLeft, bool moveRight, const int MOVERATE_ACTORS);
 	int GetScore();
 	int GetMaxBullets();
 	int GetLives();
 	void UpdateScore(int scoreGained);
-	void KillPlayer(const char *newSpriteLoc, float oldSpriteWidth, float oldSpriteHeight, float defaultXPosi, float defaultYPosi);
+	void KillPlayer(int newSpriteLoc, float oldSpriteWidth, float oldSpriteHeight, float defaultXPosi, float defaultYPosi);
 };
 
 #endif

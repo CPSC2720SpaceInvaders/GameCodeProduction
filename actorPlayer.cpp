@@ -1,6 +1,6 @@
 #include "actorPlayer.h"
 
-ActorPlayer::ActorPlayer(float xPosi, float yPosi, int hp, int _hitboxSize, const char *spriteLoc) : Actor(xPosi, yPosi, hp, _hitboxSize, spriteLoc), playerScore(0), lives(3), maxBullets(5), bulletControlCounter(5) {}
+ActorPlayer::ActorPlayer(float xPosi, float yPosi, int hp, int _hitboxSize, int spriteLoc) : Actor(xPosi, yPosi, hp, _hitboxSize, spriteLoc), playerScore(0), lives(3), maxBullets(5), bulletControlCounter(5) {}
 
 void ActorPlayer::MoveActor(bool moveUp, bool moveDown, bool moveLeft, bool moveRight, const int MOVERATE_ACTORS) {
 	if (moveUp) {
@@ -36,11 +36,10 @@ void ActorPlayer::MoveActor(bool moveUp, bool moveDown, bool moveLeft, bool move
     return maxBullets;
 }void ActorPlayer::UpdateScore(int scoreGained){
    playerScore += scoreGained;
-}void ActorPlayer::KillPlayer(const char *newSpriteLoc, float oldSpriteWidth, float oldSpriteHeight, float defaultXPosi, float defaultYPosi) {
+}void ActorPlayer::KillPlayer(int newSpriteLoc, float oldSpriteWidth, float oldSpriteHeight, float defaultXPosi, float defaultYPosi) {
       lives--;
 	  health = 1;
-	  spritePath = newSpriteLoc;
-	  ChangeActorSprite(spritePath);
+	  ChangeActorSprite(newSpriteLoc);
       xCoord = defaultXPosi;
       yCoord = defaultYPosi;
 }

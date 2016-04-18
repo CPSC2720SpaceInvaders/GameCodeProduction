@@ -20,22 +20,6 @@
 Projectile::Projectile(float xPosi, float yPosi, int dir, const char *spriteLoc, int _hitboxSize) : xCoordinate(xPosi), yCoordinate(yPosi), projectileHitbox(xPosi, yPosi, _hitboxSize, _hitboxSize) {
 	bulletDirection = static_cast<directions_c>(dir);
 }
-Projectile::Projectile(const Projectile& copyTarget) {
-	xCoordinate = copyTarget.xCoordinate;
-	yCoordinate = copyTarget.yCoordinate;
-	bulletDirection = copyTarget.bulletDirection;
-	spritePath = copyTarget.spritePath;
-	projectileHitbox = copyTarget.projectileHitbox;
-}
-Projectile& Projectile::operator=(const Projectile& copyTarget) {
-	xCoordinate = copyTarget.xCoordinate;
-	yCoordinate = copyTarget.yCoordinate;
-	bulletDirection = copyTarget.bulletDirection;
-	spritePath = copyTarget.spritePath;
-	projectileHitbox = copyTarget.projectileHitbox;
-	return *this;
-}
-Projectile::~Projectile() {}
 float Projectile::GetXCoord(){
    return xCoordinate;
 }float Projectile::GetYCoord(){

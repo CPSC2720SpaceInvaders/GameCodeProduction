@@ -2,7 +2,7 @@
 
 void SpawnBullet(vector<ProjectileBullet>& targetIndex, float startingXPosi, float startingYPosi, int damage, int direction, const char *spriteLoc) {
 	//ProjectileBullet tempBullet(startingXPosi, startingYPosi, direction, spriteLoc, damage);
-	ProjectileBullet tempBullet(startingXPosi, startingYPosi, direction, spriteLoc, damage);
+	ProjectileBullet tempBullet(startingXPosi, startingYPosi, direction, damage);
 	targetIndex.push_back(tempBullet);
 }void SpawnBasicRow(vector<ActorEnemyBasic>& enemyIndex, float startingXPosi, float startingYPosi, int newEnemyHealth, int newEnemyScore, int spriteLoc, bool right, int hitboxSize, int enemiesToSpawn) {
 	for (int i = 0; i < enemiesToSpawn; i++) {

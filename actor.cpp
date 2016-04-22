@@ -1,92 +1,69 @@
-//Header comments
+/**
+*		@file	actor.cpp
+*		@brief	Implementation of Actor class.
+*
+*				This contains the implementations of the 
+*				public and private methods for the Actor
+*				class.
+*
+*		@author	Tyler Bertram
+*		@bug	No known bugs.
+*/
 
-//includes
 #include <allegro5/allegro.h>
 #include "actor.h"
 
-//Constructors and Destructors
+/** Constructors and Destructors */
+
+/** Further comments about the constructors (if any). */
 Actor::Actor(float xPosi, float yPosi, int hp, int _hitboxSize, int spriteLoc) : xCoord(xPosi), yCoord(yPosi), health(hp), hitboxSize(_hitboxSize), actorHitbox(xPosi, yPosi, hitboxSize, hitboxSize), spriteKey(spriteLoc) {}
 Actor::Actor() {};
-/*Actor::Actor(const Actor& copyTarget) {
-	xCoord = copyTarget.xCoord;
-	yCoord = copyTarget.yCoord;
-	health = copyTarget.health;
-	hitboxSize = copyTarget.hitboxSize;
-	actorHitbox = copyTarget.actorHitbox;
-	spritePath = copyTarget.spritePath;
 
-	actorSprite = al_load_bitmap(spritePath);
-}
-Actor& Actor::operator=(const Actor& copyTarget) {
-	xCoord = copyTarget.xCoord;
-	yCoord = copyTarget.yCoord;
-	health = copyTarget.health;
-	hitboxSize = copyTarget.hitboxSize;
-	actorHitbox = copyTarget.actorHitbox;
-	spritePath = copyTarget.spritePath;
+/** Retrieval methods */
 
-	al_destroy_bitmap(actorSprite);
-	actorSprite = al_load_bitmap(spritePath);
-
-	return *this;
-}
-Actor::~Actor() {
-	al_destroy_bitmap(actorSprite);
-}*/
-
-//Retrieval methods
-/** @fn GetXCoord
-* @brief returns the horizontal Actor's position
-*/
+/** Further comments about GetXCoord() (if any). */
 float Actor::GetXCoord (){
    return xCoord;
 }
-/** @fn GetYCoord
-* @brief returns the vertical Actor's position
-*/
+
+/** Further comments about GetYCoord() (if any). */
 float Actor::GetYCoord(){
    return yCoord;
 }
-/** @fn GetHealth
-* @brief returns the Actor's health
-*/
+
+/** Further comments about SetXCoord() (if any). */
+void Actor::SetXCoord(float newCoord) {
+	xCoord = newCoord;
+}
+
+/** Further comments about SetYCoord() (if any). */
+void Actor::SetYCoord(float newCoord) {
+	yCoord = newCoord;
+}
+
+/** Further comments about GetHealth() (if any). */
 int Actor::GetHealth(){
    return health;
 }
+
+/** Further comments about GetSpriteKey() (if any). */
 int Actor::GetSpriteKey() {
 	return spriteKey;
 }
 
-//Manipulation methods
-/** @fn ModifyHealth
-* @brief after taking damage, the actor needs to lose health
-* @param integer with the damage that the bullet caused
-*/
+/** Manipulation methods */
+
+/** Further comments about ModifyHealth() (if any). */
 void Actor::ModifyHealth(int damageTaken){
    health -= damageTaken;
 }
-/** @fn ChangeActorSprite
-* @brief updates the sprite of the actor
-* @param newSprite is the new bitmap file that will be drawn
-* @param newSpriteWidth is the width of the new bitmap to be drawn
-* @param newSpriteHeight is the height of the new bitmap to be drawn
-*/
-/*void Actor::ChangeActorSprite(const char *newSpriteLoc) {
-	spritePath = newSpriteLoc;
-	actorSprite = al_load_bitmap(spritePath);
-}*/
+
+/** Further comments about ChangeActorSprite() (if any). */
 void Actor::ChangeActorSprite(int newSpriteLoc) {
 	spriteKey = newSpriteLoc;
 }
-/** @fn DrawActor
-* @brief draws the actor on its given positions
-*/
-/*void Actor::DrawActor(){
-   al_draw_bitmap(actorSprite, xCoord, yCoord, NULL);
-}*/
-/** @fn CheckDead
-* @brief checks actor's health, if it is lower than 0, it wil active its dead
-*/
+
+/** Further comments about CheckDead() (if any). */
 bool Actor::CheckDead() {
 	if (health <= 0) {
 		return true;

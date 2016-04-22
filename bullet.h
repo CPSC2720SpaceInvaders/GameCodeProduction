@@ -13,7 +13,7 @@ private:
 
 public:
 	//Constructors and destructors
-	ProjectileBullet(float xPosi, float yPosi, int dir, const char *spritePath, int dam);
+	ProjectileBullet(float xPosi, float yPosi, int dir, int dam);
 
     //Retrieval methods
     int GetBulletDamage();

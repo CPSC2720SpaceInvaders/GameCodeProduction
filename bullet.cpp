@@ -6,7 +6,7 @@
 //Private methods
 
 //Public methods
-ProjectileBullet::ProjectileBullet(float xPosi, float yPosi, int dir, const char *spritePath, int dam) : Projectile(xPosi, yPosi, dir, spritePath, 5), bulletDamage(dam) {}
+ProjectileBullet::ProjectileBullet(float xPosi, float yPosi, int dir, int dam) : Projectile(xPosi, yPosi, dir, 5), bulletDamage(dam) {}
 
 int ProjectileBullet::GetBulletDamage(){
    return bulletDamage;

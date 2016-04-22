@@ -1,3 +1,21 @@
+/**
+* @file		main.cpp
+*
+* @brief	Initialization of the display and the protagonist.
+*			C++ Allegro game for CPSC 2720 project:
+*			"Space Invaders -like- game"
+*
+*			--Resource Credits--
+*			Eric Skiff ( http://ericskiff.com/music ) for the
+*			music track Underclocked.
+*			Dalton Maag (http://www.daltonmaag.com ) for the
+*			Ubuntu font.
+*			
+* 
+* @author	Victor Adad, Tyler Bertram
+* @bug		No known bugs.
+*/
+
 #include <stdio.h>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro5.h>
@@ -11,7 +29,9 @@
 #include <iostream>
 #include <vector>
 #include <stdlib.h>
-#include <time.h> /**< we add this library so we can generate (better) random numbers */
+#include <time.h>
+#include <map>
+#include <algorithm>
 #include "projectile.h"
 #include "actor.h"
 #include "bullet.h"
@@ -20,17 +40,24 @@
 //#include "actorEnemySprinter.h"
 //#include "actorEnemyBosses.h"
 #include "objectSpawners.h"
-#include <map>
 
-/**
-* @file main.cpp
-* @brief Initialization of the display and the protagonist.
-* C++ Allegro game for CPSC 2720 project:
-* "Space Invaders -like- game"
-* Credits to Erick Skiff for the music: http://ericskiff.com/music
-* @author Adad, Bertram, Jiaying & Okingo.
-* @bug No known bugs.
-*/
+bool enemyRemovePred( const ActorEnemyBasic target) {
+	if (target.isDead) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+bool bulletRemovePred(const ProjectileBullet target) {
+	if (target.projInactive) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
 
 int main()
 {
@@ -39,8 +66,7 @@ int main()
 	const float			SCREEN_TOPEDGE = 0.0, SCREEN_BOTTOMEDGE = SCREEN_HEIGHT;
 	const float			FPS = 60.0;														/**< Frames per second variable */
 	bool				done = false;													/**< If done == true, the game ends. */
-	bool				menuDraw = false;
-	bool				draw = false;													/**< If draw == true, the gamestate will be drawn to the display. */
+	bool				draw = true;													/**< If draw == true, the gamestate will be drawn to the display. */
 	bool				active = false;													/**< Determines if a key is being pressed. */
 	bool				moveUp = false; bool moveDown = false; 
 	bool				moveRight = false; bool moveLeft = false;						/**< Passed to the player object to control movement.*/
@@ -53,6 +79,7 @@ int main()
 	int					blinking = 0;													/**< makes the main menu and the "loading" screen to blink */
 	int					menuY = 0;
 	int					enemyNumber = -1;
+	int					totalStages = 3;
 	bool				loadingGame = false;											/**< if false, then displays main menu, if true, the "loading" screen will be shown */
 	int					loadingTimer = 0;												/**< sums amount of ftime that the "loading screen will be displayed */
 	int					leftOrRight = 3;												/**< positive number means right, negative means left */
@@ -97,7 +124,7 @@ int main()
 	ALLEGRO_COLOR		electricYellow = al_map_rgb(255, 250, 44);
 	ALLEGRO_COLOR		electricRed = al_map_rgb(254, 1, 64);
 
-	ALLEGRO_FONT		*font = al_load_font("Resources/Custom Font.ttf", 36, NULL);
+	ALLEGRO_FONT		*font = al_load_font("Resources/Ubuntu-regular.ttf", 36, NULL);
 	ALLEGRO_KEYBOARD_STATE	keyboardState1;
 	ALLEGRO_SAMPLE		*sfxShoot = al_load_sample("Resources/spaceship_shoot.wav");	/**< loads audio file */
 	ALLEGRO_SAMPLE		*sfxEnemyShoot = al_load_sample("Resources/enemy_shoot.wav");	/**< loads bullet firing sound file */
@@ -141,20 +168,62 @@ int main()
 	std::vector<ProjectileBullet>	friendlyBulletIndex;
 	std::vector<ProjectileBullet>	hostileBulletIndex;
 	std::vector<ActorEnemyBasic>	basicEnemyIndex;
-	//vector<ActorEnemySprinter> sprinterEnemyIndex;
-	//vector<ActorEnemyBoss> bossEnemyIndex;
+	//vector<ActorEnemySprinter>	sprinterEnemyIndex;
+	//vector<ActorEnemyBoss>		bossEnemyIndex;
 
     // GAME MAIN LOOP
     al_start_timer( timer1 );														/**< don't do anything nor initialize variables, NOTHING, after starting the timer */
-	while ( !done )																	/**< the only thing that must be after the timer is the game loop (while) */
+	while (!done)																	/**< the only thing that must be after the timer is the game loop (while) */
 	{
 		ALLEGRO_EVENT events;
-		al_wait_for_event( event_queue1, &events );									/**< waits for something to happen */
-		al_get_keyboard_state( &keyboardState1 );									/**< IMPORTANT: gets the imput from the keyboard */
+		al_wait_for_event(event_queue1, &events);									/**< waits for something to happen */
+		al_get_keyboard_state(&keyboardState1);									/**< IMPORTANT: gets the imput from the keyboard */
 
-		if ( draw == false ) // main menu
+
+		if (draw == true)													/**< Updates and draws all elements on screen */
+		{
+			if (al_key_down(&keyboardState1, ALLEGRO_KEY_ESCAPE))				/**< pressing escape key ends the game */
 			{
-				if ( blinking++ < 20 ) {
+				done = true;
+			}
+			
+			if (currStage == -1) {
+				al_clear_to_color(backgroundColor);
+				al_draw_text(font, textColor, (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2 - 40), ALLEGRO_ALIGN_CENTRE, "You died!");
+				al_draw_text(font, textColor, (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2), ALLEGRO_ALIGN_CENTRE, "Enter to return to menu.");
+				al_draw_text(font, textColor, (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2 + 40), ALLEGRO_ALIGN_CENTRE, "Esc to exit.");
+				al_flip_display();
+
+				if (al_key_down(&keyboardState1, ALLEGRO_KEY_ENTER)) {
+					al_rest(0.5);
+					currStage = 1;
+					setupStage = true;
+					loadingTimer = 0;
+					menuY = 0;
+					loadingGame = false;
+				}
+			}
+
+			else if (currStage == 0) {
+				al_clear_to_color(backgroundColor);
+				al_draw_text(font, textColor, (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2 - 40), ALLEGRO_ALIGN_CENTRE, "You've won!");
+				al_draw_text(font, textColor, (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2), ALLEGRO_ALIGN_CENTRE, "Enter to return to menu.");
+				al_draw_text(font, textColor, (SCREEN_WIDTH / 2), (SCREEN_HEIGHT / 2 + 40), ALLEGRO_ALIGN_CENTRE, "Esc to exit.");
+				al_flip_display();
+
+				if (al_key_down(&keyboardState1, ALLEGRO_KEY_ENTER)) {
+					al_rest(0.5);
+					currStage = 1;
+					setupStage = true;
+					loadingTimer = 0;
+					menuY = 0;
+					loadingGame = false;
+				}
+			}
+
+			else if (currStage == 1) /**< Menu handling. */
+			{
+				if (blinking++ < 20) {
 					/** @fn al_draw_bitmap_region
 					* @brief Draws the MENU on the display from a PNG file.
 					* @param player is and ALLEGRO_BITMAP variable that contains a PNG reference.
@@ -166,254 +235,274 @@ int main()
 					* @param y is the position on display where the sprite will be drawed
 					* @param the last parameter is a flag of the bitmap
 					*/
-					al_draw_bitmap_region( spriteIndex[000], 0, menuY, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, NULL );
+					al_draw_bitmap_region(spriteIndex[000], 0, menuY, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, NULL);
 					al_flip_display();
-					al_clear_to_color( backgroundColor );								/**< cleans screen so it looks like moving */
+					al_clear_to_color(backgroundColor);								/**< cleans screen so it looks like moving */
 
 				}
 				else {
-					al_draw_bitmap_region( spriteIndex[000], 1200, menuY, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, NULL );
+					al_draw_bitmap_region(spriteIndex[000], 1200, menuY, SCREEN_WIDTH, SCREEN_HEIGHT, 0, 0, NULL);
 					al_flip_display();
-					al_clear_to_color( backgroundColor );								/**< cleans screen so it looks like moving */
+					al_clear_to_color(backgroundColor);								/**< cleans screen so it looks like moving */
 				}
 
-				if ( blinking > 40 ) {
-									blinking = 0;
+				if (blinking > 40) {
+					blinking = 0;
 				}
 
-				if ( al_key_down( &keyboardState1, ALLEGRO_KEY_ENTER ) )				/**< pressing ENTER key */
+				if (al_key_down(&keyboardState1, ALLEGRO_KEY_ENTER))				/**< pressing ENTER key */
 				{
-									menuY = 800;
-									loadingGame = true;
+					menuY = 800;
+					loadingGame = true;
 				}
 
-				if ( loadingGame == true ) {											/**< stops displaying "main menu" and starts displaying "loading" */
-									loadingTimer++;
+				if (loadingGame == true) {											/**< stops displaying "main menu" and starts displaying "loading" */
+					loadingTimer++;
 				}
 
-				if ( loadingTimer > 80 ) {												/**< miliseconds the LOADING screen will be displayed. */
-									draw = true;
+				if (loadingTimer > 80) {												/**< miliseconds the LOADING screen will be displayed. */
+					currStage++;
 				}
 
 			}
-			else if ( draw == true )													/**< Updates and draws all elements on screen */
+			else
 			{
-				if ( currStage = 1 && setupStage ) {
-					SpawnBasicRow( basicEnemyIndex, 50, 40, 1, 100, 102, true, 25, 10 );
-					SpawnBasicRow( basicEnemyIndex, 50, 90, 2, 200, 103, false, 25, 10 );
-					SpawnBasicRow( basicEnemyIndex, 50, 140, 3, 300, 104, true, 25, 10 );
-									setupStage = false;
+
+				//############################################### STAGE SPAWNING ###########################
+				if (currStage == 2 && setupStage) {
+					al_clear_to_color(backgroundColor);
+					al_draw_text(font, textColor, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Stage 1");
+					al_flip_display();
+					al_rest(1.0);
+
+					SpawnBasicRow(basicEnemyIndex, 50, 40, 1, 100, 102, true, 23, 19);
+					SpawnBasicRow(basicEnemyIndex, 50, 90, 2, 200, 103, false, 23, 19);
+					SpawnBasicRow(basicEnemyIndex, 50, 140, 3, 300, 104, true, 23, 19);
+					setupStage = false;
+
 				}
-				
-				if ( al_key_down( &keyboardState1, ALLEGRO_KEY_ESCAPE ) )				/**< pressing escape key ends the game */
-				{
-									done = true;
+
+				if (currStage == 3 && setupStage) {
+					al_clear_to_color(backgroundColor);
+					al_draw_text(font, textColor, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, ALLEGRO_ALIGN_CENTRE, "Stage 2");
+					al_flip_display();
+					al_rest(1.0);
+
+					SpawnBasicRow(basicEnemyIndex, 50, 40, 1, 100, 102, true, 23, 19);
+					SpawnBasicRow(basicEnemyIndex, 50, 90, 2, 200, 103, false, 23, 19);
+					SpawnBasicRow(basicEnemyIndex, 50, 140, 3, 300, 104, true, 23, 19);
+					setupStage = false;
+				}
+
+				if (basicEnemyIndex.size() == 0 /*&& bossEnemyIndex.size() == 0*/) {
+					
+					for (int i = 0; i < friendlyBulletIndex.size(); i++) {
+						friendlyBulletIndex[i].projInactive = true;
+					}
+
+					for (int i = 0; i < hostileBulletIndex.size(); i++) {
+						hostileBulletIndex[i].projInactive = true;
+					}
+
+					friendlyBulletIndex.erase(std::remove_if(friendlyBulletIndex.begin(), friendlyBulletIndex.end(), bulletRemovePred), friendlyBulletIndex.end());
+					hostileBulletIndex.erase(std::remove_if(hostileBulletIndex.begin(), hostileBulletIndex.end(), bulletRemovePred), hostileBulletIndex.end());
+
+					playerShip.SetXCoord(SCREEN_WIDTH / 2);
+					playerShip.SetYCoord(SCREEN_BOTTOMEDGE - 100.0);
+
+					if (currStage == totalStages) {
+						currStage = 0;
+					}
+					else {
+						currStage++;
+						setupStage = true;
+					}
 				}
 
 				//############################################### PREVIOUS UPDATE CLEANUP ##################
-				for ( int i = 0; i < basicEnemyIndex.size(); ) {
-					if ( basicEnemyIndex[i].isDead ) {
-						basicEnemyIndex.erase( basicEnemyIndex.begin() + i );
-					}
-					else {
-									i++;
+
+
+				for (int i = 1; i < basicEnemyIndex.size(); i++) {
+					if (basicEnemyIndex[i].GetYCoord() > SCREEN_HEIGHT) {
+						basicEnemyIndex[i].isDead = true;
 					}
 				}
 
-				for ( int i = 1; i < basicEnemyIndex.size(); ) {
-					if ( basicEnemyIndex[i].GetYCoord() > SCREEN_HEIGHT ) {
-						basicEnemyIndex.erase( basicEnemyIndex.begin() + i );
+				basicEnemyIndex.erase(std::remove_if(basicEnemyIndex.begin(), basicEnemyIndex.end(), enemyRemovePred), basicEnemyIndex.end());
+
+
+				for (int i = 0; i < friendlyBulletIndex.size(); ) {
+					if (friendlyBulletIndex[i].GetYCoord() < SCREEN_TOPEDGE) {
+						friendlyBulletIndex.erase((friendlyBulletIndex.begin() + i));
 					}
 					else {
-									i++;
+						i++;
 					}
 				}
 
-				for ( int i = 0; i < friendlyBulletIndex.size(); ) {
-					if ( friendlyBulletIndex[i].GetYCoord() < SCREEN_TOPEDGE ) {
-						friendlyBulletIndex.erase(( friendlyBulletIndex.begin() + i ));
+				for (int i = 0; i < hostileBulletIndex.size(); ) {
+					if (hostileBulletIndex[i].GetYCoord() > SCREEN_HEIGHT) {
+						hostileBulletIndex.erase((hostileBulletIndex.begin() + i));
 					}
 					else {
-									i++;
-					}
-				}
-
-				for ( int i = 0; i < hostileBulletIndex.size(); ) {
-					if ( hostileBulletIndex[i].GetYCoord() > SCREEN_HEIGHT ) {
-						hostileBulletIndex.erase(( hostileBulletIndex.begin() + i ));
-					}
-					else {
-									i++;
+						i++;
 					}
 				}
 
 				//############################################### UPDATE PLAYER ############################
 
 				//Check if the player is dead, and also if the player has exhausted all their allotted lives.
-				if ( playerShip.CheckDead() ) {
-					playerShip.KillPlayer( 101, 40, 50, 600, 700 );
+				if (playerShip.CheckDead()) {
+					playerShip.KillPlayer(101, 40, 50, 600, 700);
 				}
 
-				if ( playerShip.GetLives() < 0 ) {
-					//currStage = 0; /**< Changes to the game over screen. */
-					done = true;
+				if (playerShip.GetLives() < 0) {
+					currStage = -1; /**< Changes to the game over screen. */
 				}
 
 				//Get input and move the player accordingly.
-				if ( al_key_down( &keyboardState1, ALLEGRO_KEY_UP ) ) {
-									moveUp = true;
-				}if ( al_key_down( &keyboardState1, ALLEGRO_KEY_DOWN ) ) {
-									moveDown = true;
-				}if ( al_key_down( &keyboardState1, ALLEGRO_KEY_RIGHT ) ) {
-									moveRight = true;
-				}if ( al_key_down( &keyboardState1, ALLEGRO_KEY_LEFT ) ) {
-									moveLeft = true;
+				if (al_key_down(&keyboardState1, ALLEGRO_KEY_UP)) {
+					moveUp = true;
+				}if (al_key_down(&keyboardState1, ALLEGRO_KEY_DOWN)) {
+					moveDown = true;
+				}if (al_key_down(&keyboardState1, ALLEGRO_KEY_RIGHT)) {
+					moveRight = true;
+				}if (al_key_down(&keyboardState1, ALLEGRO_KEY_LEFT)) {
+					moveLeft = true;
 				}
 
-				playerShip.MoveActor( moveUp, moveDown, moveRight, moveLeft, MOVERATE_ACTORS );
-									moveUp = false; moveDown = false; moveRight = false; moveLeft = false;
+				playerShip.MoveActor(moveUp, moveDown, moveRight, moveLeft, MOVERATE_ACTORS);
+				moveUp = false; moveDown = false; moveRight = false; moveLeft = false;
 
 				//Check if the player has flown into any of the enemy objects. Death resolution is handled elsewhere.
-				for (  int i = 0; i < basicEnemyIndex.size(); i++ ) {
-					if ( playerShip.actorHitbox.CheckForCollision( basicEnemyIndex[i].actorHitbox ) ) {
-						playerShip.ModifyHealth( playerShip.GetHealth() );
-						playerShip.KillPlayer( 101, 40, 50, 600, 700 );
+				for (int i = 0; i < basicEnemyIndex.size(); i++) {
+					if (playerShip.actorHitbox.CheckForCollision(basicEnemyIndex[i].actorHitbox)) {
+						playerShip.ModifyHealth(playerShip.GetHealth());
+						playerShip.KillPlayer(101, 40, 50, 600, 700);
 
-									basicEnemyIndex[i].isDead = true;
-						basicEnemyIndex[i].ChangeActorSprite( 107 );
+						basicEnemyIndex[i].isDead = true;
+						basicEnemyIndex[i].ChangeActorSprite(107);
 					}
 				}
 
 				//Control firing of friendly bullets.
-				if ( al_key_down( &keyboardState1, ALLEGRO_KEY_SPACE ) ) {
-					if ( /*!(friendlyBulletIndex.size() == playerShip.GetMaxBullets()) &&*/ playerShip.bulletControlCounter >= 5 ) {
-						al_play_sample( sfxShoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0 );
-						SpawnBullet( friendlyBulletIndex, playerShip.GetXCoord(), playerShip.GetYCoord(), 1, 1, "Resources/bullet.png" );
-									playerShip.bulletControlCounter = 0;
+				if (al_key_down(&keyboardState1, ALLEGRO_KEY_SPACE)) {
+					if ( playerShip.bulletControlCounter >= 5) {
+						al_play_sample(sfxShoot, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+						SpawnBullet(friendlyBulletIndex, playerShip.GetXCoord(), playerShip.GetYCoord(), 1, 1);
+						playerShip.bulletControlCounter = 0;
 					}
 					else {
-									playerShip.bulletControlCounter++;
+						playerShip.bulletControlCounter++;
 					}
 				}
 				else {
-									playerShip.bulletControlCounter++;
+					playerShip.bulletControlCounter++;
 				}
 
 				//############################################### UPDATE ENEMIES ############################
 
 				//Move all elements of each enemy index.
-				for ( int i = 0; i < basicEnemyIndex.size(); i++ ) {
-					basicEnemyIndex[i].MoveActor( MOVERATE_ACTORS, SCREEN_WIDTH );
+				for (int i = 0; i < basicEnemyIndex.size(); i++) {
+					basicEnemyIndex[i].MoveActor(MOVERATE_ACTORS, SCREEN_WIDTH);
 				}
 
 				//Check to see if any of the enemy objects have collided with the player.
-				for ( int i = 0; i < basicEnemyIndex.size(); i++ ) {
-					if ( playerShip.actorHitbox.CheckForCollision( basicEnemyIndex.at(i).actorHitbox ) && !( basicEnemyIndex.at(i).isDead ) ) {
-						playerShip.ModifyHealth( playerShip.GetHealth() );
-						playerShip.KillPlayer( 101, 40, 50, 600, 700 );
+				for (int i = 0; i < basicEnemyIndex.size(); i++) {
+					if (playerShip.actorHitbox.CheckForCollision(basicEnemyIndex.at(i).actorHitbox) && !(basicEnemyIndex.at(i).isDead)) {
+						playerShip.ModifyHealth(playerShip.GetHealth());
+						playerShip.KillPlayer(101, 40, 50, 600, 700);
 
-									basicEnemyIndex[i].isDead = true;
-						basicEnemyIndex[i].ChangeActorSprite( 107 );
+						basicEnemyIndex[i].isDead = true;
+						basicEnemyIndex[i].ChangeActorSprite(107);
 					}
 				}
 
 				//Check to see if any enemy should fire a bullet, and if so, generate it.
 				//One or no basic enemies will fire a bullet each update phase, depending on a certain percentile chance.
-				if ( !( basicEnemyIndex.size() == 0 ) ) {
-									randomNumber = rand() % (basicEnemyIndex.size());
+				if (!(basicEnemyIndex.size() == 0)) {
+					randomNumber = rand() % (basicEnemyIndex.size());
 				}
 				else {
-									randomNumber = 0;
+					randomNumber = 0;
 				}
-									randomNumber2 = rand() % 100;
-				if ( randomNumber2 >= 99 ) {
-					//hostileBulletIndex.emplace_back(basicEnemyIndex.at(randomNumber).GetXCoord, basicEnemyIndex.at(randomNumber).GetYCoord, DOWN);
-					SpawnBullet( hostileBulletIndex, basicEnemyIndex[randomNumber].GetXCoord(), basicEnemyIndex[randomNumber].GetYCoord(), 1, 0, "Resources/bullet.png" );
+				randomNumber2 = rand() % 100;
+				if (randomNumber2 >= 99) {
+					SpawnBullet(hostileBulletIndex, basicEnemyIndex[randomNumber].GetXCoord(), basicEnemyIndex[randomNumber].GetYCoord(), 1, 0);
 				}
 
 				//####################### UPDATE PROJECTILES ###############################
 
 				//Move all bullets.
-				for ( int i = 0; i < friendlyBulletIndex.size(); i++ ) {
-					friendlyBulletIndex[i].MoveProjectile( MOVERATE_PROJECTILES );
+				for (int i = 0; i < friendlyBulletIndex.size(); i++) {
+					friendlyBulletIndex[i].MoveProjectile(MOVERATE_PROJECTILES);
 				}
-				for ( int i = 0; i < hostileBulletIndex.size(); i++ ) {
-					hostileBulletIndex[i].MoveProjectile( MOVERATE_PROJECTILES );
+				for (int i = 0; i < hostileBulletIndex.size(); i++) {
+					hostileBulletIndex[i].MoveProjectile(MOVERATE_PROJECTILES);
 				}
 
-				for ( int i = 0; i < friendlyBulletIndex.size(); i++ ) {
-					for ( int j = 0; j < basicEnemyIndex.size(); j++ ) {
-						if ( friendlyBulletIndex[i].projectileHitbox.CheckForCollision( basicEnemyIndex.at(j).actorHitbox ) && !( basicEnemyIndex.at(j).isDead ) ) {
-							basicEnemyIndex[j].ModifyHealth( friendlyBulletIndex.at(i).GetBulletDamage() );
-							if ( basicEnemyIndex[j].CheckDead() ) {
-									basicEnemyIndex[j].isDead = true;
-								basicEnemyIndex[i].ChangeActorSprite( 107 );
+				for (int i = 0; i < friendlyBulletIndex.size(); i++) {
+					for (int j = 0; j < basicEnemyIndex.size(); j++) {
+						if (friendlyBulletIndex[i].projectileHitbox.CheckForCollision(basicEnemyIndex.at(j).actorHitbox) && !(basicEnemyIndex.at(j).isDead)) {
+							basicEnemyIndex[j].ModifyHealth(friendlyBulletIndex.at(i).GetBulletDamage());
+							if (basicEnemyIndex[j].CheckDead()) {
+								basicEnemyIndex[j].isDead = true;
+								basicEnemyIndex[i].ChangeActorSprite(107);
 							}
 
-							friendlyBulletIndex.erase( friendlyBulletIndex.begin() + i );
+							friendlyBulletIndex.erase(friendlyBulletIndex.begin() + i);
 						}
 					}
 				}
 
-				for ( int i = 0; i < hostileBulletIndex.size(); i++ ) {
-					if ( hostileBulletIndex[i].projectileHitbox.CheckForCollision( playerShip.actorHitbox ) ) {
-						playerShip.ModifyHealth( hostileBulletIndex[i].GetBulletDamage() );
-						if ( playerShip.CheckDead() ) {
-							playerShip.ChangeActorSprite( 106 );
+				for (int i = 0; i < hostileBulletIndex.size(); i++) {
+					if (hostileBulletIndex[i].projectileHitbox.CheckForCollision(playerShip.actorHitbox)) {
+						playerShip.ModifyHealth(hostileBulletIndex[i].GetBulletDamage());
+						if (playerShip.CheckDead()) {
+							playerShip.ChangeActorSprite(106);
 						}
 
-						hostileBulletIndex.erase( hostileBulletIndex.begin() + i );
+						hostileBulletIndex.erase(hostileBulletIndex.begin() + i);
 					}
 				}
 
 				//####################### DRAW ALL OBJECTS #################################
 
 				//playerShip.DrawActor();
-				al_draw_bitmap( spriteIndex[playerShip.GetSpriteKey()], playerShip.GetXCoord(), playerShip.GetYCoord(), NULL );
+				al_draw_bitmap(spriteIndex[playerShip.GetSpriteKey()], playerShip.GetXCoord(), playerShip.GetYCoord(), NULL);
 
-				for ( int i = 0; i < basicEnemyIndex.size(); i++ ) {
+				for (int i = 0; i < basicEnemyIndex.size(); i++) {
 					//basicEnemyIndex[i].DrawActor();
-					al_draw_bitmap( spriteIndex[basicEnemyIndex[i].GetSpriteKey()], basicEnemyIndex[i].GetXCoord(), basicEnemyIndex[i].GetYCoord(), NULL );
+					al_draw_bitmap(spriteIndex[basicEnemyIndex[i].GetSpriteKey()], basicEnemyIndex[i].GetXCoord(), basicEnemyIndex[i].GetYCoord(), NULL);
 				}
-				for ( int i = 0; i < friendlyBulletIndex.size(); i++ ) {
+				for (int i = 0; i < friendlyBulletIndex.size(); i++) {
 					friendlyBulletIndex[i].DrawProjectile();
 				}
-				for ( int i = 0; i < hostileBulletIndex.size(); i++ ) {
+				for (int i = 0; i < hostileBulletIndex.size(); i++) {
 					hostileBulletIndex[i].DrawProjectile();
 				}
 				al_flip_display();
-				al_clear_to_color( backgroundColor );
+				al_clear_to_color(backgroundColor);
 			}
 		}
+	}
 
-		for ( int i = basicEnemyIndex.size(); i >= 0; i-- ) {
-			basicEnemyIndex.erase( basicEnemyIndex.begin() + i );
-		}
-
-		for ( int i = friendlyBulletIndex.size(); i >= 0; i-- ) {
-			friendlyBulletIndex.erase( friendlyBulletIndex.begin() + i );
-		}
-
-		for ( int i = hostileBulletIndex.size(); i >= 0; i-- ) {
-			hostileBulletIndex.erase( hostileBulletIndex.begin() + i );
-		}
-
-		al_destroy_bitmap(spriteIndex[000]);
-		al_destroy_bitmap(spriteIndex[101]);
-		al_destroy_bitmap(spriteIndex[102]);
-		al_destroy_bitmap(spriteIndex[103]);
-		al_destroy_bitmap(spriteIndex[104]);
-		al_destroy_bitmap(spriteIndex[105]);
-		al_destroy_bitmap(spriteIndex[106]);
-		al_destroy_bitmap(spriteIndex[107]);
-		spriteIndex.erase(107);
-		spriteIndex.erase(106);
-		spriteIndex.erase(105);
-		spriteIndex.erase(104);
-		spriteIndex.erase(103);
-		spriteIndex.erase(102);
-		spriteIndex.erase(101);
-		spriteIndex.erase(000);
+	al_destroy_bitmap(spriteIndex[000]);
+	al_destroy_bitmap(spriteIndex[101]);
+	al_destroy_bitmap(spriteIndex[102]);
+	al_destroy_bitmap(spriteIndex[103]);
+	al_destroy_bitmap(spriteIndex[104]);
+	al_destroy_bitmap(spriteIndex[105]);
+	al_destroy_bitmap(spriteIndex[106]);
+	al_destroy_bitmap(spriteIndex[107]);
+	spriteIndex.erase(107);
+	spriteIndex.erase(106);
+	spriteIndex.erase(105);
+	spriteIndex.erase(104);
+	spriteIndex.erase(103);
+	spriteIndex.erase(102);
+	spriteIndex.erase(101);
+	spriteIndex.erase(000);
 
     al_destroy_sample(sfxShoot);
     al_destroy_sample(sfxEnemyShoot);

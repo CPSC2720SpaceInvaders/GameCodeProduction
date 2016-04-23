@@ -484,7 +484,7 @@ source file
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/** <BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;* Additional comments about ActorEnemyBasic constructors ( &nbsp;if any&nbsp;).<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/<BR>
-<A NAME="actorEnemyBasic.cpp:        22">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22&nbsp;&nbsp;</A>ActorEnemyBasic::ActorEnemyBasic( &nbsp;float xPosi, &nbsp; float yPosi, &nbsp; int hp, &nbsp; int _hitboxSize, &nbsp; int spriteLoc, &nbsp; int pts, &nbsp; bool right&nbsp;) : Actor( &nbsp;xPosi, &nbsp; yPosi, &nbsp; hp, &nbsp; _hitboxSize, &nbsp; spriteLoc&nbsp;), &nbsp; enemyScore( &nbsp;pts&nbsp;), &nbsp; moveRight( &nbsp;right&nbsp;), &nbsp; movedDown( &nbsp;false&nbsp;) {}<BR>
+<A NAME="actorEnemyBasic.cpp:        22">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;22&nbsp;&nbsp;</A>ActorEnemyBasic::ActorEnemyBasic( &nbsp;float xPosi, &nbsp; float yPosi, &nbsp; int hp, &nbsp; int _hitboxSize, &nbsp; int spriteLoc, &nbsp; int pts, &nbsp; bool right&nbsp;) : Actor( &nbsp;xPosi, &nbsp; yPosi, &nbsp; hp, &nbsp; _hitboxSize, &nbsp; spriteLoc&nbsp;), &nbsp; enemyScore( &nbsp;pts&nbsp;), &nbsp; moveRight( &nbsp;right&nbsp;), &nbsp; movedDown( &nbsp;false&nbsp;), &nbsp; isDead( &nbsp;false&nbsp;) {}<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;/** Manipulation Methods */<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>
@@ -553,7 +553,7 @@ source file
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	/** Public Member Variables */<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	<BR>
-<A NAME="actorEnemyBasic.h:        35">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;35&nbsp;&nbsp;</A>	bool	isDead = false;			/**&lt; Used to exclude an object from collision while animating its death. */<BR>
+<A NAME="actorEnemyBasic.h:        35">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;35&nbsp;&nbsp;</A>	bool	isDead;			/**&lt; Used to exclude an object from collision while animating its death. */<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	/** Constructors and Destructors */<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>
@@ -850,6 +850,7 @@ source file
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//void drawBullet( &nbsp;int&amp; currBullets, &nbsp; const int maxBullets, &nbsp; struct Bullets BulletsArray[]&nbsp;);<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;//void deleteBullet( &nbsp;int&amp; currBullets, &nbsp; const int maxBullets, &nbsp; struct Bullets BulletsArray[], &nbsp; const int ScreenHeight, &nbsp; const int ScreenWidth&nbsp;);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>
 </TT>
 <H1><A NAME="">bullet.h</A></H1>
 <TT>
@@ -932,7 +933,6 @@ source file
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#include &lt;stdio.h&gt;<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#include &lt;allegro5/allegro.h&gt;<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#include &lt;allegro5/allegro5.h&gt;<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#include &lt;allegro5/allegro_native_dialog.h&gt;<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#include &lt;allegro5/allegro_ttf.h&gt;<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;#include &lt;allegro5/allegro_font.h&gt;<BR>
@@ -963,7 +963,7 @@ source file
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*	@return		Boolian value.<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/<BR>
-<A NAME="main.cpp:        51">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;51&nbsp;&nbsp;</A>bool enemyRemovePred( &nbsp; const ActorEnemyBasic target&nbsp;) {<BR>
+<A NAME="main.cpp:        50">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;50&nbsp;&nbsp;</A>bool enemyRemovePred( &nbsp;const ActorEnemyBasic target&nbsp;) {<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	if ( &nbsp;target.isDead&nbsp;) {<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		return true;<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	}<BR>
@@ -980,7 +980,7 @@ source file
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*	@return		Boolian value.<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*/<BR>
-<A NAME="main.cpp:        68">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;68&nbsp;&nbsp;</A>bool bulletRemovePred( &nbsp;const ProjectileBullet target&nbsp;) {<BR>
+<A NAME="main.cpp:        67">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;67&nbsp;&nbsp;</A>bool bulletRemovePred( &nbsp;const ProjectileBullet target&nbsp;) {<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	if ( &nbsp;target.projInactive&nbsp;) {<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;		return true;<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	}<BR>
@@ -989,7 +989,7 @@ source file
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	}<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>
-<A NAME="main.cpp:        77">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;77&nbsp;&nbsp;</A>int main( &nbsp;&nbsp;)<BR>
+<A NAME="main.cpp:        76">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;76&nbsp;&nbsp;</A>int main( &nbsp;&nbsp;)<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	const float			SCREEN_WIDTH = 1200.0, &nbsp; SCREEN_HEIGHT = 800.0;					/**&lt; Screen dimension constants. */<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	const float			SCREEN_LEFTEDGE = 0.0, &nbsp; SCREEN_RIGHTEDGE = SCREEN_WIDTH;			/**&lt; Screen dimension constants. */<BR>
@@ -1085,7 +1085,7 @@ source file
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	srand( &nbsp;time( &nbsp; NULL &nbsp;)&nbsp;);<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	/** Create the Player actor, &nbsp; and all required indices for game functions. */<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	ActorPlayer			playerShip( &nbsp; ( &nbsp; SCREEN_WIDTH / 2 &nbsp;), &nbsp; ( &nbsp; SCREEN_BOTTOMEDGE - 100.0 &nbsp;), &nbsp; 1, &nbsp; 20, &nbsp; 101 &nbsp;);<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	ActorPlayer						playerShip( &nbsp; ( &nbsp; SCREEN_WIDTH / 2 &nbsp;), &nbsp; ( &nbsp; SCREEN_BOTTOMEDGE - 100.0 &nbsp;), &nbsp; 1, &nbsp; 20, &nbsp; 101 &nbsp;);<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	std::vector&lt;ProjectileBullet&gt;	friendlyBulletIndex;<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	std::vector&lt;ProjectileBullet&gt;	hostileBulletIndex;<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	std::vector&lt;ActorEnemyBasic&gt;	basicEnemyIndex;<BR>
@@ -1477,8 +1477,8 @@ source file
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    al_destroy_event_queue( &nbsp;event_queue1&nbsp;);<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	/** End the program. */<BR>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<BR>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;    return 0;<BR>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<BR>
 </TT>
 <H1><A NAME="">objectSpawners.cpp</A></H1>
 <TT>

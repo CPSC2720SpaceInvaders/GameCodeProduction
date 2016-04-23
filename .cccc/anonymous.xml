@@ -2,13 +2,13 @@
 <!--Detailed report on module anonymous-->
 <CCCC_Project>
 <module_summary>
-<lines_of_code value="375" level="0" />
+<lines_of_code value="374" level="0" />
 <lines_of_code_per_member_function value="******" level="0" />
 <McCabes_cyclomatic_complexity value="70" level="0" />
 <McCabes_cyclomatic_complexity_per_member_function value="******" level="2" />
 <lines_of_code value="179" level="0" />
 <lines_of_code_per_member_function value="********" level="2" />
-<lines_of_code_per_line_of_comment value="2.095" level="0" />
+<lines_of_code_per_line_of_comment value="2.089" level="0" />
 <McCabes_cyclomatic_complexity_per_line_of_comment value="0.391" level="0" />
 <weighted_methods_per_class_unity value="5" level="0" />
 <weighted_methods_per_class_visibility value="0" level="0" />
@@ -61,7 +61,7 @@
 <name>bulletRemovePred(const ProjectileBullet)</name>
 <extent>
 <description>definition</description>
-<source_reference file="main.cpp" line="68" />
+<source_reference file="main.cpp" line="67" />
 </extent>
 <lines_of_code value="8" level="0" />
 <McCabes_cyclomatic_complexity value="3" level="0" />
@@ -73,7 +73,7 @@
 <name>enemyRemovePred(const ActorEnemyBasic)</name>
 <extent>
 <description>definition</description>
-<source_reference file="main.cpp" line="51" />
+<source_reference file="main.cpp" line="50" />
 </extent>
 <lines_of_code value="8" level="0" />
 <McCabes_cyclomatic_complexity value="3" level="0" />
@@ -85,12 +85,12 @@
 <name>main()</name>
 <extent>
 <description>definition</description>
-<source_reference file="main.cpp" line="77" />
+<source_reference file="main.cpp" line="76" />
 </extent>
-<lines_of_code value="347" level="2" />
+<lines_of_code value="346" level="2" />
 <McCabes_cyclomatic_complexity value="63" level="2" />
 <lines_of_comment value="100" level="0" />
-<lines_of_code_per_line_of_comment value="3.470" level="0" />
+<lines_of_code_per_line_of_comment value="3.460" level="0" />
 <McCabes_cyclomatic_complexity_per_line_of_comment value="0.630" level="0" />
 </member_function>
 </procedural_detail>

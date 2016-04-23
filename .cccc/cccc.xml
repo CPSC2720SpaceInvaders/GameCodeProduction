@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--Report on software metrics-->
 <CCCC_Project>
-<timestamp>Sat Apr 23 05:43:38 2016
+<timestamp>Sat Apr 23 08:20:28 2016
 </timestamp>
 <project_summary>
 <number_of_modules value="8" level="0" />
-<lines_of_code value="624" level="0" />
-<lines_of_code_per_module value="78.000" level="0" />
+<lines_of_code value="623" level="0" />
+<lines_of_code_per_module value="77.875" level="0" />
 <McCabes_cyclomatic_complexity value="107" level="0" />
 <McCabes_cyclomatic_complexity_per_module value="13.375" level="0" />
 <lines_of_comment value="827" level="0" />
 <lines_of_comment_per_module value="103.375" level="0" />
-<lines_of_code_per_line_of_comment value="0.755" level="0" />
+<lines_of_code_per_line_of_comment value="0.753" level="0" />
 <McCabes_cyclomatic_complexity_per_line_of_comment value="0.129" level="0" />
 <IF4 value="8" level="0" />
 <IF4_per_module value="1.000" level="0" />
@@ -72,10 +72,10 @@
 </module>
 <module>
 <name>anonymous</name>
-<lines_of_code value="375" level="0" />
+<lines_of_code value="374" level="0" />
 <McCabes_cyclomatic_complexity value="70" level="0" />
 <lines_of_comment value="179" level="0" />
-<lines_of_code_per_line_of_comment value="2.095" level="0" />
+<lines_of_code_per_line_of_comment value="2.089" level="0" />
 <McCabes_cyclomatic_complexity_per_line_of_comment value="0.391" level="0" />
 </module>
 <module>

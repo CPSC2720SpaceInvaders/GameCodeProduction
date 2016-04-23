@@ -146,11 +146,11 @@ CCCC_Member@anonymous@SpawnBullet@@(vector &,float,float,int,int)@
 CCCC_MemExt@anonymous@SpawnBullet@@(vector &,float,float,int,int)@objectSpawners.cpp@18@definition@F????@LOC:4 COM:12 MVG:0@?@d@
 CCCC_MemExt@anonymous@SpawnBullet@@(vector &,float,float,int,int)@objectSpawners.h@41@declaration@F????@LOC:1 COM:14 MVG:0@?@D@
 CCCC_Member@anonymous@bulletRemovePred@@(const ProjectileBullet)@
-CCCC_MemExt@anonymous@bulletRemovePred@@(const ProjectileBullet)@main.cpp@68@definition@F????@LOC:8 COM:8 MVG:3@?@d@
+CCCC_MemExt@anonymous@bulletRemovePred@@(const ProjectileBullet)@main.cpp@67@definition@F????@LOC:8 COM:8 MVG:3@?@d@
 CCCC_Member@anonymous@enemyRemovePred@@(const ActorEnemyBasic)@
-CCCC_MemExt@anonymous@enemyRemovePred@@(const ActorEnemyBasic)@main.cpp@51@definition@F????@LOC:8 COM:25 MVG:3@?@d@
+CCCC_MemExt@anonymous@enemyRemovePred@@(const ActorEnemyBasic)@main.cpp@50@definition@F????@LOC:8 COM:25 MVG:3@?@d@
 CCCC_Member@anonymous@main@@()@
-CCCC_MemExt@anonymous@main@@()@main.cpp@77@definition@F????@LOC:347 COM:100 MVG:63@?@d@
+CCCC_MemExt@anonymous@main@@()@main.cpp@76@definition@F????@LOC:346 COM:100 MVG:63@?@d@
 CCCC_UseRel@Hitbox@Actor@
 CCCC_UseExt@Hitbox@Actor@actor.h@33@has by value@????0@LOC:0 COM:0 MVG:0@0@H@
 CCCC_UseRel@Actor@ActorEnemyBasic@

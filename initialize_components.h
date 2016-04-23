@@ -1,7 +1,0 @@
-#ifndef COMPONENTS_H_INCLUDED
-#define COMPONENTS_H_INCLUDED
-
-    
-
-
-#endif // INICIA_H_INCLUDED

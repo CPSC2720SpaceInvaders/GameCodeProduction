@@ -46,6 +46,14 @@ public:
 	*/
 	Projectile( float xPosi, float yPosi, int dir, int _hitboxSize );
 
+	/**
+	*	@fn			~Projectile()
+	*	@brief		Virtual default constructor function.
+	*
+	*				Specifically defined as virtual here in order for child classes of Projectile to destruct correctly.
+	*/
+	virtual ~Projectile();
+
 	/** Retrieval Methods */
 
    /**

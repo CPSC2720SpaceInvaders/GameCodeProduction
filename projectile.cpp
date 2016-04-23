@@ -17,14 +17,28 @@
 /** Private Methods */
 
 /** Public Methods */
+
+/**
+* bulletDirection is taken as as an int in the constructor because directions_c is an enum only declared in the class.
+*/
 Projectile::Projectile(float xPosi, float yPosi, int dir, int _hitboxSize) : xCoordinate(xPosi), yCoordinate(yPosi), projectileHitbox(xPosi, yPosi, _hitboxSize, _hitboxSize), projInactive(false) {
 	bulletDirection = static_cast<directions_c>(dir);
 }
 
+/**
+* Additional comments about ~Projectile virtual destructor (if any).
+*/
+Projectile::~Projectile() {}
+
+/**
+* Additional comments about GetXCoord method (if any).
+*/
 float Projectile::GetXCoord(){
    return xCoordinate;
 }
-
+/** 
+* Additional comments about GetYCoord method (if any).
+*/
 float Projectile::GetYCoord(){
 	return yCoordinate;  
 }

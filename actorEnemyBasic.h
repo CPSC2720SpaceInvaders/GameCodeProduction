@@ -10,7 +10,7 @@
 *				also the only current enemy type in the game.
 *
 *		@author	Tyler Bertram
-*		@bug	No known bugs.
+*		@bug	If an enemy unit is spawned within 25 pixels of either screen edge, due to the moveActor logic, it will careen towards the bottom of the screen instead of correctly moving. Don't place units within this space.
 */
 
 #ifndef ACTORENEMYBASIC_H

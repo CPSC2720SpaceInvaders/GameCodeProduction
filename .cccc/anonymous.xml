@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Detailed report on module anonymous-->
+<CCCC_Project>
+<module_summary>
+<lines_of_code value="375" level="0" />
+<lines_of_code_per_member_function value="******" level="0" />
+<McCabes_cyclomatic_complexity value="70" level="0" />
+<McCabes_cyclomatic_complexity_per_member_function value="******" level="2" />
+<lines_of_code value="179" level="0" />
+<lines_of_code_per_member_function value="********" level="2" />
+<lines_of_code_per_line_of_comment value="2.095" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="0.391" level="0" />
+<weighted_methods_per_class_unity value="5" level="0" />
+<weighted_methods_per_class_visibility value="0" level="0" />
+<depth_of_inheritance_tree value="0" level="0" />
+<number_of_children value="0" level="0" />
+<coupling_between_objects value="0" level="0" />
+<IF4 value="0" level="0" />
+<IF4_per_member_function value="********" level="0" />
+<IF4_visible value="0" level="0" />
+<IF4_visible_per_member_function value="********" level="0" />
+<IF4_concrete value="0" level="0" />
+<IF4_concrete_per_member_function value="********" level="0" />
+</module_summary>
+<module_detail>
+</module_detail>
+<procedural_detail>
+<member_function>
+<name>SpawnBasicRow(vector &amp;,float,float,int,int,int,bool,int,int)</name>
+<extent>
+<description>definition</description>
+<source_reference file="objectSpawners.cpp" line="26" />
+</extent>
+<extent>
+<description>declaration</description>
+<source_reference file="objectSpawners.h" line="60" />
+</extent>
+<lines_of_code value="7" level="0" />
+<McCabes_cyclomatic_complexity value="1" level="0" />
+<lines_of_comment value="20" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>SpawnBullet(vector &amp;,float,float,int,int)</name>
+<extent>
+<description>definition</description>
+<source_reference file="objectSpawners.cpp" line="18" />
+</extent>
+<extent>
+<description>declaration</description>
+<source_reference file="objectSpawners.h" line="41" />
+</extent>
+<lines_of_code value="5" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="26" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>bulletRemovePred(const ProjectileBullet)</name>
+<extent>
+<description>definition</description>
+<source_reference file="main.cpp" line="68" />
+</extent>
+<lines_of_code value="8" level="0" />
+<McCabes_cyclomatic_complexity value="3" level="0" />
+<lines_of_comment value="8" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>enemyRemovePred(const ActorEnemyBasic)</name>
+<extent>
+<description>definition</description>
+<source_reference file="main.cpp" line="51" />
+</extent>
+<lines_of_code value="8" level="0" />
+<McCabes_cyclomatic_complexity value="3" level="0" />
+<lines_of_comment value="25" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>main()</name>
+<extent>
+<description>definition</description>
+<source_reference file="main.cpp" line="77" />
+</extent>
+<lines_of_code value="347" level="2" />
+<McCabes_cyclomatic_complexity value="63" level="2" />
+<lines_of_comment value="100" level="0" />
+<lines_of_code_per_line_of_comment value="3.470" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="0.630" level="0" />
+</member_function>
+</procedural_detail>
+<structural_detail>
+<module>
+<name>anonymous</name>
+<client_module>
+</client_module>
+<supplier_module>
+</supplier_module>
+</module>
+</structural_detail>
+</CCCC_Project>

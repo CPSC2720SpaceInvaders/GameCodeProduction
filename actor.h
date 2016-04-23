@@ -56,6 +56,14 @@ public:
 	*/
 	Actor();
 
+	/**
+	*	@fn			~Actor()
+	*	@brief		Virtual default destructor function.
+	*
+	*				Declared virtual destructor in order to destruct child classes correctly.
+	*/
+	virtual ~Actor();
+
 	/** Retrieval Methods */
 
 	/**

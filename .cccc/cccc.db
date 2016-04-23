@@ -1,0 +1,194 @@
+CCCC_Module@Actor@class@
+CCCC_ModExt@Actor@class@actor.h@23@definition@F??T2@LOC:8 COM:18 MVG:0@2@d@
+CCCC_Module@ActorEnemyBasic@class@
+CCCC_ModExt@ActorEnemyBasic@class@actorEnemyBasic.h@23@definition@F???0@LOC:7 COM:18 MVG:0@0@d@
+CCCC_Module@ActorPlayer@class@
+CCCC_ModExt@ActorPlayer@class@actorPlayer.h@22@definition@F???0@LOC:6 COM:17 MVG:0@0@d@
+CCCC_Module@Hitbox@class@
+CCCC_ModExt@Hitbox@class@Hitbox.h@21@definition@F???2@LOC:5 COM:18 MVG:0@2@d@
+CCCC_Module@Projectile@class@
+CCCC_ModExt@Projectile@class@projectile.h@22@definition@F??T2@LOC:9 COM:17 MVG:0@2@d@
+CCCC_Module@ProjectileBullet@class@
+CCCC_ModExt@ProjectileBullet@class@bullet.h@21@definition@F???0@LOC:6 COM:14 MVG:0@0@d@
+CCCC_Module@anonymous@@
+CCCC_Module@bool@@
+CCCC_Module@char@builtin@
+CCCC_ModExt@char@builtin@<nofile>@0@builtin definition@d?????@@0@d@
+CCCC_Module@directions_c@enum@
+CCCC_ModExt@directions_c@enum@projectile.h@26@definition@????1@LOC:0 COM:0 MVG:0@1@d@
+CCCC_Module@double@builtin@
+CCCC_ModExt@double@builtin@<nofile>@0@builtin definition@d?????@@0@d@
+CCCC_Module@float@builtin@
+CCCC_ModExt@float@builtin@<nofile>@0@builtin definition@d?????@@0@d@
+CCCC_Module@int@builtin@
+CCCC_ModExt@int@builtin@<nofile>@0@builtin definition@d?????@@0@d@
+CCCC_Module@long@builtin@
+CCCC_ModExt@long@builtin@<nofile>@0@builtin definition@d?????@@0@d@
+CCCC_Module@void@builtin@
+CCCC_ModExt@void@builtin@<nofile>@0@builtin definition@d?????@@0@d@
+CCCC_Member@Actor@Actor@@()@
+CCCC_MemExt@Actor@Actor@@()@actor.cpp@20@definition@F????@LOC:0 COM:0 MVG:0@?@d@
+CCCC_MemExt@Actor@Actor@@()@actor.h@57@declaration@F???0@LOC:1 COM:6 MVG:0@0@D@
+CCCC_Member@Actor@Actor@@(float,float,int,int,int)@
+CCCC_MemExt@Actor@Actor@@(float,float,int,int,int)@actor.cpp@19@definition@F????@LOC:1 COM:13 MVG:0@?@d@
+CCCC_MemExt@Actor@Actor@@(float,float,int,int,int)@actor.h@49@declaration@F???0@LOC:1 COM:13 MVG:0@0@D@
+CCCC_Member@Actor@ChangeActorSprite@@(int)@
+CCCC_MemExt@Actor@ChangeActorSprite@@(int)@actor.cpp@83@definition@F????@LOC:3 COM:3 MVG:0@?@d@
+CCCC_MemExt@Actor@ChangeActorSprite@@(int)@actor.h@149@declaration@F??T0@LOC:1 COM:7 MVG:0@0@D@
+CCCC_Member@Actor@CheckDead@@()@
+CCCC_MemExt@Actor@CheckDead@@()@actor.cpp@90@definition@F????@LOC:5 COM:3 MVG:3@?@d@
+CCCC_MemExt@Actor@CheckDead@@()@actor.h@158@declaration@F??T0@LOC:1 COM:7 MVG:0@0@D@
+CCCC_Member@Actor@GetHealth@@()@
+CCCC_MemExt@Actor@GetHealth@@()@actor.cpp@60@definition@F????@LOC:3 COM:3 MVG:1@?@d@
+CCCC_MemExt@Actor@GetHealth@@()@actor.h@91@declaration@F??T0@LOC:1 COM:6 MVG:0@0@D@
+CCCC_Member@Actor@GetSpriteKey@@()@
+CCCC_MemExt@Actor@GetSpriteKey@@()@actor.cpp@67@definition@F????@LOC:3 COM:3 MVG:1@?@d@
+CCCC_MemExt@Actor@GetSpriteKey@@()@actor.h@99@declaration@F??T0@LOC:1 COM:6 MVG:0@0@D@
+CCCC_Member@Actor@GetXCoord@@()@
+CCCC_MemExt@Actor@GetXCoord@@()@actor.cpp@32@definition@F????@LOC:3 COM:4 MVG:1@?@d@
+CCCC_MemExt@Actor@GetXCoord@@()@actor.h@75@declaration@F??T0@LOC:1 COM:7 MVG:0@0@D@
+CCCC_Member@Actor@GetYCoord@@()@
+CCCC_MemExt@Actor@GetYCoord@@()@actor.cpp@39@definition@F????@LOC:3 COM:3 MVG:1@?@d@
+CCCC_MemExt@Actor@GetYCoord@@()@actor.h@83@declaration@F??T0@LOC:1 COM:6 MVG:0@0@D@
+CCCC_Member@Actor@ModifyHealth@@(int)@
+CCCC_MemExt@Actor@ModifyHealth@@(int)@actor.cpp@76@definition@F????@LOC:3 COM:4 MVG:0@?@d@
+CCCC_MemExt@Actor@ModifyHealth@@(int)@actor.h@140@declaration@F??T0@LOC:1 COM:8 MVG:0@0@D@
+CCCC_Member@Actor@MoveActor@@()@
+CCCC_MemExt@Actor@MoveActor@@()@actor.h@112@declaration@F??T0@LOC:1 COM:10 MVG:0@0@D@
+CCCC_Member@Actor@SetXCoord@@(float)@
+CCCC_MemExt@Actor@SetXCoord@@(float)@actor.cpp@46@definition@F????@LOC:3 COM:3 MVG:0@?@d@
+CCCC_MemExt@Actor@SetXCoord@@(float)@actor.h@121@declaration@F??T0@LOC:1 COM:7 MVG:0@0@D@
+CCCC_Member@Actor@SetYCoord@@(float)@
+CCCC_MemExt@Actor@SetYCoord@@(float)@actor.cpp@53@definition@F????@LOC:3 COM:3 MVG:0@?@d@
+CCCC_MemExt@Actor@SetYCoord@@(float)@actor.h@130@declaration@F??T0@LOC:1 COM:7 MVG:0@0@D@
+CCCC_Member@Actor@~Actor@@()@
+CCCC_MemExt@Actor@~Actor@@()@actor.cpp@25@definition@F????@LOC:1 COM:3 MVG:0@?@d@
+CCCC_MemExt@Actor@~Actor@@()@actor.h@65@declaration@F??T0@LOC:1 COM:6 MVG:0@0@D@
+CCCC_Member@ActorEnemyBasic@ActorEnemyBasic@@(float,float,int,int,int,int,bool)@
+CCCC_MemExt@ActorEnemyBasic@ActorEnemyBasic@@(float,float,int,int,int,int,bool)@actorEnemyBasic.cpp@22@definition@F????@LOC:1 COM:16 MVG:0@?@d@
+CCCC_MemExt@ActorEnemyBasic@ActorEnemyBasic@@(float,float,int,int,int,int,bool)@actorEnemyBasic.h@53@declaration@F???0@LOC:1 COM:15 MVG:0@0@D@
+CCCC_Member@ActorEnemyBasic@MoveActor@@(const int,const int)@
+CCCC_MemExt@ActorEnemyBasic@MoveActor@@(const int,const int)@actorEnemyBasic.cpp@32@definition@F????@LOC:22 COM:7 MVG:5@?@d@
+CCCC_MemExt@ActorEnemyBasic@MoveActor@@(const int,const int)@actorEnemyBasic.h@70@declaration@F???0@LOC:1 COM:14 MVG:0@0@D@
+CCCC_Member@ActorPlayer@ActorPlayer@@(float,float,int,int,int)@
+CCCC_MemExt@ActorPlayer@ActorPlayer@@(float,float,int,int,int)@actorPlayer.cpp@23@definition@F????@LOC:1 COM:17 MVG:0@?@d@
+CCCC_MemExt@ActorPlayer@ActorPlayer@@(float,float,int,int,int)@actorPlayer.h@46@declaration@F???0@LOC:1 COM:13 MVG:0@0@D@
+CCCC_Member@ActorPlayer@GetLives@@()@
+CCCC_MemExt@ActorPlayer@GetLives@@()@actorPlayer.cpp@67@definition@F????@LOC:3 COM:3 MVG:1@?@d@
+CCCC_MemExt@ActorPlayer@GetLives@@()@actorPlayer.h@64@declaration@F???0@LOC:1 COM:6 MVG:0@0@D@
+CCCC_Member@ActorPlayer@GetScore@@()@
+CCCC_MemExt@ActorPlayer@GetScore@@()@actorPlayer.cpp@61@definition@F????@LOC:3 COM:3 MVG:1@?@d@
+CCCC_MemExt@ActorPlayer@GetScore@@()@actorPlayer.h@56@declaration@F???0@LOC:1 COM:7 MVG:0@0@D@
+CCCC_Member@ActorPlayer@KillPlayer@@(int,float,float)@
+CCCC_MemExt@ActorPlayer@KillPlayer@@(int,float,float)@actorPlayer.cpp@90@definition@F????@LOC:7 COM:5 MVG:0@?@d@
+CCCC_MemExt@ActorPlayer@KillPlayer@@(int,float,float)@actorPlayer.h@112@declaration@F???0@LOC:1 COM:11 MVG:0@0@D@
+CCCC_Member@ActorPlayer@MoveActor@@(bool,bool,bool,bool,const int)@
+CCCC_MemExt@ActorPlayer@MoveActor@@(bool,bool,bool,bool,const int)@actorPlayer.cpp@30@definition@F????@LOC:27 COM:5 MVG:8@?@d@
+CCCC_MemExt@ActorPlayer@MoveActor@@(bool,bool,bool,bool,const int)@actorPlayer.h@81@declaration@F???0@LOC:1 COM:14 MVG:0@0@D@
+CCCC_Member@ActorPlayer@SetLives@@(int)@
+CCCC_MemExt@ActorPlayer@SetLives@@(int)@actorPlayer.cpp@81@definition@F????@LOC:3 COM:3 MVG:0@?@d@
+CCCC_MemExt@ActorPlayer@SetLives@@(int)@actorPlayer.h@99@declaration@F???0@LOC:1 COM:6 MVG:0@0@D@
+CCCC_Member@ActorPlayer@UpdateScore@@(int)@
+CCCC_MemExt@ActorPlayer@UpdateScore@@(int)@actorPlayer.cpp@74@definition@F????@LOC:3 COM:3 MVG:0@?@d@
+CCCC_MemExt@ActorPlayer@UpdateScore@@(int)@actorPlayer.h@91@declaration@F???0@LOC:1 COM:8 MVG:0@0@D@
+CCCC_Member@Hitbox@CheckForCollision@@(Hitbox)@
+CCCC_MemExt@Hitbox@CheckForCollision@@(Hitbox)@Hitbox.cpp@67@definition@F????@LOC:10 COM:3 MVG:7@?@d@
+CCCC_MemExt@Hitbox@CheckForCollision@@(Hitbox)@Hitbox.h@111@declaration@F???0@LOC:1 COM:12 MVG:0@0@D@
+CCCC_Member@Hitbox@GetHitboxHeight@@()@
+CCCC_MemExt@Hitbox@GetHitboxHeight@@()@Hitbox.cpp@50@definition@F????@LOC:3 COM:3 MVG:1@?@d@
+CCCC_MemExt@Hitbox@GetHitboxHeight@@()@Hitbox.h@86@declaration@F???0@LOC:1 COM:6 MVG:0@0@D@
+CCCC_Member@Hitbox@GetHitboxWidth@@()@
+CCCC_MemExt@Hitbox@GetHitboxWidth@@()@Hitbox.cpp@43@definition@F????@LOC:3 COM:3 MVG:1@?@d@
+CCCC_MemExt@Hitbox@GetHitboxWidth@@()@Hitbox.h@78@declaration@F???0@LOC:1 COM:6 MVG:0@0@D@
+CCCC_Member@Hitbox@GetHitboxX@@()@
+CCCC_MemExt@Hitbox@GetHitboxX@@()@Hitbox.cpp@29@definition@F????@LOC:3 COM:4 MVG:1@?@d@
+CCCC_MemExt@Hitbox@GetHitboxX@@()@Hitbox.h@62@declaration@F???0@LOC:1 COM:7 MVG:0@0@D@
+CCCC_Member@Hitbox@GetHitboxY@@()@
+CCCC_MemExt@Hitbox@GetHitboxY@@()@Hitbox.cpp@36@definition@F????@LOC:3 COM:3 MVG:1@?@d@
+CCCC_MemExt@Hitbox@GetHitboxY@@()@Hitbox.h@70@declaration@F???0@LOC:1 COM:6 MVG:0@0@D@
+CCCC_Member@Hitbox@Hitbox@@()@
+CCCC_MemExt@Hitbox@Hitbox@@()@Hitbox.cpp@22@definition@F????@LOC:0 COM:0 MVG:0@?@d@
+CCCC_MemExt@Hitbox@Hitbox@@()@Hitbox.h@52@declaration@F???0@LOC:1 COM:6 MVG:0@0@D@
+CCCC_Member@Hitbox@Hitbox@@(float,float,int,int)@
+CCCC_MemExt@Hitbox@Hitbox@@(float,float,int,int)@Hitbox.cpp@21@definition@F????@LOC:1 COM:15 MVG:0@?@d@
+CCCC_MemExt@Hitbox@Hitbox@@(float,float,int,int)@Hitbox.h@44@declaration@F???0@LOC:1 COM:12 MVG:0@0@D@
+CCCC_Member@Hitbox@MoveHitbox@@(float,float)@
+CCCC_MemExt@Hitbox@MoveHitbox@@(float,float)@Hitbox.cpp@59@definition@F????@LOC:4 COM:4 MVG:0@?@d@
+CCCC_MemExt@Hitbox@MoveHitbox@@(float,float)@Hitbox.h@97@declaration@F???0@LOC:1 COM:8 MVG:0@0@D@
+CCCC_Member@Projectile@DrawProjectile@@()@
+CCCC_MemExt@Projectile@DrawProjectile@@()@projectile.cpp@61@definition@F????@LOC:3 COM:3 MVG:0@?@d@
+CCCC_MemExt@Projectile@DrawProjectile@@()@projectile.h@96@declaration@F??T0@LOC:1 COM:11 MVG:0@0@D@
+CCCC_Member@Projectile@GetXCoord@@()@
+CCCC_MemExt@Projectile@GetXCoord@@()@projectile.cpp@36@definition@F????@LOC:3 COM:3 MVG:1@?@d@
+CCCC_MemExt@Projectile@GetXCoord@@()@projectile.h@65@declaration@F??T0@LOC:1 COM:7 MVG:0@0@D@
+CCCC_Member@Projectile@GetYCoord@@()@
+CCCC_MemExt@Projectile@GetYCoord@@()@projectile.cpp@42@definition@F????@LOC:3 COM:3 MVG:1@?@d@
+CCCC_MemExt@Projectile@GetYCoord@@()@projectile.h@72@declaration@F??T0@LOC:1 COM:6 MVG:0@0@D@
+CCCC_Member@Projectile@MoveProjectile@@(const int)@
+CCCC_MemExt@Projectile@MoveProjectile@@(const int)@projectile.cpp@49@definition@F????@LOC:8 COM:3 MVG:1@?@d@
+CCCC_MemExt@Projectile@MoveProjectile@@(const int)@projectile.h@84@declaration@F??T0@LOC:1 COM:9 MVG:0@0@D@
+CCCC_Member@Projectile@Projectile@@(float,float,int,int)@
+CCCC_MemExt@Projectile@Projectile@@(float,float,int,int)@projectile.cpp@24@definition@F????@LOC:3 COM:17 MVG:0@?@d@
+CCCC_MemExt@Projectile@Projectile@@(float,float,int,int)@projectile.h@47@declaration@F???0@LOC:1 COM:12 MVG:0@0@D@
+CCCC_Member@Projectile@~Projectile@@()@
+CCCC_MemExt@Projectile@~Projectile@@()@projectile.cpp@31@definition@F????@LOC:1 COM:3 MVG:0@?@d@
+CCCC_MemExt@Projectile@~Projectile@@()@projectile.h@55@declaration@F??T0@LOC:1 COM:6 MVG:0@0@D@
+CCCC_Member@ProjectileBullet@GetBulletDamage@@()@
+CCCC_MemExt@ProjectileBullet@GetBulletDamage@@()@bullet.cpp@28@definition@F????@LOC:3 COM:3 MVG:1@?@d@
+CCCC_MemExt@ProjectileBullet@GetBulletDamage@@()@bullet.h@54@declaration@F???0@LOC:1 COM:7 MVG:0@0@D@
+CCCC_Member@ProjectileBullet@ProjectileBullet@@(float,float,int,int)@
+CCCC_MemExt@ProjectileBullet@ProjectileBullet@@(float,float,int,int)@bullet.cpp@23@definition@F????@LOC:1 COM:16 MVG:0@?@d@
+CCCC_MemExt@ProjectileBullet@ProjectileBullet@@(float,float,int,int)@bullet.h@44@declaration@F???0@LOC:1 COM:15 MVG:0@0@D@
+CCCC_Member@anonymous@SpawnBasicRow@@(vector &,float,float,int,int,int,bool,int,int)@
+CCCC_MemExt@anonymous@SpawnBasicRow@@(vector &,float,float,int,int,int,bool,int,int)@objectSpawners.cpp@26@definition@F????@LOC:6 COM:3 MVG:1@?@d@
+CCCC_MemExt@anonymous@SpawnBasicRow@@(vector &,float,float,int,int,int,bool,int,int)@objectSpawners.h@60@declaration@F????@LOC:1 COM:17 MVG:0@?@D@
+CCCC_Member@anonymous@SpawnBullet@@(vector &,float,float,int,int)@
+CCCC_MemExt@anonymous@SpawnBullet@@(vector &,float,float,int,int)@objectSpawners.cpp@18@definition@F????@LOC:4 COM:12 MVG:0@?@d@
+CCCC_MemExt@anonymous@SpawnBullet@@(vector &,float,float,int,int)@objectSpawners.h@41@declaration@F????@LOC:1 COM:14 MVG:0@?@D@
+CCCC_Member@anonymous@bulletRemovePred@@(const ProjectileBullet)@
+CCCC_MemExt@anonymous@bulletRemovePred@@(const ProjectileBullet)@main.cpp@68@definition@F????@LOC:8 COM:8 MVG:3@?@d@
+CCCC_Member@anonymous@enemyRemovePred@@(const ActorEnemyBasic)@
+CCCC_MemExt@anonymous@enemyRemovePred@@(const ActorEnemyBasic)@main.cpp@51@definition@F????@LOC:8 COM:25 MVG:3@?@d@
+CCCC_Member@anonymous@main@@()@
+CCCC_MemExt@anonymous@main@@()@main.cpp@77@definition@F????@LOC:347 COM:100 MVG:63@?@d@
+CCCC_UseRel@Hitbox@Actor@
+CCCC_UseExt@Hitbox@Actor@actor.h@33@has by value@????0@LOC:0 COM:0 MVG:0@0@H@
+CCCC_UseRel@Actor@ActorEnemyBasic@
+CCCC_UseExt@Actor@ActorEnemyBasic@actorEnemyBasic.h@23@inheritance@????0@*@0@I@
+CCCC_UseRel@bool@ActorEnemyBasic@
+CCCC_UseExt@bool@ActorEnemyBasic@actorEnemyBasic.cpp@22@pass by value@?????@*@?@P@
+CCCC_UseExt@bool@ActorEnemyBasic@actorEnemyBasic.h@29@has by value@????2@LOC:0 COM:0 MVG:0@2@H@
+CCCC_UseExt@bool@ActorEnemyBasic@actorEnemyBasic.h@35@has by value@????0@LOC:0 COM:0 MVG:0@0@H@
+CCCC_UseExt@bool@ActorEnemyBasic@actorEnemyBasic.h@53@pass by value@F???0@*@0@P@
+CCCC_UseRel@Actor@ActorPlayer@
+CCCC_UseExt@Actor@ActorPlayer@actorPlayer.h@22@inheritance@????0@*@0@I@
+CCCC_UseRel@bool@ActorPlayer@
+CCCC_UseExt@bool@ActorPlayer@actorPlayer.cpp@30@pass by value@F????@*@?@P@
+CCCC_UseExt@bool@ActorPlayer@actorPlayer.cpp@30@pass by value@F????@*@?@P@
+CCCC_UseExt@bool@ActorPlayer@actorPlayer.cpp@30@pass by value@F????@*@?@P@
+CCCC_UseExt@bool@ActorPlayer@actorPlayer.cpp@30@pass by value@F????@*@?@P@
+CCCC_UseExt@bool@ActorPlayer@actorPlayer.h@81@pass by value@F???0@*@0@P@
+CCCC_UseExt@bool@ActorPlayer@actorPlayer.h@81@pass by value@F???0@*@0@P@
+CCCC_UseExt@bool@ActorPlayer@actorPlayer.h@81@pass by value@F???0@*@0@P@
+CCCC_UseExt@bool@ActorPlayer@actorPlayer.h@81@pass by value@F???0@*@0@P@
+CCCC_UseRel@Hitbox@Projectile@
+CCCC_UseExt@Hitbox@Projectile@projectile.h@31@has by value@????0@LOC:0 COM:0 MVG:0@0@H@
+CCCC_UseRel@bool@Projectile@
+CCCC_UseExt@bool@Projectile@projectile.h@32@has by value@????0@LOC:0 COM:0 MVG:0@0@H@
+CCCC_UseRel@Projectile@ProjectileBullet@
+CCCC_UseExt@Projectile@ProjectileBullet@bullet.h@21@inheritance@????0@*@0@I@
+CCCC_RejExt@actor.cpp@1@<file scope items>@F????@LOC:1 COM:0 MVG:0@?@r@
+CCCC_RejExt@actor.h@1@<file scope items>@F??T2@LOC:1 COM:1 MVG:0@2@r@
+CCCC_RejExt@actorEnemyBasic.cpp@1@<file scope items>@F????@LOC:1 COM:1 MVG:0@?@r@
+CCCC_RejExt@actorEnemyBasic.h@1@<file scope items>@F???0@LOC:1 COM:1 MVG:0@0@r@
+CCCC_RejExt@actorPlayer.cpp@1@<file scope items>@F????@LOC:1 COM:1 MVG:0@?@r@
+CCCC_RejExt@actorPlayer.h@1@<file scope items>@F???0@LOC:1 COM:1 MVG:0@0@r@
+CCCC_RejExt@bullet.cpp@1@<file scope items>@F????@LOC:1 COM:1 MVG:0@?@r@
+CCCC_RejExt@bullet.h@1@<file scope items>@F???0@LOC:1 COM:1 MVG:0@0@r@
+CCCC_RejExt@Hitbox.cpp@1@<file scope items>@F????@LOC:2 COM:1 MVG:0@?@r@
+CCCC_RejExt@Hitbox.h@1@<file scope items>@F???2@LOC:1 COM:1 MVG:0@2@r@
+CCCC_RejExt@main.cpp@1@<file scope items>@F????@LOC:1 COM:1 MVG:0@?@r@
+CCCC_RejExt@objectSpawners.cpp@1@<file scope items>@F????@LOC:1 COM:1 MVG:0@?@r@
+CCCC_RejExt@objectSpawners.h@1@<file scope items>@F????@LOC:2 COM:14 MVG:0@?@r@
+CCCC_RejExt@projectile.cpp@1@<file scope items>@F????@LOC:1 COM:1 MVG:0@?@r@
+CCCC_RejExt@projectile.h@1@<file scope items>@F??T2@LOC:1 COM:1 MVG:0@2@r@

@@ -17,7 +17,6 @@
 
 #include <stdio.h>
 #include <allegro5/allegro.h>
-#include <allegro5/allegro5.h>
 #include <allegro5/allegro_native_dialog.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_font.h>
@@ -48,7 +47,7 @@
 *
 *	@return		Boolian value.
 */
-bool enemyRemovePred( const ActorEnemyBasic target) {
+bool enemyRemovePred(const ActorEnemyBasic target) {
 	if (target.isDead) {
 		return true;
 	}
@@ -562,5 +561,6 @@ int main()
     al_destroy_event_queue(event_queue1);
 
 	/** End the program. */
+
     return 0;
 }

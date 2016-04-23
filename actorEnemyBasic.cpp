@@ -19,7 +19,7 @@
 /** 
 * Additional comments about ActorEnemyBasic constructors (if any).
 */
-ActorEnemyBasic::ActorEnemyBasic(float xPosi, float yPosi, int hp, int _hitboxSize, int spriteLoc, int pts, bool right) : Actor(xPosi, yPosi, hp, _hitboxSize, spriteLoc), enemyScore(pts), moveRight(right), movedDown(false) {}
+ActorEnemyBasic::ActorEnemyBasic(float xPosi, float yPosi, int hp, int _hitboxSize, int spriteLoc, int pts, bool right) : Actor(xPosi, yPosi, hp, _hitboxSize, spriteLoc), enemyScore(pts), moveRight(right), movedDown(false), isDead(false) {}
 
 /** Manipulation Methods */
 

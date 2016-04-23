@@ -36,3 +36,4 @@ int ProjectileBullet::GetBulletDamage(){
 //void drawBullet(int& currBullets, const int maxBullets, struct Bullets BulletsArray[]);
 
 //void deleteBullet(int& currBullets, const int maxBullets, struct Bullets BulletsArray[], const int ScreenHeight, const int ScreenWidth);
+

@@ -32,7 +32,7 @@ public:
 
 	/** Public Member Variables */
 	
-	bool	isDead = false;			/**< Used to exclude an object from collision while animating its death. */
+	bool	isDead;			/**< Used to exclude an object from collision while animating its death. */
 
 	/** Constructors and Destructors */
 

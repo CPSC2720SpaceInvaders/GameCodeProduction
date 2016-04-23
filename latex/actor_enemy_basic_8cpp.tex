@@ -1,0 +1,20 @@
+\hypertarget{actor_enemy_basic_8cpp}{}\section{actor\+Enemy\+Basic.\+cpp File Reference}
+\label{actor_enemy_basic_8cpp}\index{actor\+Enemy\+Basic.\+cpp@{actor\+Enemy\+Basic.\+cpp}}
+
+
+Implementation of \hyperlink{class_actor_enemy_basic}{Actor\+Enemy\+Basic} class.  
+
+
+{\ttfamily \#include \char`\"{}actor\+Enemy\+Basic.\+h\char`\"{}}\\*
+
+
+\subsection{Detailed Description}
+Implementation of \hyperlink{class_actor_enemy_basic}{Actor\+Enemy\+Basic} class. 
+
+This contains the implementations of all methods for the \hyperlink{class_actor_enemy_basic}{Actor\+Enemy\+Basic} class, which handles functionality specifically for the basic, or most average/typical enemy type in the game, notably also the only current enemy type in the game.
+
+\begin{DoxyAuthor}{Author}
+Tyler Bertram 
+\end{DoxyAuthor}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000003}{Bug}]If an enemy unit is spawned within 25 pixels of either screen edge, due to the move\+Actor logic, it will careen towards the bottom of the screen instead of correctly moving. Don\textquotesingle{}t place units within this space. \end{DoxyRefDesc}

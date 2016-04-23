@@ -1,0 +1,318 @@
+\hypertarget{class_actor}{}\section{Actor Class Reference}
+\label{class_actor}\index{Actor@{Actor}}
+Inheritance diagram for Actor\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_actor}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_actor_a109f99625e52500bf99a94d4f097ad0b}{Actor} (float x\+Posi, float y\+Posi, int hp, int \+\_\+hitbox\+Size, int \hyperlink{class_actor_a87edc76c25d94d8d8c3a09712d554c12}{sprite\+Key})
+\begin{DoxyCompactList}\small\item\em Constructor function. \end{DoxyCompactList}\item 
+\hyperlink{class_actor_a2a0ff4335a1ee9096df90f288c026c8b}{Actor} ()
+\begin{DoxyCompactList}\small\item\em Default constructor function. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_actor_ad807fe8f85e72ab263a0c05e3231cb39}{$\sim$\+Actor} ()
+\begin{DoxyCompactList}\small\item\em Virtual default destructor function. \end{DoxyCompactList}\item 
+float \hyperlink{class_actor_a11aaf02239c93ddb984190de26c42524}{Get\+X\+Coord} ()
+\begin{DoxyCompactList}\small\item\em Getter function for x\+Coord. \end{DoxyCompactList}\item 
+float \hyperlink{class_actor_a4462d34b9df911fda0b3221819433951}{Get\+Y\+Coord} ()
+\begin{DoxyCompactList}\small\item\em Getter function for y\+Coord. \end{DoxyCompactList}\item 
+int \hyperlink{class_actor_aabeae30dc510867f0ef39d041f566386}{Get\+Health} ()
+\begin{DoxyCompactList}\small\item\em Getter function for health. \end{DoxyCompactList}\item 
+int \hyperlink{class_actor_ad36330f5205adfc8a63d79fda3115912}{Get\+Sprite\+Key} ()
+\begin{DoxyCompactList}\small\item\em Getter function for sprite\+Key. \end{DoxyCompactList}\item 
+void \hyperlink{class_actor_aca64c3d23f52600990f808e5f7ee85eb}{Move\+Actor} ()
+\begin{DoxyCompactList}\small\item\em Empty movement function, overloaded by inheriting classes. \end{DoxyCompactList}\item 
+void \hyperlink{class_actor_a854aad969c3695d08f335c41f0675ad7}{Set\+X\+Coord} (float new\+Coord)
+\begin{DoxyCompactList}\small\item\em Setter function for x\+Coord var. \end{DoxyCompactList}\item 
+void \hyperlink{class_actor_aae6e98635555c88a9e19fa1459462f79}{Set\+Y\+Coord} (float new\+Coord)
+\begin{DoxyCompactList}\small\item\em Setter function for y\+Coord var. \end{DoxyCompactList}\item 
+void \hyperlink{class_actor_a99ae0d6870270e5d9328d7ea4f62c685}{Modify\+Health} (int damage\+Taken)
+\begin{DoxyCompactList}\small\item\em Modifies the health variable by a certain amount, mostly used for damaging actors (hence the arg name). \end{DoxyCompactList}\item 
+void \hyperlink{class_actor_a7d72c85e4766782f14b7ccf98a1ac503}{Change\+Actor\+Sprite} (int new\+Sprite\+Loc)
+\begin{DoxyCompactList}\small\item\em Changes the sprite\+Key index location for the actor\textquotesingle{}s sprite when drawn. \end{DoxyCompactList}\item 
+bool \hyperlink{class_actor_af23f6712ddbe46073dfa17918654a21c}{Check\+Dead} ()
+\begin{DoxyCompactList}\small\item\em Checks if HP is at/below 0, if so, returns true to allow death resolution logic to occur. Also sets HP to 0 if below. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_hitbox}{Hitbox} \hyperlink{class_actor_a3350262199757df220cd955166368ce5}{actor\+Hitbox}
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \hyperlink{class_actor_a4877e499ea069ddbab1ba119388e09ae}{x\+Coord}
+\item 
+float \hyperlink{class_actor_aecada08b60c88c78e2e28b4af48c4baf}{y\+Coord}
+\item 
+int {\bfseries health}\hypertarget{class_actor_a6932c660e6b6293a66b393c3c9cb151a}{}\label{class_actor_a6932c660e6b6293a66b393c3c9cb151a}
+
+\item 
+int {\bfseries hitbox\+Size}\hypertarget{class_actor_a754be3c346e524c21e414e4fec3524e5}{}\label{class_actor_a754be3c346e524c21e414e4fec3524e5}
+
+\item 
+int \hyperlink{class_actor_aabe02701e21e0271928ef83c7da7d779}{hitbox\+Width}
+\item 
+int \hyperlink{class_actor_a87edc76c25d94d8d8c3a09712d554c12}{sprite\+Key}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Actor@{Actor}!Actor@{Actor}}
+\index{Actor@{Actor}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{Actor(float x\+Posi, float y\+Posi, int hp, int \+\_\+hitbox\+Size, int sprite\+Key)}{Actor(float xPosi, float yPosi, int hp, int _hitboxSize, int spriteKey)}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+::\+Actor (
+\begin{DoxyParamCaption}
+\item[{float}]{x\+Posi, }
+\item[{float}]{y\+Posi, }
+\item[{int}]{hp, }
+\item[{int}]{\+\_\+hitbox\+Size, }
+\item[{int}]{sprite\+Key}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_a109f99625e52500bf99a94d4f097ad0b}{}\label{class_actor_a109f99625e52500bf99a94d4f097ad0b}
+
+
+Constructor function. 
+
+Constructors and Destructors Additional comments about the constructors (if any).
+
+Constructors and Destructors
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+Posi} & Position on x axis to place new \hyperlink{class_actor}{Actor} at. \\
+\hline
+{\em y\+Posi} & Position on y axis to place new \hyperlink{class_actor}{Actor} at. \\
+\hline
+{\em hp} & Health total of the new \hyperlink{class_actor}{Actor}. \\
+\hline
+{\em \+\_\+hitbox\+Size} & Size of the hitbox that should be constructed as a member. \\
+\hline
+{\em sprite\+Key} & Location in the sprite index of the actor\textquotesingle{}s sprite bitmap.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Initialized \hyperlink{class_actor}{Actor} object. 
+\end{DoxyReturn}
+\index{Actor@{Actor}!Actor@{Actor}}
+\index{Actor@{Actor}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{Actor()}{Actor()}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+::\+Actor (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_a2a0ff4335a1ee9096df90f288c026c8b}{}\label{class_actor_a2a0ff4335a1ee9096df90f288c026c8b}
+
+
+Default constructor function. 
+
+\begin{DoxyReturn}{Returns}
+Initialized \hyperlink{class_actor}{Actor} object. 
+\end{DoxyReturn}
+\index{Actor@{Actor}!````~Actor@{$\sim$\+Actor}}
+\index{````~Actor@{$\sim$\+Actor}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{$\sim$\+Actor()}{~Actor()}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+::$\sim$\+Actor (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_actor_ad807fe8f85e72ab263a0c05e3231cb39}{}\label{class_actor_ad807fe8f85e72ab263a0c05e3231cb39}
+
+
+Virtual default destructor function. 
+
+Additional comments about $\sim$\+Actor virtual destructor (if any).
+
+Declared virtual destructor in order to destruct child classes correctly. 
+
+\subsection{Member Function Documentation}
+\index{Actor@{Actor}!Change\+Actor\+Sprite@{Change\+Actor\+Sprite}}
+\index{Change\+Actor\+Sprite@{Change\+Actor\+Sprite}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{Change\+Actor\+Sprite(int new\+Sprite\+Loc)}{ChangeActorSprite(int newSpriteLoc)}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+::\+Change\+Actor\+Sprite (
+\begin{DoxyParamCaption}
+\item[{int}]{new\+Sprite\+Loc}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_a7d72c85e4766782f14b7ccf98a1ac503}{}\label{class_actor_a7d72c85e4766782f14b7ccf98a1ac503}
+
+
+Changes the sprite\+Key index location for the actor\textquotesingle{}s sprite when drawn. 
+
+Additional comments about \hyperlink{class_actor_a7d72c85e4766782f14b7ccf98a1ac503}{Change\+Actor\+Sprite()} (if any).
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Sprite\+Loc} & The new 3-\/digit index for the sprite\+Index map. \\
+\hline
+\end{DoxyParams}
+\index{Actor@{Actor}!Check\+Dead@{Check\+Dead}}
+\index{Check\+Dead@{Check\+Dead}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{Check\+Dead()}{CheckDead()}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+::\+Check\+Dead (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_af23f6712ddbe46073dfa17918654a21c}{}\label{class_actor_af23f6712ddbe46073dfa17918654a21c}
+
+
+Checks if HP is at/below 0, if so, returns true to allow death resolution logic to occur. Also sets HP to 0 if below. 
+
+Additional comments about \hyperlink{class_actor_af23f6712ddbe46073dfa17918654a21c}{Check\+Dead()} (if any).
+
+\begin{DoxyReturn}{Returns}
+Boolian value. 
+\end{DoxyReturn}
+\index{Actor@{Actor}!Get\+Health@{Get\+Health}}
+\index{Get\+Health@{Get\+Health}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{Get\+Health()}{GetHealth()}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+::\+Get\+Health (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_aabeae30dc510867f0ef39d041f566386}{}\label{class_actor_aabeae30dc510867f0ef39d041f566386}
+
+
+Getter function for health. 
+
+Additional comments about \hyperlink{class_actor_aabeae30dc510867f0ef39d041f566386}{Get\+Health()} (if any).
+
+\begin{DoxyReturn}{Returns}
+Integer value of health var. 
+\end{DoxyReturn}
+\index{Actor@{Actor}!Get\+Sprite\+Key@{Get\+Sprite\+Key}}
+\index{Get\+Sprite\+Key@{Get\+Sprite\+Key}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{Get\+Sprite\+Key()}{GetSpriteKey()}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+::\+Get\+Sprite\+Key (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_ad36330f5205adfc8a63d79fda3115912}{}\label{class_actor_ad36330f5205adfc8a63d79fda3115912}
+
+
+Getter function for sprite\+Key. 
+
+Manipulation Methods
+
+Additional comments about \hyperlink{class_actor_ad36330f5205adfc8a63d79fda3115912}{Get\+Sprite\+Key()} (if any).
+
+\begin{DoxyReturn}{Returns}
+Integer value of sprite\+Key var. 
+\end{DoxyReturn}
+\index{Actor@{Actor}!Get\+X\+Coord@{Get\+X\+Coord}}
+\index{Get\+X\+Coord@{Get\+X\+Coord}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{Get\+X\+Coord()}{GetXCoord()}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+::\+Get\+X\+Coord (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_a11aaf02239c93ddb984190de26c42524}{}\label{class_actor_a11aaf02239c93ddb984190de26c42524}
+
+
+Getter function for x\+Coord. 
+
+Retrieval methods Additional comments about \hyperlink{class_actor_a11aaf02239c93ddb984190de26c42524}{Get\+X\+Coord()} (if any).
+
+Retrieval Methods
+
+\begin{DoxyReturn}{Returns}
+Float value of x\+Coord var. 
+\end{DoxyReturn}
+\index{Actor@{Actor}!Get\+Y\+Coord@{Get\+Y\+Coord}}
+\index{Get\+Y\+Coord@{Get\+Y\+Coord}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{Get\+Y\+Coord()}{GetYCoord()}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+::\+Get\+Y\+Coord (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_a4462d34b9df911fda0b3221819433951}{}\label{class_actor_a4462d34b9df911fda0b3221819433951}
+
+
+Getter function for y\+Coord. 
+
+Additional comments about \hyperlink{class_actor_a4462d34b9df911fda0b3221819433951}{Get\+Y\+Coord()} (if any).
+
+\begin{DoxyReturn}{Returns}
+Float value of y\+Coord var. 
+\end{DoxyReturn}
+\index{Actor@{Actor}!Modify\+Health@{Modify\+Health}}
+\index{Modify\+Health@{Modify\+Health}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{Modify\+Health(int damage\+Taken)}{ModifyHealth(int damageTaken)}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+::\+Modify\+Health (
+\begin{DoxyParamCaption}
+\item[{int}]{damage\+Taken}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_a99ae0d6870270e5d9328d7ea4f62c685}{}\label{class_actor_a99ae0d6870270e5d9328d7ea4f62c685}
+
+
+Modifies the health variable by a certain amount, mostly used for damaging actors (hence the arg name). 
+
+Manipulation methods Additional comments about \hyperlink{class_actor_a99ae0d6870270e5d9328d7ea4f62c685}{Modify\+Health()} (if any).
+
+
+\begin{DoxyParams}{Parameters}
+{\em damage\+Taken} & The amount to subtract from the \hyperlink{class_actor}{Actor}\textquotesingle{}s health. Will heal the \hyperlink{class_actor}{Actor} if negative. \\
+\hline
+\end{DoxyParams}
+\index{Actor@{Actor}!Move\+Actor@{Move\+Actor}}
+\index{Move\+Actor@{Move\+Actor}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{Move\+Actor()}{MoveActor()}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+::\+Move\+Actor (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_aca64c3d23f52600990f808e5f7ee85eb}{}\label{class_actor_aca64c3d23f52600990f808e5f7ee85eb}
+
+
+Empty movement function, overloaded by inheriting classes. 
+
+Specific actor types (player, enemies, etc.) should overload this function with that actor type\textquotesingle{}s movement logic. Would have been implemented as a virtual function, however different child classes need different parameters. \index{Actor@{Actor}!Set\+X\+Coord@{Set\+X\+Coord}}
+\index{Set\+X\+Coord@{Set\+X\+Coord}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{Set\+X\+Coord(float new\+Coord)}{SetXCoord(float newCoord)}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+::\+Set\+X\+Coord (
+\begin{DoxyParamCaption}
+\item[{float}]{new\+Coord}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_a854aad969c3695d08f335c41f0675ad7}{}\label{class_actor_a854aad969c3695d08f335c41f0675ad7}
+
+
+Setter function for x\+Coord var. 
+
+Additional comments about \hyperlink{class_actor_a854aad969c3695d08f335c41f0675ad7}{Set\+X\+Coord()} (if any).
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Coord} & Designates the new horizontal location for the actor object. \\
+\hline
+\end{DoxyParams}
+\index{Actor@{Actor}!Set\+Y\+Coord@{Set\+Y\+Coord}}
+\index{Set\+Y\+Coord@{Set\+Y\+Coord}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{Set\+Y\+Coord(float new\+Coord)}{SetYCoord(float newCoord)}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+::\+Set\+Y\+Coord (
+\begin{DoxyParamCaption}
+\item[{float}]{new\+Coord}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_aae6e98635555c88a9e19fa1459462f79}{}\label{class_actor_aae6e98635555c88a9e19fa1459462f79}
+
+
+Setter function for y\+Coord var. 
+
+Additional comments about \hyperlink{class_actor_aae6e98635555c88a9e19fa1459462f79}{Set\+Y\+Coord()} (if any).
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Coord} & Designates the new vertical location for the actor object. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\index{Actor@{Actor}!actor\+Hitbox@{actor\+Hitbox}}
+\index{actor\+Hitbox@{actor\+Hitbox}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{actor\+Hitbox}{actorHitbox}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Hitbox} Actor\+::actor\+Hitbox}\hypertarget{class_actor_a3350262199757df220cd955166368ce5}{}\label{class_actor_a3350262199757df220cd955166368ce5}
+Public member variables Used for collision detection. \index{Actor@{Actor}!hitbox\+Width@{hitbox\+Width}}
+\index{hitbox\+Width@{hitbox\+Width}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{hitbox\+Width}{hitboxWidth}}]{\setlength{\rightskip}{0pt plus 5cm}int Actor\+::hitbox\+Width\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{class_actor_aabe02701e21e0271928ef83c7da7d779}{}\label{class_actor_aabe02701e21e0271928ef83c7da7d779}
+health\+: \hyperlink{class_actor}{Actor}\textquotesingle{}s current HP. hitbox\+Size/\+Width\+: Length/width of the member hitbox object. \index{Actor@{Actor}!sprite\+Key@{sprite\+Key}}
+\index{sprite\+Key@{sprite\+Key}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{sprite\+Key}{spriteKey}}]{\setlength{\rightskip}{0pt plus 5cm}int Actor\+::sprite\+Key\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{class_actor_a87edc76c25d94d8d8c3a09712d554c12}{}\label{class_actor_a87edc76c25d94d8d8c3a09712d554c12}
+Matches the desired sprite\textquotesingle{}s key within the sprite std\+::map wrapper, used when drawing the actor. \index{Actor@{Actor}!x\+Coord@{x\+Coord}}
+\index{x\+Coord@{x\+Coord}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{x\+Coord}{xCoord}}]{\setlength{\rightskip}{0pt plus 5cm}float Actor\+::x\+Coord\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{class_actor_a4877e499ea069ddbab1ba119388e09ae}{}\label{class_actor_a4877e499ea069ddbab1ba119388e09ae}
+Protected member variables \index{Actor@{Actor}!y\+Coord@{y\+Coord}}
+\index{y\+Coord@{y\+Coord}!Actor@{Actor}}
+\subsubsection[{\texorpdfstring{y\+Coord}{yCoord}}]{\setlength{\rightskip}{0pt plus 5cm}float Actor\+::y\+Coord\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{class_actor_aecada08b60c88c78e2e28b4af48c4baf}{}\label{class_actor_aecada08b60c88c78e2e28b4af48c4baf}
+Determines the location of an actor at a given time. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{actor_8h}{actor.\+h}\item 
+\hyperlink{actor_8cpp}{actor.\+cpp}\end{DoxyCompactItemize}

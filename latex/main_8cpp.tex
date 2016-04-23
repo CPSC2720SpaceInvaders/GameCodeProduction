@@ -1,0 +1,242 @@
+\hypertarget{main_8cpp}{}\section{main.\+cpp File Reference}
+\label{main_8cpp}\index{main.\+cpp@{main.\+cpp}}
+
+
+An imitation of early S\+H\+M\+UP games like Galaga or Space Invaders. A C++ Allegro game for C\+P\+SC 2720 term project.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\\*
+{\ttfamily \#include $<$allegro5/allegro.\+h$>$}\\*
+{\ttfamily \#include $<$allegro5/allegro\+\_\+native\+\_\+dialog.\+h$>$}\\*
+{\ttfamily \#include $<$allegro5/allegro\+\_\+ttf.\+h$>$}\\*
+{\ttfamily \#include $<$allegro5/allegro\+\_\+font.\+h$>$}\\*
+{\ttfamily \#include $<$allegro5/allegro\+\_\+primitives.\+h$>$}\\*
+{\ttfamily \#include $<$allegro5/allegro\+\_\+image.\+h$>$}\\*
+{\ttfamily \#include $<$allegro5/allegro\+\_\+audio.\+h$>$}\\*
+{\ttfamily \#include $<$allegro5/allegro\+\_\+acodec.\+h$>$}\\*
+{\ttfamily \#include $<$iostream$>$}\\*
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$stdlib.\+h$>$}\\*
+{\ttfamily \#include $<$time.\+h$>$}\\*
+{\ttfamily \#include $<$map$>$}\\*
+{\ttfamily \#include $<$algorithm$>$}\\*
+{\ttfamily \#include \char`\"{}projectile.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}actor.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}bullet.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}actor\+Player.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}actor\+Enemy\+Basic.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}object\+Spawners.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{main_8cpp_ad3cf59c57b6047ae36a44ae677fb1737}{enemy\+Remove\+Pred} (const \hyperlink{class_actor_enemy_basic}{Actor\+Enemy\+Basic} target)
+\begin{DoxyCompactList}\small\item\em Predicate for remove\+\_\+if call on the basic enemy index. \end{DoxyCompactList}\item 
+bool \hyperlink{main_8cpp_a2650a9e53ff5009b70ac4fbdba61716f}{bullet\+Remove\+Pred} (const \hyperlink{class_projectile_bullet}{Projectile\+Bullet} target)
+\begin{DoxyCompactList}\small\item\em Predicate for remove\+\_\+if call on the bullet indices. \end{DoxyCompactList}\item 
+int \hyperlink{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{main} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+An imitation of early S\+H\+M\+UP games like Galaga or Space Invaders. A C++ Allegro game for C\+P\+SC 2720 term project. 
+
+--Resource Credits-- Eric Skiff ( \href{http://ericskiff.com/music}{\tt http\+://ericskiff.\+com/music} ) for the music track Underclocked. Dalton Maag (\href{http://www.daltonmaag.com}{\tt http\+://www.\+daltonmaag.\+com} ) for the Ubuntu font.
+
+\begin{DoxyAuthor}{Author}
+Victor Adad, Tyler Bertram 
+\end{DoxyAuthor}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000011}{Bug}]No known bugs. \end{DoxyRefDesc}
+
+
+\subsection{Function Documentation}
+\index{main.\+cpp@{main.\+cpp}!bullet\+Remove\+Pred@{bullet\+Remove\+Pred}}
+\index{bullet\+Remove\+Pred@{bullet\+Remove\+Pred}!main.\+cpp@{main.\+cpp}}
+\subsubsection[{\texorpdfstring{bullet\+Remove\+Pred(const Projectile\+Bullet target)}{bulletRemovePred(const ProjectileBullet target)}}]{\setlength{\rightskip}{0pt plus 5cm}bullet\+Remove\+Pred (
+\begin{DoxyParamCaption}
+\item[{const {\bf Projectile\+Bullet}}]{target}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8cpp_a2650a9e53ff5009b70ac4fbdba61716f}{}\label{main_8cpp_a2650a9e53ff5009b70ac4fbdba61716f}
+
+
+Predicate for remove\+\_\+if call on the bullet indices. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & \hyperlink{class_projectile_bullet}{Projectile\+Bullet} type object. We check the proj\+Inactive boolian member and return its value.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Boolian value. 
+\end{DoxyReturn}
+\index{main.\+cpp@{main.\+cpp}!enemy\+Remove\+Pred@{enemy\+Remove\+Pred}}
+\index{enemy\+Remove\+Pred@{enemy\+Remove\+Pred}!main.\+cpp@{main.\+cpp}}
+\subsubsection[{\texorpdfstring{enemy\+Remove\+Pred(const Actor\+Enemy\+Basic target)}{enemyRemovePred(const ActorEnemyBasic target)}}]{\setlength{\rightskip}{0pt plus 5cm}enemy\+Remove\+Pred (
+\begin{DoxyParamCaption}
+\item[{const {\bf Actor\+Enemy\+Basic}}]{target}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8cpp_ad3cf59c57b6047ae36a44ae677fb1737}{}\label{main_8cpp_ad3cf59c57b6047ae36a44ae677fb1737}
+
+
+Predicate for remove\+\_\+if call on the basic enemy index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & \hyperlink{class_actor_enemy_basic}{Actor\+Enemy\+Basic} type object. We check the is\+Dead boolian member and return its value.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Boolian value. 
+\end{DoxyReturn}
+\index{main.\+cpp@{main.\+cpp}!main@{main}}
+\index{main@{main}!main.\+cpp@{main.\+cpp}}
+\subsubsection[{\texorpdfstring{main()}{main()}}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}{}\label{main_8cpp_ae66f6b31b5ad750f1fe042a706a4e3d4}
+$<$ Screen dimension constants.
+
+$<$ Screen dimension constants.
+
+$<$ Screen dimension constants.
+
+$<$ Frames per second variable
+
+$<$ If done == true, the game ends.
+
+$<$ If draw == true, the gamestate will be drawn to the display.
+
+$<$ Passed to the player object to control movement.
+
+$<$ Passed to the player object to control movement.
+
+$<$ If set to a negative value, the bullet will move in the opposite direction intended. This is undesirable behaviour.
+
+$<$ If set to a negative value, the bullet will move in the opposite direction intended. This is undesirable behaviour.
+
+$<$ Controls movement both of the player and enemies.
+
+$<$ Random number storage variable for misc usage.
+
+$<$ Random number storage variable for misc usage.
+
+$<$ Used in animating the main menu/loading screen.
+
+$<$ Vertical location in the menu bitmap to start drawing from.
+
+$<$ Used to end the game when the player has completed all available stages. Note, the menu is considered stage 1, as the victory screen is stage 0 and death is stage -\/1.
+
+$<$ If false, then displays main menu, if true, the \char`\"{}loading\char`\"{} screen will be shown.
+
+$<$ Sums amount of time that the \char`\"{}loading\char`\"{} screen will be displayed.
+
+$<$ Defines the current stage, which controls execution of certain code in the game loop. Initialized to 1 for the menu.
+
+$<$ If true, the first-\/time enemy set-\/up for a stage will be performed. Initialized to true for this reason, so that the first stage sets up correctly.
+
+$<$ Until allegro is initialized, this must be a null pointers.
+
+Exception handling in the case that allegro does not initialize. This function M\+U\+ST be called first.
+
+$<$ Sets up the previously declared display.
+
+Exception handling in case the display fails to set up.
+
+Initialize various allegro modules.
+
+Initialization of Allegro-\/specific types that required the init funcs above in order to be declared.
+
+$<$ A\+L\+L\+E\+G\+R\+O\+\_\+\+S\+A\+M\+P\+LE doesn\textquotesingle{}t support mp3 or midi files.
+
+$<$ Indicate how many samples (sound files) we are using.
+
+Syntax for sprite\+Index keys\+: x yz x\+: 0\+: abstract object, for instance buttons or menu elements; 1\+: actor sprites, for instance the player\textquotesingle{}s ship 2+\+: misc indices, unlikely to be used yz\+: order of loading. For instance, 000 is the first menu object loaded.
+
+$<$ Plays the main theme.
+
+Create the Player actor, and all required indices for game functions.
+
+G\+A\+ME M\+A\+IN L\+O\+OP
+
+$<$ After starting the timer, the only thing that should be done is the game loop, and subsequent object cleanup.
+
+$<$ This is the game loop, right here.
+
+$<$ waits for something to happen
+
+$<$ I\+M\+P\+O\+R\+T\+A\+NT\+: gets the input from the keyboard
+
+$<$ Updates and draws all elements in the game space.
+
+$<$ Pressing escape key ends the program.
+
+Game over screen, stage designate -\/1.
+
+Victory screen, stage designate 0.
+
+Menu screen, stage designate 1.
+
+The following three conditional statements simply animate the menu screen, moving between two static images between update cycles.
+
+Once the player presses enter, we begin the \char`\"{}loading\char`\"{} screen. Full disclosure\+: nothing is loading. However, the delay allows a player to prepare to play the game, rather than commencing play in the same second they press enter.
+
+S\+T\+A\+GE S\+E\+T-\/\+UP
+
+Stage Designate 2\+: Stage 1
+
+Stage Designate 3\+: Stage 2
+
+The stage is defeated when all basic enemies have been defeated, largely because the other non-\/boss enemy class we had wanted to implement would run off the screen and destruct itself automatically well before the player cleared out all of the basics.
+
+P\+R\+E\+V\+I\+O\+US U\+P\+D\+A\+TE C\+L\+E\+A\+N\+UP
+
+Any enemy which has moved off the bottom of the screen is no longer interesting/useful and can be safely deleted.
+
+We only care if friendly bullets move off the top of the screen or hostile bullets move off the bottom. If friendly bullets are moving off the bottom or hostile bullets off the top, that\textquotesingle{}s incorrect behaviour.
+
+U\+P\+D\+A\+TE P\+L\+A\+Y\+ER
+
+Check if the player is dead, and also if the player has exhausted all their allotted lives.
+
+$<$ Changes to the game over screen.
+
+Get input and move the player accordingly.
+
+Check if the player has flown into any of the enemy objects.
+
+Control firing of friendly bullets.
+
+U\+P\+D\+A\+TE E\+N\+E\+M\+I\+ES
+
+Move all elements of each enemy index.
+
+Check to see if any of the enemy objects have collided with the player.
+
+Check to see if any enemy should fire a bullet, and if so, generate it.
+
+One or no basic enemies will fire a bullet each update phase, depending on a certain percentile chance.
+
+U\+P\+D\+A\+TE P\+R\+O\+J\+E\+C\+T\+I\+L\+ES
+
+Move all bullets.
+
+Check for collision between bullets and valid targets.
+
+D\+R\+AW A\+LL O\+B\+J\+E\+C\+TS
+
+Draw the player.
+
+Draw the enemies.
+
+Draw the bullets.
+
+$<$ Updates the display.
+
+$<$ Clear the display to the bg color in preparation for the next draw.
+
+Clean up sprite\+Index.
+
+Clean up unwrapped allegro objects.
+
+End the program. 

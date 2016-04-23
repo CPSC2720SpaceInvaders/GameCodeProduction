@@ -1,0 +1,105 @@
+\hypertarget{object_spawners_8h}{}\section{object\+Spawners.\+h File Reference}
+\label{object_spawners_8h}\index{object\+Spawners.\+h@{object\+Spawners.\+h}}
+
+
+Functions to create enemy and bullet objects for use in the game stages.  
+
+
+{\ttfamily \#include $<$vector$>$}\\*
+{\ttfamily \#include $<$string$>$}\\*
+{\ttfamily \#include \char`\"{}actor.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}actor\+Enemy\+Basic.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}projectile.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}bullet.\+h\char`\"{}}\\*
+{\ttfamily \#include \char`\"{}Hitbox.\+h\char`\"{}}\\*
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{object_spawners_8h_acb621607b3255e1c7cb70934504b09fb}{Spawn\+Bullet} (vector$<$ \hyperlink{class_projectile_bullet}{Projectile\+Bullet} $>$ \&target\+Index, float starting\+X\+Posi, float starting\+Y\+Posi, int damage, int direction)
+\begin{DoxyCompactList}\small\item\em Constructor function. \end{DoxyCompactList}\item 
+void \hyperlink{object_spawners_8h_af5cea0ac5d199480b9f685869b1e7cb7}{Spawn\+Basic\+Row} (vector$<$ \hyperlink{class_actor_enemy_basic}{Actor\+Enemy\+Basic} $>$ \&enemy\+Index, float starting\+X\+Posi, float starting\+Y\+Posi, int new\+Enemy\+Health, int new\+Enemy\+Score, int sprite\+Loc, bool right, int hitbox\+Size, int enemies\+To\+Spawn)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Functions to create enemy and bullet objects for use in the game stages. 
+
+Each function defined below creates a certain number (either one or more) of a specific type of object which will activate and act as specified in the game space.
+
+\begin{DoxyAuthor}{Author}
+Tyler Bertram 
+\end{DoxyAuthor}
+\begin{DoxyRefDesc}{Bug}
+\item[\hyperlink{bug__bug000013}{Bug}]No known bugs. \end{DoxyRefDesc}
+
+
+\subsection{Function Documentation}
+\index{object\+Spawners.\+h@{object\+Spawners.\+h}!Spawn\+Basic\+Row@{Spawn\+Basic\+Row}}
+\index{Spawn\+Basic\+Row@{Spawn\+Basic\+Row}!object\+Spawners.\+h@{object\+Spawners.\+h}}
+\subsubsection[{\texorpdfstring{Spawn\+Basic\+Row(vector$<$ Actor\+Enemy\+Basic $>$ \&enemy\+Index, float starting\+X\+Posi, float starting\+Y\+Posi, int new\+Enemy\+Health, int new\+Enemy\+Score, int sprite\+Loc, bool right, int hitbox\+Size, int enemies\+To\+Spawn)}{SpawnBasicRow(vector< ActorEnemyBasic > &enemyIndex, float startingXPosi, float startingYPosi, int newEnemyHealth, int newEnemyScore, int spriteLoc, bool right, int hitboxSize, int enemiesToSpawn)}}]{\setlength{\rightskip}{0pt plus 5cm}void Spawn\+Basic\+Row (
+\begin{DoxyParamCaption}
+\item[{vector$<$ {\bf Actor\+Enemy\+Basic} $>$ \&}]{enemy\+Index, }
+\item[{float}]{starting\+X\+Posi, }
+\item[{float}]{starting\+Y\+Posi, }
+\item[{int}]{new\+Enemy\+Health, }
+\item[{int}]{new\+Enemy\+Score, }
+\item[{int}]{sprite\+Loc, }
+\item[{bool}]{right, }
+\item[{int}]{hitbox\+Size, }
+\item[{int}]{enemies\+To\+Spawn}
+\end{DoxyParamCaption}
+)}\hypertarget{object_spawners_8h_af5cea0ac5d199480b9f685869b1e7cb7}{}\label{object_spawners_8h_af5cea0ac5d199480b9f685869b1e7cb7}
+According to Dr. Memory (Windows memory leak detection tool), there may be a memory leak in this \index{object\+Spawners.\+h@{object\+Spawners.\+h}!Spawn\+Bullet@{Spawn\+Bullet}}
+\index{Spawn\+Bullet@{Spawn\+Bullet}!object\+Spawners.\+h@{object\+Spawners.\+h}}
+\subsubsection[{\texorpdfstring{Spawn\+Bullet(vector$<$ Projectile\+Bullet $>$ \&target\+Index, float starting\+X\+Posi, float starting\+Y\+Posi, int damage, int direction)}{SpawnBullet(vector< ProjectileBullet > &targetIndex, float startingXPosi, float startingYPosi, int damage, int direction)}}]{\setlength{\rightskip}{0pt plus 5cm}void Spawn\+Bullet (
+\begin{DoxyParamCaption}
+\item[{vector$<$ {\bf Projectile\+Bullet} $>$ \&}]{target\+Index, }
+\item[{float}]{starting\+X\+Posi, }
+\item[{float}]{starting\+Y\+Posi, }
+\item[{int}]{damage, }
+\item[{int}]{direction}
+\end{DoxyParamCaption}
+)}\hypertarget{object_spawners_8h_acb621607b3255e1c7cb70934504b09fb}{}\label{object_spawners_8h_acb621607b3255e1c7cb70934504b09fb}
+
+
+Constructor function. 
+
+Implemented Functions Additional comments about Spawn\+Bullet function (if any).
+
+Implemented Functions
+
+
+\begin{DoxyParams}{Parameters}
+{\em target\+Index} & Vector index to load the new bullet into. \\
+\hline
+{\em starting\+X\+Posi} & Initial x-\/axis position of the new bullet. \\
+\hline
+{\em starting\+Y\+Posi} & Initial y-\/axis position of the new bullet. \\
+\hline
+{\em damage} & Damage the new bullet should deal. \\
+\hline
+{\em direction} & Direction the new bullet should travel (0 = UP, 1 = D\+O\+WN, see directions\+\_\+c enum in \hyperlink{projectile_8h}{projectile.\+h}) \begin{DoxyVerb}        Loads a newly-constructed Bullet object into the specified vector index, where it can be acted upon
+        as desired.\end{DoxyVerb}
+\\
+\hline
+{\em enemy\+Index} & Vector index to load the basic enemies into. \\
+\hline
+{\em starting\+X\+Posi} & Initial x-\/axis position of the first enemy spawned. \\
+\hline
+{\em starting\+Y\+Posi} & Initial y-\/axis position of the row of enemies to be created. \\
+\hline
+{\em new\+Enemy\+Health} & Amount of health the new enemies should begin with. \\
+\hline
+{\em new\+Enemy\+Score} & Value of the new enemies when killed (not currently utilized). \\
+\hline
+{\em sprite\+Loc} & sprite\+Index key to draw the new enemies. \\
+\hline
+{\em right} & If true, the enemies will begin moving right. If false, they will begin moving left instead. \\
+\hline
+{\em hitbox\+Size} & Size of the hitbox of the spawned enemies. \\
+\hline
+{\em enemies\+To\+Spawn} & Number of enemies to spawn in the row. Each enemy will be spawned with a 10 pixel space between its sprite and the sprite of the previously spawned enemy, if any. \begin{DoxyVerb}        Creates a row of one or more enemies of ActorEnemyBasic type and inserts them into a target vector index.
+        The row exists on only one y-axis location, but enemies are spawned rightwards of a defined starting location.\end{DoxyVerb}
+ \\
+\hline
+\end{DoxyParams}

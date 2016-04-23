@@ -1,0 +1,185 @@
+\hypertarget{class_projectile}{}\section{Projectile Class Reference}
+\label{class_projectile}\index{Projectile@{Projectile}}
+Inheritance diagram for Projectile\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_projectile}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_projectile_a9f5c35e63c72e01ecc6a2b9d0b250aff}{Projectile} (float x\+Posi, float y\+Posi, int dir, int \+\_\+hitbox\+Size)
+\begin{DoxyCompactList}\small\item\em Constructor function. \end{DoxyCompactList}\item 
+virtual \hyperlink{class_projectile_a94903e021fa2edab60ba3836ca0b937d}{$\sim$\+Projectile} ()
+\begin{DoxyCompactList}\small\item\em Virtual default constructor function. \end{DoxyCompactList}\item 
+float \hyperlink{class_projectile_aefcef09fde3c66ddbbcc58f599bd7965}{Get\+X\+Coord} ()
+\begin{DoxyCompactList}\small\item\em Exposes and returns x\+Coordinate. \end{DoxyCompactList}\item 
+float \hyperlink{class_projectile_a2c5fabef6aa3fc8831717a2b1751adcd}{Get\+Y\+Coord} ()
+\begin{DoxyCompactList}\small\item\em Exposes and returns y\+Coordinate. \end{DoxyCompactList}\item 
+void \hyperlink{class_projectile_a9eff3315fef4f92927d52dd9372a3f35}{Move\+Projectile} (const int M\+O\+V\+E\+R\+A\+T\+E\+\_\+\+P\+R\+O\+J\+E\+C\+T\+I\+L\+ES)
+\begin{DoxyCompactList}\small\item\em Moves the single-\/pixel location of a projectile a given distance down or up. Modifies x\+Coordinate and y\+Coordinate. \end{DoxyCompactList}\item 
+void \hyperlink{class_projectile_a47422fcf423ec9068329fe899a571e62}{Draw\+Projectile} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_hitbox}{Hitbox} \hyperlink{class_projectile_ae0036dcb811aabf0228f768700491790}{projectile\+Hitbox}
+\item 
+bool \hyperlink{class_projectile_aae745fd2564addc23d5456fe5fd1a711}{proj\+Inactive}
+\end{DoxyCompactItemize}
+\subsection*{Protected Types}
+\begin{DoxyCompactItemize}
+\item 
+enum {\bfseries directions\+\_\+c} \{ {\bfseries UP}, 
+{\bfseries D\+O\+WN}
+ \}\hypertarget{class_projectile_ad4b7defda550e55015b594db2d85644c}{}\label{class_projectile_ad4b7defda550e55015b594db2d85644c}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+float \hyperlink{class_projectile_a744bb0d2fd11da1750ab875ceea4b5cb}{x\+Coordinate}
+\item 
+float \hyperlink{class_projectile_a23383eb9240ee101dbdacbcc87b0a920}{y\+Coordinate}
+\item 
+directions\+\_\+c \hyperlink{class_projectile_a31cb4995dad27c6b37dd8a312edbd5af}{bullet\+Direction}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Projectile@{Projectile}!Projectile@{Projectile}}
+\index{Projectile@{Projectile}!Projectile@{Projectile}}
+\subsubsection[{\texorpdfstring{Projectile(float x\+Posi, float y\+Posi, int dir, int \+\_\+hitbox\+Size)}{Projectile(float xPosi, float yPosi, int dir, int _hitboxSize)}}]{\setlength{\rightskip}{0pt plus 5cm}Projectile\+::\+Projectile (
+\begin{DoxyParamCaption}
+\item[{float}]{x\+Posi, }
+\item[{float}]{y\+Posi, }
+\item[{int}]{dir, }
+\item[{int}]{\+\_\+hitbox\+Size}
+\end{DoxyParamCaption}
+)}\hypertarget{class_projectile_a9f5c35e63c72e01ecc6a2b9d0b250aff}{}\label{class_projectile_a9f5c35e63c72e01ecc6a2b9d0b250aff}
+
+
+Constructor function. 
+
+Private Methods Public Methods bullet\+Direction is taken as as an int in the constructor because directions\+\_\+c is an enum only declared in the class.
+
+Constructors and Destructors
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+Posi} & Position on x axis to place new \hyperlink{class_projectile}{Projectile} at. \\
+\hline
+{\em y\+Posi} & Position on y axis to place new \hyperlink{class_projectile}{Projectile} at. \\
+\hline
+{\em dir} & Direction new projectile should travel, up or down. \\
+\hline
+{\em \+\_\+hitbox\+Size} & Size of the hitbox that should be constructed as a member.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Initialized \hyperlink{class_projectile}{Projectile} object. 
+\end{DoxyReturn}
+\index{Projectile@{Projectile}!````~Projectile@{$\sim$\+Projectile}}
+\index{````~Projectile@{$\sim$\+Projectile}!Projectile@{Projectile}}
+\subsubsection[{\texorpdfstring{$\sim$\+Projectile()}{~Projectile()}}]{\setlength{\rightskip}{0pt plus 5cm}Projectile\+::$\sim$\+Projectile (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\hypertarget{class_projectile_a94903e021fa2edab60ba3836ca0b937d}{}\label{class_projectile_a94903e021fa2edab60ba3836ca0b937d}
+
+
+Virtual default constructor function. 
+
+Additional comments about $\sim$\+Projectile virtual destructor (if any).
+
+Specifically defined as virtual here in order for child classes of \hyperlink{class_projectile}{Projectile} to destruct correctly. 
+
+\subsection{Member Function Documentation}
+\index{Projectile@{Projectile}!Draw\+Projectile@{Draw\+Projectile}}
+\index{Draw\+Projectile@{Draw\+Projectile}!Projectile@{Projectile}}
+\subsubsection[{\texorpdfstring{Draw\+Projectile()}{DrawProjectile()}}]{\setlength{\rightskip}{0pt plus 5cm}void Projectile\+::\+Draw\+Projectile (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_projectile_a47422fcf423ec9068329fe899a571e62}{}\label{class_projectile_a47422fcf423ec9068329fe899a571e62}
+Additional comments about Draw\+Projectile method (if any). \index{Projectile@{Projectile}!Get\+X\+Coord@{Get\+X\+Coord}}
+\index{Get\+X\+Coord@{Get\+X\+Coord}!Projectile@{Projectile}}
+\subsubsection[{\texorpdfstring{Get\+X\+Coord()}{GetXCoord()}}]{\setlength{\rightskip}{0pt plus 5cm}Projectile\+::\+Get\+X\+Coord (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_projectile_aefcef09fde3c66ddbbcc58f599bd7965}{}\label{class_projectile_aefcef09fde3c66ddbbcc58f599bd7965}
+
+
+Exposes and returns x\+Coordinate. 
+
+Additional comments about Get\+X\+Coord method (if any).
+
+Retrieval Methods
+
+\begin{DoxyReturn}{Returns}
+Integer value. 
+\end{DoxyReturn}
+\index{Projectile@{Projectile}!Get\+Y\+Coord@{Get\+Y\+Coord}}
+\index{Get\+Y\+Coord@{Get\+Y\+Coord}!Projectile@{Projectile}}
+\subsubsection[{\texorpdfstring{Get\+Y\+Coord()}{GetYCoord()}}]{\setlength{\rightskip}{0pt plus 5cm}Projectile\+::\+Get\+Y\+Coord (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_projectile_a2c5fabef6aa3fc8831717a2b1751adcd}{}\label{class_projectile_a2c5fabef6aa3fc8831717a2b1751adcd}
+
+
+Exposes and returns y\+Coordinate. 
+
+Additional comments about Get\+Y\+Coord method (if any).
+
+\begin{DoxyReturn}{Returns}
+Integer value. 
+\end{DoxyReturn}
+\index{Projectile@{Projectile}!Move\+Projectile@{Move\+Projectile}}
+\index{Move\+Projectile@{Move\+Projectile}!Projectile@{Projectile}}
+\subsubsection[{\texorpdfstring{Move\+Projectile(const int M\+O\+V\+E\+R\+A\+T\+E\+\_\+\+P\+R\+O\+J\+E\+C\+T\+I\+L\+E\+S)}{MoveProjectile(const int MOVERATE_PROJECTILES)}}]{\setlength{\rightskip}{0pt plus 5cm}Projectile\+::\+Move\+Projectile (
+\begin{DoxyParamCaption}
+\item[{const int}]{M\+O\+V\+E\+R\+A\+T\+E\+\_\+\+P\+R\+O\+J\+E\+C\+T\+I\+L\+ES}
+\end{DoxyParamCaption}
+)}\hypertarget{class_projectile_a9eff3315fef4f92927d52dd9372a3f35}{}\label{class_projectile_a9eff3315fef4f92927d52dd9372a3f35}
+
+
+Moves the single-\/pixel location of a projectile a given distance down or up. Modifies x\+Coordinate and y\+Coordinate. 
+
+Additional comments about Move\+Projectile method (if any).
+
+Manipulation Methods
+
+
+\begin{DoxyParams}{Parameters}
+{\em move\+Rate} & Rate of movement for the projectile (in px). \\
+\hline
+{\em proj\+Direction} & Direction of movement for projectile (up/down). \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\index{Projectile@{Projectile}!bullet\+Direction@{bullet\+Direction}}
+\index{bullet\+Direction@{bullet\+Direction}!Projectile@{Projectile}}
+\subsubsection[{\texorpdfstring{bullet\+Direction}{bulletDirection}}]{\setlength{\rightskip}{0pt plus 5cm}directions\+\_\+c Projectile\+::bullet\+Direction\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{class_projectile_a31cb4995dad27c6b37dd8a312edbd5af}{}\label{class_projectile_a31cb4995dad27c6b37dd8a312edbd5af}
+Determines whether a fired projectile should travel towards the top or bottom of the screen. \index{Projectile@{Projectile}!projectile\+Hitbox@{projectile\+Hitbox}}
+\index{projectile\+Hitbox@{projectile\+Hitbox}!Projectile@{Projectile}}
+\subsubsection[{\texorpdfstring{projectile\+Hitbox}{projectileHitbox}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Hitbox} Projectile\+::projectile\+Hitbox}\hypertarget{class_projectile_ae0036dcb811aabf0228f768700491790}{}\label{class_projectile_ae0036dcb811aabf0228f768700491790}
+Public member variables Used to detect collisions between any two active objects. \index{Projectile@{Projectile}!proj\+Inactive@{proj\+Inactive}}
+\index{proj\+Inactive@{proj\+Inactive}!Projectile@{Projectile}}
+\subsubsection[{\texorpdfstring{proj\+Inactive}{projInactive}}]{\setlength{\rightskip}{0pt plus 5cm}bool Projectile\+::proj\+Inactive}\hypertarget{class_projectile_aae745fd2564addc23d5456fe5fd1a711}{}\label{class_projectile_aae745fd2564addc23d5456fe5fd1a711}
+When false, the bullet is active, can collide and move. When false, the bullet is inactive, and is cleaned up at the start of the next update phase. \index{Projectile@{Projectile}!x\+Coordinate@{x\+Coordinate}}
+\index{x\+Coordinate@{x\+Coordinate}!Projectile@{Projectile}}
+\subsubsection[{\texorpdfstring{x\+Coordinate}{xCoordinate}}]{\setlength{\rightskip}{0pt plus 5cm}float Projectile\+::x\+Coordinate\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{class_projectile_a744bb0d2fd11da1750ab875ceea4b5cb}{}\label{class_projectile_a744bb0d2fd11da1750ab875ceea4b5cb}
+Protected member variables \index{Projectile@{Projectile}!y\+Coordinate@{y\+Coordinate}}
+\index{y\+Coordinate@{y\+Coordinate}!Projectile@{Projectile}}
+\subsubsection[{\texorpdfstring{y\+Coordinate}{yCoordinate}}]{\setlength{\rightskip}{0pt plus 5cm}float Projectile\+::y\+Coordinate\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{class_projectile_a23383eb9240ee101dbdacbcc87b0a920}{}\label{class_projectile_a23383eb9240ee101dbdacbcc87b0a920}
+Determines location of projectile at a given time. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{projectile_8h}{projectile.\+h}\item 
+\hyperlink{projectile_8cpp}{projectile.\+cpp}\end{DoxyCompactItemize}

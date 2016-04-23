@@ -1,0 +1,193 @@
+\hypertarget{class_hitbox}{}\section{Hitbox Class Reference}
+\label{class_hitbox}\index{Hitbox@{Hitbox}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_hitbox_acb9da54b168b9e457b01387ba4ddfe02}{Hitbox} (float x, float y, int width, int length)
+\begin{DoxyCompactList}\small\item\em Constructor function. \end{DoxyCompactList}\item 
+\hyperlink{class_hitbox_a999b0be8486978b3dd7bcd001c7c3c03}{Hitbox} ()
+\begin{DoxyCompactList}\small\item\em Default constructor function. \end{DoxyCompactList}\item 
+float \hyperlink{class_hitbox_afa9e21136ddd399793bbd375af5f16cc}{Get\+HitboxX} ()
+\begin{DoxyCompactList}\small\item\em Returns current \hyperlink{class_hitbox}{Hitbox} centred x coordinate. \end{DoxyCompactList}\item 
+float \hyperlink{class_hitbox_af1fbffe46fd19d47019514744144fa1d}{Get\+HitboxY} ()
+\begin{DoxyCompactList}\small\item\em Returns current \hyperlink{class_hitbox}{Hitbox} centred y coordinate. \end{DoxyCompactList}\item 
+float \hyperlink{class_hitbox_a318a7a3694024fa394b8d35ecd36ccdd}{Get\+Hitbox\+Width} ()
+\begin{DoxyCompactList}\small\item\em Returns width of \hyperlink{class_hitbox}{Hitbox} (measured as pixels on either side of central pixel). \end{DoxyCompactList}\item 
+float \hyperlink{class_hitbox_ac500587c4afac7159161affbbd46f3b3}{Get\+Hitbox\+Height} ()
+\begin{DoxyCompactList}\small\item\em Returns height of \hyperlink{class_hitbox}{Hitbox} (measured as pixels on either side of central pixel). \end{DoxyCompactList}\item 
+void \hyperlink{class_hitbox_a6f4500fa0f6c8dd9aeb9ab74c24fa6b8}{Move\+Hitbox} (float new\+X\+Location, float new\+Y\+Location)
+\begin{DoxyCompactList}\small\item\em Moves the centre of the hitbox to a new location. \end{DoxyCompactList}\item 
+bool \hyperlink{class_hitbox_a02f19a92f5cf1bd5ff917e9e9a875b37}{Check\+For\+Collision} (\hyperlink{class_hitbox}{Hitbox} target)
+\begin{DoxyCompactList}\small\item\em Checks if the current \hyperlink{class_hitbox}{Hitbox} is inside another \hyperlink{class_hitbox}{Hitbox} at any location. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Hitbox@{Hitbox}!Hitbox@{Hitbox}}
+\index{Hitbox@{Hitbox}!Hitbox@{Hitbox}}
+\subsubsection[{\texorpdfstring{Hitbox(float x, float y, int width, int length)}{Hitbox(float x, float y, int width, int length)}}]{\setlength{\rightskip}{0pt plus 5cm}Hitbox\+::\+Hitbox (
+\begin{DoxyParamCaption}
+\item[{float}]{x, }
+\item[{float}]{y, }
+\item[{int}]{width, }
+\item[{int}]{length}
+\end{DoxyParamCaption}
+)}\hypertarget{class_hitbox_acb9da54b168b9e457b01387ba4ddfe02}{}\label{class_hitbox_acb9da54b168b9e457b01387ba4ddfe02}
+
+
+Constructor function. 
+
+Constructors and Destructors Additional comments about \hyperlink{class_hitbox}{Hitbox} constructors (if any).
+
+Constructors and Destructors
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & Position on x axis to centre new \hyperlink{class_hitbox}{Hitbox} at. \\
+\hline
+{\em y} & Position on y axis to centre new \hyperlink{class_hitbox}{Hitbox} at. \\
+\hline
+{\em width} & Width of hitbox (measured as number of pixels on either side of the central pixel). \\
+\hline
+{\em length} & Length of hitbox (measured as number of pixels on either side of the central pixel).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Initialized \hyperlink{class_hitbox}{Hitbox} object. 
+\end{DoxyReturn}
+\index{Hitbox@{Hitbox}!Hitbox@{Hitbox}}
+\index{Hitbox@{Hitbox}!Hitbox@{Hitbox}}
+\subsubsection[{\texorpdfstring{Hitbox()}{Hitbox()}}]{\setlength{\rightskip}{0pt plus 5cm}Hitbox\+::\+Hitbox (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_hitbox_a999b0be8486978b3dd7bcd001c7c3c03}{}\label{class_hitbox_a999b0be8486978b3dd7bcd001c7c3c03}
+
+
+Default constructor function. 
+
+\begin{DoxyReturn}{Returns}
+Initialized \hyperlink{class_hitbox}{Hitbox} object. 
+\end{DoxyReturn}
+
+
+\subsection{Member Function Documentation}
+\index{Hitbox@{Hitbox}!Check\+For\+Collision@{Check\+For\+Collision}}
+\index{Check\+For\+Collision@{Check\+For\+Collision}!Hitbox@{Hitbox}}
+\subsubsection[{\texorpdfstring{Check\+For\+Collision(\+Hitbox target)}{CheckForCollision(Hitbox target)}}]{\setlength{\rightskip}{0pt plus 5cm}Hitbox\+::\+Check\+For\+Collision (
+\begin{DoxyParamCaption}
+\item[{{\bf Hitbox}}]{target}
+\end{DoxyParamCaption}
+)}\hypertarget{class_hitbox_a02f19a92f5cf1bd5ff917e9e9a875b37}{}\label{class_hitbox_a02f19a92f5cf1bd5ff917e9e9a875b37}
+
+
+Checks if the current \hyperlink{class_hitbox}{Hitbox} is inside another \hyperlink{class_hitbox}{Hitbox} at any location. 
+
+Additional comments about Check\+For\+Collision method (if any).
+
+
+\begin{DoxyParams}{Parameters}
+{\em target} & \hyperlink{class_hitbox}{Hitbox} object to determine collision with. \begin{DoxyVerb}        True is returned if the current and target hitboxes are intersecting at any point, at this moment.
+        Does not check along paths. If objects move in large enough spans per update cycle, an algorithm
+        may be needed to prevent objects "skipping" over each other. 
+\end{DoxyVerb}
+\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Boolian value. 
+\end{DoxyReturn}
+\index{Hitbox@{Hitbox}!Get\+Hitbox\+Height@{Get\+Hitbox\+Height}}
+\index{Get\+Hitbox\+Height@{Get\+Hitbox\+Height}!Hitbox@{Hitbox}}
+\subsubsection[{\texorpdfstring{Get\+Hitbox\+Height()}{GetHitboxHeight()}}]{\setlength{\rightskip}{0pt plus 5cm}Hitbox\+::\+Get\+Hitbox\+Height (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_hitbox_ac500587c4afac7159161affbbd46f3b3}{}\label{class_hitbox_ac500587c4afac7159161affbbd46f3b3}
+
+
+Returns height of \hyperlink{class_hitbox}{Hitbox} (measured as pixels on either side of central pixel). 
+
+Additional comments about Get\+Hitbox\+Height method (if any).
+
+\begin{DoxyReturn}{Returns}
+Float value. 
+\end{DoxyReturn}
+\index{Hitbox@{Hitbox}!Get\+Hitbox\+Width@{Get\+Hitbox\+Width}}
+\index{Get\+Hitbox\+Width@{Get\+Hitbox\+Width}!Hitbox@{Hitbox}}
+\subsubsection[{\texorpdfstring{Get\+Hitbox\+Width()}{GetHitboxWidth()}}]{\setlength{\rightskip}{0pt plus 5cm}Hitbox\+::\+Get\+Hitbox\+Width (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_hitbox_a318a7a3694024fa394b8d35ecd36ccdd}{}\label{class_hitbox_a318a7a3694024fa394b8d35ecd36ccdd}
+
+
+Returns width of \hyperlink{class_hitbox}{Hitbox} (measured as pixels on either side of central pixel). 
+
+Additional comments about Get\+Hitbox\+Width method (if any).
+
+\begin{DoxyReturn}{Returns}
+Float value. 
+\end{DoxyReturn}
+\index{Hitbox@{Hitbox}!Get\+HitboxX@{Get\+HitboxX}}
+\index{Get\+HitboxX@{Get\+HitboxX}!Hitbox@{Hitbox}}
+\subsubsection[{\texorpdfstring{Get\+Hitbox\+X()}{GetHitboxX()}}]{\setlength{\rightskip}{0pt plus 5cm}Hitbox\+::\+Get\+HitboxX (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_hitbox_afa9e21136ddd399793bbd375af5f16cc}{}\label{class_hitbox_afa9e21136ddd399793bbd375af5f16cc}
+
+
+Returns current \hyperlink{class_hitbox}{Hitbox} centred x coordinate. 
+
+Retrieval Methods Additional comments about Get\+HitboxX method (if any).
+
+Retrieval Methods
+
+\begin{DoxyReturn}{Returns}
+Float value. 
+\end{DoxyReturn}
+\index{Hitbox@{Hitbox}!Get\+HitboxY@{Get\+HitboxY}}
+\index{Get\+HitboxY@{Get\+HitboxY}!Hitbox@{Hitbox}}
+\subsubsection[{\texorpdfstring{Get\+Hitbox\+Y()}{GetHitboxY()}}]{\setlength{\rightskip}{0pt plus 5cm}Hitbox\+::\+Get\+HitboxY (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_hitbox_af1fbffe46fd19d47019514744144fa1d}{}\label{class_hitbox_af1fbffe46fd19d47019514744144fa1d}
+
+
+Returns current \hyperlink{class_hitbox}{Hitbox} centred y coordinate. 
+
+Additional comments about Get\+HitboxY method (if any).
+
+\begin{DoxyReturn}{Returns}
+Float value. 
+\end{DoxyReturn}
+\index{Hitbox@{Hitbox}!Move\+Hitbox@{Move\+Hitbox}}
+\index{Move\+Hitbox@{Move\+Hitbox}!Hitbox@{Hitbox}}
+\subsubsection[{\texorpdfstring{Move\+Hitbox(float new\+X\+Location, float new\+Y\+Location)}{MoveHitbox(float newXLocation, float newYLocation)}}]{\setlength{\rightskip}{0pt plus 5cm}Hitbox\+::\+Move\+Hitbox (
+\begin{DoxyParamCaption}
+\item[{float}]{new\+X\+Location, }
+\item[{float}]{new\+Y\+Location}
+\end{DoxyParamCaption}
+)}\hypertarget{class_hitbox_a6f4500fa0f6c8dd9aeb9ab74c24fa6b8}{}\label{class_hitbox_a6f4500fa0f6c8dd9aeb9ab74c24fa6b8}
+
+
+Moves the centre of the hitbox to a new location. 
+
+Manipulation Methods Additional comments about Move\+Hitbox method (if any).
+
+Manipulation Methods
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+X\+Location} & New horizontal location for central pixel of hitbox. \\
+\hline
+{\em new\+Y\+Location} & New vertical location for central pixel of hitbox. \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{_hitbox_8h}{Hitbox.\+h}\item 
+\hyperlink{_hitbox_8cpp}{Hitbox.\+cpp}\end{DoxyCompactItemize}

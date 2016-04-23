@@ -1,0 +1,215 @@
+\hypertarget{class_actor_player}{}\section{Actor\+Player Class Reference}
+\label{class_actor_player}\index{Actor\+Player@{Actor\+Player}}
+Inheritance diagram for Actor\+Player\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_actor_player}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_actor_player_aa12290932cca3cda19f8d6211923d273}{Actor\+Player} (float x\+Posi, float y\+Posi, int hp, int \+\_\+hitbox\+Size, int sprite\+Loc)
+\begin{DoxyCompactList}\small\item\em Constructor function. \end{DoxyCompactList}\item 
+int \hyperlink{class_actor_player_ad8e2322c07d45cfafac93535fc6426ee}{Get\+Score} ()
+\begin{DoxyCompactList}\small\item\em Returns current player score amount. \end{DoxyCompactList}\item 
+int \hyperlink{class_actor_player_a69cac19946ff088df3b06f33ac32377b}{Get\+Lives} ()
+\begin{DoxyCompactList}\small\item\em Returns current player life total. \end{DoxyCompactList}\item 
+void \hyperlink{class_actor_player_a97a34c50516109aaf4743a9880604145}{Move\+Actor} (bool move\+Up, bool move\+Down, bool move\+Left, bool move\+Right, const int M\+O\+V\+E\+R\+A\+T\+E\+\_\+\+A\+C\+T\+O\+RS)
+\begin{DoxyCompactList}\small\item\em When passed a series of bools, moves the actor appropriately. \end{DoxyCompactList}\item 
+void \hyperlink{class_actor_player_a2a7f5b152ea4bb8d283281e8bad1bdf0}{Update\+Score} (int score\+Gained)
+\begin{DoxyCompactList}\small\item\em Updates the player\textquotesingle{}s score by a specified amount. \end{DoxyCompactList}\item 
+void \hyperlink{class_actor_player_aea4f9b0c8caa624b5cd48d88e7634aab}{Set\+Lives} (int new\+Life\+Total)
+\begin{DoxyCompactList}\small\item\em Sets the player\textquotesingle{}s life total to a new value. \end{DoxyCompactList}\item 
+void \hyperlink{class_actor_player_ad93f5fd94f72b720763c561f3f729a8b}{Kill\+Player} (int new\+Sprite\+Loc, float default\+X\+Posi, float default\+Y\+Posi)
+\begin{DoxyCompactList}\small\item\em Decrements lives by 1, changes the player sprite\+Index key, and moves the player back to the starting position. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{class_actor_player_a9f866cfd729bcaee1138fdfab5010422}{bullet\+Control\+Counter}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Actor\+Player@{Actor\+Player}!Actor\+Player@{Actor\+Player}}
+\index{Actor\+Player@{Actor\+Player}!Actor\+Player@{Actor\+Player}}
+\subsubsection[{\texorpdfstring{Actor\+Player(float x\+Posi, float y\+Posi, int hp, int \+\_\+hitbox\+Size, int sprite\+Loc)}{ActorPlayer(float xPosi, float yPosi, int hp, int _hitboxSize, int spriteLoc)}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+Player\+::\+Actor\+Player (
+\begin{DoxyParamCaption}
+\item[{float}]{x\+Posi, }
+\item[{float}]{y\+Posi, }
+\item[{int}]{hp, }
+\item[{int}]{\+\_\+hitbox\+Size, }
+\item[{int}]{sprite\+Key}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_player_aa12290932cca3cda19f8d6211923d273}{}\label{class_actor_player_aa12290932cca3cda19f8d6211923d273}
+
+
+Constructor function. 
+
+Constructors and Destructors player\+Score is initialized to 0 for obvious reasons. The constructor should be expanded however to allow initialization of lives. bullet\+Control\+Counter is set to 5 by default, as this is the value checked for in main when allowing the player to fire. Ergo, a newly constructed \hyperlink{class_actor_player}{Actor\+Player} object can fire on its first update cycle if the player chooses.
+
+Constructors and Destructors
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+Posi} & Position on x axis to place new \hyperlink{class_actor_player}{Actor\+Player} at. \\
+\hline
+{\em y\+Posi} & Position on y axis to place new \hyperlink{class_actor_player}{Actor\+Player} at. \\
+\hline
+{\em hp} & Health total of the new \hyperlink{class_actor_player}{Actor\+Player}. \\
+\hline
+{\em \+\_\+hitbox\+Size} & Size of the hitbox that should be constructed as a member. \\
+\hline
+{\em sprite\+Loc} & Location in the sprite index of the \hyperlink{class_actor_player}{Actor\+Player} sprite bitmap.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Initialized \hyperlink{class_actor_player}{Actor\+Player} object. 
+\end{DoxyReturn}
+
+
+\subsection{Member Function Documentation}
+\index{Actor\+Player@{Actor\+Player}!Get\+Lives@{Get\+Lives}}
+\index{Get\+Lives@{Get\+Lives}!Actor\+Player@{Actor\+Player}}
+\subsubsection[{\texorpdfstring{Get\+Lives()}{GetLives()}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+Player\+::\+Get\+Lives (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_player_a69cac19946ff088df3b06f33ac32377b}{}\label{class_actor_player_a69cac19946ff088df3b06f33ac32377b}
+
+
+Returns current player life total. 
+
+Additional comments about Get\+Lives method (if any).
+
+\begin{DoxyReturn}{Returns}
+Integer value. 
+\end{DoxyReturn}
+\index{Actor\+Player@{Actor\+Player}!Get\+Score@{Get\+Score}}
+\index{Get\+Score@{Get\+Score}!Actor\+Player@{Actor\+Player}}
+\subsubsection[{\texorpdfstring{Get\+Score()}{GetScore()}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+Player\+::\+Get\+Score (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_player_ad8e2322c07d45cfafac93535fc6426ee}{}\label{class_actor_player_ad8e2322c07d45cfafac93535fc6426ee}
+
+
+Returns current player score amount. 
+
+Additional comments about Get\+Score method (if any).
+
+Retrieval Methods
+
+\begin{DoxyReturn}{Returns}
+Integer value. 
+\end{DoxyReturn}
+\index{Actor\+Player@{Actor\+Player}!Kill\+Player@{Kill\+Player}}
+\index{Kill\+Player@{Kill\+Player}!Actor\+Player@{Actor\+Player}}
+\subsubsection[{\texorpdfstring{Kill\+Player(int new\+Sprite\+Loc, float default\+X\+Posi, float default\+Y\+Posi)}{KillPlayer(int newSpriteLoc, float defaultXPosi, float defaultYPosi)}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+Player\+::\+Kill\+Player (
+\begin{DoxyParamCaption}
+\item[{int}]{new\+Sprite\+Loc, }
+\item[{float}]{default\+X\+Posi, }
+\item[{float}]{default\+Y\+Posi}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_player_ad93f5fd94f72b720763c561f3f729a8b}{}\label{class_actor_player_ad93f5fd94f72b720763c561f3f729a8b}
+
+
+Decrements lives by 1, changes the player sprite\+Index key, and moves the player back to the starting position. 
+
+This entire function should be rewritten and can probably be replaced wholesale by a series of getter/setter functions and existing code calls external to the class. It probably doesn\textquotesingle{}t need to be here, but it serves its purpose in the code as it stands.
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Sprite\+Loc} & The key to the player\textquotesingle{}s new sprite (can be the same as the current sprite if desired). \\
+\hline
+{\em default\+X\+Posi} & The location on the x axis to place the player (should usually be the same as the place the player starts initially). \\
+\hline
+{\em default\+Y\+Posi} & The location on the y axis to place the player (should usually be the same as the place the player starts initially). \begin{DoxyVerb}        This code needs to be rewritten, not for functionality (it works fine) but because it's ugly and stylistically undesirable. However,
+        time constraints mean it won't be.\end{DoxyVerb}
+ \\
+\hline
+\end{DoxyParams}
+\index{Actor\+Player@{Actor\+Player}!Move\+Actor@{Move\+Actor}}
+\index{Move\+Actor@{Move\+Actor}!Actor\+Player@{Actor\+Player}}
+\subsubsection[{\texorpdfstring{Move\+Actor(bool move\+Up, bool move\+Down, bool move\+Left, bool move\+Right, const int M\+O\+V\+E\+R\+A\+T\+E\+\_\+\+A\+C\+T\+O\+R\+S)}{MoveActor(bool moveUp, bool moveDown, bool moveLeft, bool moveRight, const int MOVERATE_ACTORS)}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+Player\+::\+Move\+Actor (
+\begin{DoxyParamCaption}
+\item[{bool}]{move\+Up, }
+\item[{bool}]{move\+Down, }
+\item[{bool}]{move\+Left, }
+\item[{bool}]{move\+Right, }
+\item[{const int}]{M\+O\+V\+E\+R\+A\+T\+E\+\_\+\+A\+C\+T\+O\+RS}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_player_a97a34c50516109aaf4743a9880604145}{}\label{class_actor_player_a97a34c50516109aaf4743a9880604145}
+
+
+When passed a series of bools, moves the actor appropriately. 
+
+The magic numbers used here correspond to the screen edges necessary to make the player stop 10 pixels from the screen edge. A file should really be defined to allow access to those variable values for this purpose, as it would avoid needing to pass four+ const int vars to each function that needs to know (which keeps the arguments much tidier).
+
+Manipulation Methods
+
+
+\begin{DoxyParams}{Parameters}
+{\em move\+Up} & If true, the actor will move upwards a distance defined by the moverate. \\
+\hline
+{\em move\+Down} & If true, the actor will move downwards a distance defined by the moverate. \\
+\hline
+{\em move\+Left} & If true, the actor will move left a distance defined by the moverate. \\
+\hline
+{\em move\+Right} & If true, the actor will move right a distance defined by the moverate. \\
+\hline
+{\em M\+O\+V\+E\+R\+A\+T\+E\+\_\+\+A\+C\+T\+O\+RS} & The number of pixels to move the actor\textquotesingle{}s location in a given direction. \begin{DoxyVerb}        This function is intended to be fed information based on keypress values. For an example
+        implementation, see the main function.\end{DoxyVerb}
+ \\
+\hline
+\end{DoxyParams}
+\index{Actor\+Player@{Actor\+Player}!Set\+Lives@{Set\+Lives}}
+\index{Set\+Lives@{Set\+Lives}!Actor\+Player@{Actor\+Player}}
+\subsubsection[{\texorpdfstring{Set\+Lives(int new\+Life\+Total)}{SetLives(int newLifeTotal)}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+Player\+::\+Set\+Lives (
+\begin{DoxyParamCaption}
+\item[{int}]{new\+Life\+Total}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_player_aea4f9b0c8caa624b5cd48d88e7634aab}{}\label{class_actor_player_aea4f9b0c8caa624b5cd48d88e7634aab}
+
+
+Sets the player\textquotesingle{}s life total to a new value. 
+
+Additional comments about Set\+Lives method (if any).
+
+
+\begin{DoxyParams}{Parameters}
+{\em new\+Life\+Total} & The new value to assign to lives member. \\
+\hline
+\end{DoxyParams}
+\index{Actor\+Player@{Actor\+Player}!Update\+Score@{Update\+Score}}
+\index{Update\+Score@{Update\+Score}!Actor\+Player@{Actor\+Player}}
+\subsubsection[{\texorpdfstring{Update\+Score(int score\+Gained)}{UpdateScore(int scoreGained)}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+Player\+::\+Update\+Score (
+\begin{DoxyParamCaption}
+\item[{int}]{score\+Gained}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_player_a2a7f5b152ea4bb8d283281e8bad1bdf0}{}\label{class_actor_player_a2a7f5b152ea4bb8d283281e8bad1bdf0}
+
+
+Updates the player\textquotesingle{}s score by a specified amount. 
+
+Additional comments about Update\+Score method (if any).
+
+
+\begin{DoxyParams}{Parameters}
+{\em score\+Gained} & Increases player\+Score by the specified amount. If negative, will decrease player\+Score instead. \begin{DoxyVerb}        This function is not currently used.\end{DoxyVerb}
+ \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\index{Actor\+Player@{Actor\+Player}!bullet\+Control\+Counter@{bullet\+Control\+Counter}}
+\index{bullet\+Control\+Counter@{bullet\+Control\+Counter}!Actor\+Player@{Actor\+Player}}
+\subsubsection[{\texorpdfstring{bullet\+Control\+Counter}{bulletControlCounter}}]{\setlength{\rightskip}{0pt plus 5cm}int Actor\+Player\+::bullet\+Control\+Counter}\hypertarget{class_actor_player_a9f866cfd729bcaee1138fdfab5010422}{}\label{class_actor_player_a9f866cfd729bcaee1138fdfab5010422}
+Public Member Variables Used to count update cycles, such that a player must wait at least x update cycles before firing a second projectile. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{actor_player_8h}{actor\+Player.\+h}\item 
+\hyperlink{actor_player_8cpp}{actor\+Player.\+cpp}\end{DoxyCompactItemize}

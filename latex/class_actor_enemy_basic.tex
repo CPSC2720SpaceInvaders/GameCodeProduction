@@ -1,0 +1,108 @@
+\hypertarget{class_actor_enemy_basic}{}\section{Actor\+Enemy\+Basic Class Reference}
+\label{class_actor_enemy_basic}\index{Actor\+Enemy\+Basic@{Actor\+Enemy\+Basic}}
+Inheritance diagram for Actor\+Enemy\+Basic\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_actor_enemy_basic}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_actor_enemy_basic_a316b5d681a568f7cee2880b6cb9bf036}{Actor\+Enemy\+Basic} (float x\+Posi, float y\+Posi, int hp, int \+\_\+hitbox\+Size, int sprite\+Loc, int pts, bool right)
+\begin{DoxyCompactList}\small\item\em Constructor function. \end{DoxyCompactList}\item 
+void \hyperlink{class_actor_enemy_basic_a63b1ac77626c6c4c78cca1a4e87b17af}{Move\+Actor} (const int M\+O\+V\+E\+R\+A\+T\+E\+\_\+\+A\+C\+T\+O\+RS, const int S\+C\+R\+E\+E\+N\+\_\+\+W\+I\+D\+TH)
+\begin{DoxyCompactList}\small\item\em Constructor function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+bool \hyperlink{class_actor_enemy_basic_ad3e644b5068939233cf710b9067868bc}{is\+Dead}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{Actor\+Enemy\+Basic@{Actor\+Enemy\+Basic}!Actor\+Enemy\+Basic@{Actor\+Enemy\+Basic}}
+\index{Actor\+Enemy\+Basic@{Actor\+Enemy\+Basic}!Actor\+Enemy\+Basic@{Actor\+Enemy\+Basic}}
+\subsubsection[{\texorpdfstring{Actor\+Enemy\+Basic(float x\+Posi, float y\+Posi, int hp, int \+\_\+hitbox\+Size, int sprite\+Loc, int pts, bool right)}{ActorEnemyBasic(float xPosi, float yPosi, int hp, int _hitboxSize, int spriteLoc, int pts, bool right)}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+Enemy\+Basic\+::\+Actor\+Enemy\+Basic (
+\begin{DoxyParamCaption}
+\item[{float}]{x\+Posi, }
+\item[{float}]{y\+Posi, }
+\item[{int}]{hp, }
+\item[{int}]{\+\_\+hitbox\+Size, }
+\item[{int}]{sprite\+Loc, }
+\item[{int}]{pts, }
+\item[{bool}]{right}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_enemy_basic_a316b5d681a568f7cee2880b6cb9bf036}{}\label{class_actor_enemy_basic_a316b5d681a568f7cee2880b6cb9bf036}
+
+
+Constructor function. 
+
+Constructors and Destructors Additional comments about \hyperlink{class_actor_enemy_basic}{Actor\+Enemy\+Basic} constructors (if any).
+
+Constructors and Destructors
+
+
+\begin{DoxyParams}{Parameters}
+{\em x\+Posi} & Position on x axis to place new \hyperlink{class_actor}{Actor} at. \\
+\hline
+{\em y\+Posi} & Position on y axis to place new \hyperlink{class_actor}{Actor} at. \\
+\hline
+{\em hp} & Health total of the new \hyperlink{class_actor}{Actor}. \\
+\hline
+{\em \+\_\+hitbox\+Size} & Size of the hitbox that should be constructed as a member. \\
+\hline
+{\em sprite\+Loc} & Location in the sprite index of the actor\textquotesingle{}s sprite bitmap. \\
+\hline
+{\em pts} & Value of enemy when killed. \\
+\hline
+{\em right} & Whether the enemy should start moving right(true) or left(false).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Initialized \hyperlink{class_actor_enemy_basic}{Actor\+Enemy\+Basic} object. 
+\end{DoxyReturn}
+
+
+\subsection{Member Function Documentation}
+\index{Actor\+Enemy\+Basic@{Actor\+Enemy\+Basic}!Move\+Actor@{Move\+Actor}}
+\index{Move\+Actor@{Move\+Actor}!Actor\+Enemy\+Basic@{Actor\+Enemy\+Basic}}
+\subsubsection[{\texorpdfstring{Move\+Actor(const int M\+O\+V\+E\+R\+A\+T\+E\+\_\+\+A\+C\+T\+O\+R\+S, const int S\+C\+R\+E\+E\+N\+\_\+\+W\+I\+D\+T\+H)}{MoveActor(const int MOVERATE_ACTORS, const int SCREEN_WIDTH)}}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+Enemy\+Basic\+::\+Move\+Actor (
+\begin{DoxyParamCaption}
+\item[{const int}]{M\+O\+V\+E\+R\+A\+T\+E\+\_\+\+A\+C\+T\+O\+RS, }
+\item[{const int}]{S\+C\+R\+E\+E\+N\+\_\+\+W\+I\+D\+TH}
+\end{DoxyParamCaption}
+)}\hypertarget{class_actor_enemy_basic_a63b1ac77626c6c4c78cca1a4e87b17af}{}\label{class_actor_enemy_basic_a63b1ac77626c6c4c78cca1a4e87b17af}
+
+
+Constructor function. 
+
+Manipulation Methods Due to the nature of the current movement logic, any enemy unit initialized within x coordinates 0 to 25 and (S\+C\+R\+E\+E\+N\+\_\+\+W\+I\+D\+TH -\/ 25) to S\+C\+R\+E\+E\+N\+\_\+\+W\+I\+D\+TH will simply dive down the screen at a rapid clip. This is a known bug but has not yet been solved. An easy solution is to not spawn basic enemies within those two buffers -\/ be careful when calling the corresponding object\+Spawner function.
+
+Manipulation Methods \begin{DoxyVerb}        Enemy will move right across the gamespace until it comes within
+        25 pixels of the edge, at which point it will move its height down
+        and reverse movement towards the opposite edge. Loops like this as
+        long as the enemy is active.
+\end{DoxyVerb}
+
+
+
+\begin{DoxyParams}{Parameters}
+{\em M\+O\+V\+E\+R\+A\+T\+E\+\_\+\+A\+C\+T\+O\+RS} & Speed at which actors move through the gamespace. \\
+\hline
+{\em S\+C\+R\+E\+E\+N\+\_\+\+W\+I\+D\+TH} & Width of the screen. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\index{Actor\+Enemy\+Basic@{Actor\+Enemy\+Basic}!is\+Dead@{is\+Dead}}
+\index{is\+Dead@{is\+Dead}!Actor\+Enemy\+Basic@{Actor\+Enemy\+Basic}}
+\subsubsection[{\texorpdfstring{is\+Dead}{isDead}}]{\setlength{\rightskip}{0pt plus 5cm}bool Actor\+Enemy\+Basic\+::is\+Dead}\hypertarget{class_actor_enemy_basic_ad3e644b5068939233cf710b9067868bc}{}\label{class_actor_enemy_basic_ad3e644b5068939233cf710b9067868bc}
+Public Member Variables Used to exclude an object from collision while animating its death. 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{actor_enemy_basic_8h}{actor\+Enemy\+Basic.\+h}\item 
+\hyperlink{actor_enemy_basic_8cpp}{actor\+Enemy\+Basic.\+cpp}\end{DoxyCompactItemize}

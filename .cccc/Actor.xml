@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--Detailed report on module Actor-->
+<CCCC_Project>
+<module_summary>
+<lines_of_code value="52" level="0" />
+<lines_of_code_per_member_function value="******" level="0" />
+<McCabes_cyclomatic_complexity value="7" level="0" />
+<McCabes_cyclomatic_complexity_per_member_function value="******" level="2" />
+<lines_of_code value="159" level="0" />
+<lines_of_code_per_member_function value="********" level="2" />
+<lines_of_code_per_line_of_comment value="0.327" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="0.044" level="0" />
+<weighted_methods_per_class_unity value="13" level="0" />
+<weighted_methods_per_class_visibility value="13" level="0" />
+<depth_of_inheritance_tree value="0" level="0" />
+<number_of_children value="2" level="0" />
+<coupling_between_objects value="3" level="0" />
+<IF4 value="4" level="0" />
+<IF4_per_member_function value="********" level="2" />
+<IF4_visible value="4" level="0" />
+<IF4_visible_per_member_function value="********" level="2" />
+<IF4_concrete value="4" level="0" />
+<IF4_concrete_per_member_function value="********" level="2" />
+</module_summary>
+<module_detail>
+<description>definition</description>
+<source_reference file="actor.h" line="23" />
+<lines_of_code value="8" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="18" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</module_detail>
+<procedural_detail>
+<member_function>
+<name>Actor()</name>
+<extent>
+<description>definition</description>
+<source_reference file="actor.cpp" line="20" />
+</extent>
+<extent>
+<description>declaration</description>
+<source_reference file="actor.h" line="57" />
+</extent>
+<lines_of_code value="1" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="6" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>Actor(float,float,int,int,int)</name>
+<extent>
+<description>definition</description>
+<source_reference file="actor.cpp" line="19" />
+</extent>
+<extent>
+<description>declaration</description>
+<source_reference file="actor.h" line="49" />
+</extent>
+<lines_of_code value="2" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="26" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>ChangeActorSprite(int)</name>
+<extent>
+<description>definition</description>
+<source_reference file="actor.cpp" line="83" />
+</extent>
+<extent>
+<description>declaration</description>
+<source_reference file="actor.h" line="149" />
+</extent>
+<lines_of_code value="4" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="10" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>CheckDead()</name>
+<extent>
+<description>definition</description>
+<source_reference file="actor.cpp" line="90" />
+</extent>
+<extent>
+<description>declaration</description>
+<source_reference file="actor.h" line="158" />
+</extent>
+<lines_of_code value="6" level="0" />
+<McCabes_cyclomatic_complexity value="3" level="0" />
+<lines_of_comment value="10" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>GetHealth()</name>
+<extent>
+<description>definition</description>
+<source_reference file="actor.cpp" line="60" />
+</extent>
+<extent>
+<description>declaration</description>
+<source_reference file="actor.h" line="91" />
+</extent>
+<lines_of_code value="4" level="0" />
+<McCabes_cyclomatic_complexity value="1" level="0" />
+<lines_of_comment value="9" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>GetSpriteKey()</name>
+<extent>
+<description>definition</description>
+<source_reference file="actor.cpp" line="67" />
+</extent>
+<extent>
+<description>declaration</description>
+<source_reference file="actor.h" line="99" />
+</extent>
+<lines_of_code value="4" level="0" />
+<McCabes_cyclomatic_complexity value="1" level="0" />
+<lines_of_comment value="9" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>GetXCoord()</name>
+<extent>
+<description>definition</description>
+<source_reference file="actor.cpp" line="32" />
+</extent>
+<extent>
+<description>declaration</description>
+<source_reference file="actor.h" line="75" />
+</extent>
+<lines_of_code value="4" level="0" />
+<McCabes_cyclomatic_complexity value="1" level="0" />
+<lines_of_comment value="11" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>GetYCoord()</name>
+<extent>
+<description>definition</description>
+<source_reference file="actor.cpp" line="39" />
+</extent>
+<extent>
+<description>declaration</description>
+<source_reference file="actor.h" line="83" />
+</extent>
+<lines_of_code value="4" level="0" />
+<McCabes_cyclomatic_complexity value="1" level="0" />
+<lines_of_comment value="9" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>ModifyHealth(int)</name>
+<extent>
+<description>definition</description>
+<source_reference file="actor.cpp" line="76" />
+</extent>
+<extent>
+<description>declaration</description>
+<source_reference file="actor.h" line="140" />
+</extent>
+<lines_of_code value="4" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="12" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>MoveActor()</name>
+<extent>
+<description>declaration</description>
+<source_reference file="actor.h" line="112" />
+</extent>
+<lines_of_code value="1" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="10" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>SetXCoord(float)</name>
+<extent>
+<description>definition</description>
+<source_reference file="actor.cpp" line="46" />
+</extent>
+<extent>
+<description>declaration</description>
+<source_reference file="actor.h" line="121" />
+</extent>
+<lines_of_code value="4" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="10" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>SetYCoord(float)</name>
+<extent>
+<description>definition</description>
+<source_reference file="actor.cpp" line="53" />
+</extent>
+<extent>
+<description>declaration</description>
+<source_reference file="actor.h" line="130" />
+</extent>
+<lines_of_code value="4" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="10" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+<member_function>
+<name>~Actor()</name>
+<extent>
+<description>definition</description>
+<source_reference file="actor.cpp" line="25" />
+</extent>
+<extent>
+<description>declaration</description>
+<source_reference file="actor.h" line="65" />
+</extent>
+<lines_of_code value="2" level="0" />
+<McCabes_cyclomatic_complexity value="0" level="0" />
+<lines_of_comment value="9" level="0" />
+<lines_of_code_per_line_of_comment value="------" level="0" />
+<McCabes_cyclomatic_complexity_per_line_of_comment value="------" level="0" />
+</member_function>
+</procedural_detail>
+<structural_detail>
+<module>
+<name>Actor</name>
+<client_module>
+<name>ActorEnemyBasic</name>
+<visible>true</visible>
+<concrete>true</concrete>
+<extent>
+<description>inheritance</description>
+<source_reference file="actorEnemyBasic.h" line="23" />
+</extent>
+<name>ActorPlayer</name>
+<visible>true</visible>
+<concrete>true</concrete>
+<extent>
+<description>inheritance</description>
+<source_reference file="actorPlayer.h" line="22" />
+</extent>
+</client_module>
+<supplier_module>
+<name>Hitbox</name>
+<visible>true</visible>
+<concrete>true</concrete>
+<extent>
+<description>has by value</description>
+<source_reference file="actor.h" line="33" />
+</extent>
+</supplier_module>
+</module>
+</structural_detail>
+</CCCC_Project>

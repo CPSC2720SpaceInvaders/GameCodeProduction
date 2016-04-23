@@ -1,53 +1,94 @@
-//Header comments
+/**
+*		@file	actor.cpp
+*		@brief	Implementation of Actor class.
+*
+*				This contains the implementations of the 
+*				public and private methods for the Actor
+*				class.
+*
+*		@author	Tyler Bertram
+*		@bug	No known bugs.
+*/
 
-//includes
 #include <allegro5/allegro.h>
 #include "actor.h"
 
-//Constructors
-Actor (int xC, int yC, int curH, int maxH) : xCoord(xC), yCoord(yC), curHealth(curH), maxHealth(maxH) { };
-Actor (int xC, int yC, int curH) : xCoord(xC), yCoord(yC), curHealth(curH), maxHealth(1) { };
-Actor (int xC, int yC) : xCoord(xC), yCoord(yC), curHealth(1), maxHealth(1);
+/** Constructors and Destructors */
 
-//Retrieval methods
-/** @fn GetXCoord
-* @brief returns the horizontal Actor's position
+/** Additional comments about the constructors (if any). */
+Actor::Actor(float xPosi, float yPosi, int hp, int _hitboxSize, int spriteLoc) : xCoord(xPosi), yCoord(yPosi), health(hp), hitboxSize(_hitboxSize), actorHitbox(xPosi, yPosi, hitboxSize, hitboxSize), spriteKey(spriteLoc) {}
+Actor::Actor() {};
+
+/**
+* Additional comments about ~Actor virtual destructor (if any).
 */
-float GetXCoord (){
+Actor::~Actor() {}
+
+/** Retrieval methods */
+
+/** 
+* Additional comments about GetXCoord() (if any). 
+*/
+float Actor::GetXCoord (){
    return xCoord;
 }
-/** @fn GetYCoord
-* @brief returns the vertical Actor's position
+
+/** 
+* Additional comments about GetYCoord() (if any). 
 */
-float GetYCoord(){
-   return YCoord;
+float Actor::GetYCoord(){
+   return yCoord;
 }
-/** @fn GetHealth
-* @brief returns the Actor's health
+
+/** 
+* Additional comments about SetXCoord() (if any). 
 */
-int GetHealth(){
+void Actor::SetXCoord(float newCoord) {
+	xCoord = newCoord;
+}
+
+/** 
+* Additional comments about SetYCoord() (if any). 
+*/
+void Actor::SetYCoord(float newCoord) {
+	yCoord = newCoord;
+}
+
+/** 
+* Additional comments about GetHealth() (if any). 
+*/
+int Actor::GetHealth(){
    return health;
 }
 
-//Manipulation methods
-/** @fn ModifyHealth
-* @brief after taking damage, the actor needs to lose health
-* @param integer with the damage that the bullet caused
+/** 
+* Additional comments about GetSpriteKey() (if any). 
 */
-void ModifyCurrentHealth(int damageTaken){
+int Actor::GetSpriteKey() {
+	return spriteKey;
+}
+
+/** Manipulation methods */
+
+/** 
+* Additional comments about ModifyHealth() (if any). 
+*/
+void Actor::ModifyHealth(int damageTaken){
    health -= damageTaken;
 }
-/** @fn CheckDead
-* @brief checks actor's health, if it is lower than 0, it wil active its dead
+
+/** 
+* Additional comments about ChangeActorSprite() (if any). 
 */
-bool CheckDead(){
-   if (curHealth <= 0){
-      return true;
-   }return false;
+void Actor::ChangeActorSprite(int newSpriteLoc) {
+	spriteKey = newSpriteLoc;
 }
-/** @fn DrawActor
-* @brief draws the actor on its given positions
+
+/** 
+* Additional comments about CheckDead() (if any). 
 */
-void DrawActor(){
-   al_draw_bitmap_region(actorSprite, 0, 0, spriteWidth, spriteHeight, xCoord, yCoord, NULL);
+bool Actor::CheckDead() {
+	if (health <= 0) {
+		return true;
+	}return false;
 }
